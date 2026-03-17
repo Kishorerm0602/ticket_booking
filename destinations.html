@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Destinations - Wanderlust Royale</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+:root{
+--royal-navy:#1a2633;
+--gold-accent:#d4af37;
+--marble-white:#f8f5f2;
+--warm-cream:#f4f1e9;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+line-height:1.7;
+color:#333;
+}
+
+/* NAVBAR */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(26,38,51,0.95);
+padding:20px 0;
+z-index:1000;
+}
+
+nav ul{
+list-style:none;
+display:flex;
+justify-content:center;
+}
+
+nav li{
+margin:0 25px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:500;
+}
+
+nav a:hover{
+color:var(--gold-accent);
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+
+background:linear-gradient(rgba(26,38,51,0.7),rgba(0,0,0,0.4)),
+url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80")
+center/cover;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:60px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:20px;
+opacity:0.9;
+}
+
+/* DESTINATIONS */
+
+.destinations-grid{
+padding:120px 20px;
+background:var(--warm-cream);
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+}
+
+.section-title{
+font-family:'Playfair Display',serif;
+font-size:40px;
+text-align:center;
+margin-bottom:60px;
+}
+
+.dest-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+gap:40px;
+}
+
+.dest-card{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 60px rgba(0,0,0,0.1);
+transition:0.4s;
+}
+
+.dest-card:hover{
+transform:translateY(-10px);
+}
+
+.dest-img{
+height:260px;
+background-size:cover;
+background-position:center;
+}
+
+.dest-info{
+padding:30px;
+text-align:center;
+}
+
+.dest-info h3{
+font-family:'Playfair Display',serif;
+font-size:26px;
+margin-bottom:10px;
+}
+
+.dest-price{
+font-size:20px;
+color:var(--gold-accent);
+font-weight:600;
+margin-bottom:20px;
+}
+
+.dest-btn{
+display:inline-block;
+padding:12px 30px;
+background:var(--royal-navy);
+color:white;
+text-decoration:none;
+border-radius:30px;
+font-weight:600;
+}
+
+.dest-btn:hover{
+background:var(--gold-accent);
+color:black;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="destinations.html">Destinations</a></li>
+<li><a href="packages.html">Packages</a></li>
+<li><a href="trip info.html">Trip Info</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+<h1>12 World-Class Destinations</h1>
+<p>Explore luxury travel curated for elite travellers</p>
+</section>
+
+<!-- DESTINATIONS -->
+
+<section class="destinations-grid">
+
+<div class="container">
+
+<h2 class="section-title">Our Destinations</h2>
+
+<div class="dest-grid">
+
+<!-- PARIS -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34')"></div>
+<div class="dest-info">
+<h3>Paris, France</h3>
+<div class="dest-price">From ₹1,25,000</div>
+<a href="booking.html?place=Paris&price=125000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- BANGKOK -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/c2/79/7f/caption.jpg?w=2400&h=1000&s=1')"></div>
+<div class="dest-info">
+<h3>Bangkok, Thailand</h3>
+<div class="dest-price">From ₹85,000</div>
+<a href="booking.html?place=Bangkok&price=85000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- SYDNEY -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1544551763-46a013bb70d5')"></div>
+<div class="dest-info">
+<h3>Sydney, Australia</h3>
+<div class="dest-price">From ₹2,10,000</div>
+<a href="booking.html?place=Sydney&price=210000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- DUBAI -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://tse1.mm.bing.net/th/id/OIP.XmsuLGeW3TXnDQ-HUPBMJQHaFS')"></div>
+<div class="dest-info">
+<h3>Dubai, UAE</h3>
+<div class="dest-price">From ₹1,75,000</div>
+<a href="booking.html?place=Dubai&price=175000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- MALDIVES -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://tse2.mm.bing.net/th/id/OIP.HEEO7ogZJMRkQviBybhwiwHaEK')"></div>
+<div class="dest-info">
+<h3>Maldives</h3>
+<div class="dest-price">From ₹3,50,000</div>
+<a href="booking.html?place=Maldives&price=350000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- LONDON -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://tse1.mm.bing.net/th/id/OIP.JY7U1ed4tzv61daW2vTiKAHaFj')"></div>
+<div class="dest-info">
+<h3>London, UK</h3>
+<div class="dest-price">From ₹1,80,000</div>
+<a href="booking.html?place=London&price=180000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- TOKYO -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf')"></div>
+<div class="dest-info">
+<h3>Tokyo, Japan</h3>
+<div class="dest-price">From ₹2,25,000</div>
+<a href="booking.html?place=Tokyo&price=225000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- SWITZERLAND -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e')"></div>
+<div class="dest-info">
+<h3>Switzerland</h3>
+<div class="dest-price">From ₹2,80,000</div>
+<a href="booking.html?place=Switzerland&price=280000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- NEW YORK -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30')"></div>
+<div class="dest-info">
+<h3>New York, USA</h3>
+<div class="dest-price">From ₹2,40,000</div>
+<a href="booking.html?place=NewYork&price=240000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- BALI -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1551632811-561732d1e306')"></div>
+<div class="dest-info">
+<h3>Bali, Indonesia</h3>
+<div class="dest-price">From ₹1,20,000</div>
+<a href="booking.html?place=Bali&price=120000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- ROME -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://th.bing.com/th/id/OIP.xXUakXOCDQt2vRaoIpedWwHaFj')"></div>
+<div class="dest-info">
+<h3>Rome, Italy</h3>
+<div class="dest-price">From ₹1,65,000</div>
+<a href="booking.html?place=Rome&price=165000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+<!-- CAPE TOWN -->
+<div class="dest-card">
+<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4')"></div>
+<div class="dest-info">
+<h3>Cape Town, South Africa</h3>
+<div class="dest-price">From ₹1,95,000</div>
+<a href="booking.html?place=CapeTown&price=195000" class="dest-btn">Book Experience</a>
+</div>
+</div>
+
+</div>
+</div>
+
+</section>
+
+</body>
+</html>

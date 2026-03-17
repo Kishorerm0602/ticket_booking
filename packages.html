@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Luxury Destinations | Wanderlust Royale</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+:root{
+--royal-navy:#1a2633;
+--gold:#d4af37;
+--cream:#f8f5f2;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:var(--cream);
+color:#333;
+}
+
+/* NAVBAR */
+
+nav{
+position:fixed;
+width:100%;
+top:0;
+background:rgba(26,38,51,0.95);
+padding:18px 0;
+z-index:999;
+}
+
+.nav-container{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+}
+
+.logo{
+font-family:'Playfair Display',serif;
+font-size:28px;
+color:var(--gold);
+}
+
+nav ul{
+list-style:none;
+display:flex;
+gap:30px;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-weight:500;
+}
+
+nav a:hover{
+color:var(--gold);
+}
+
+/* HERO */
+
+.hero{
+height:70vh;
+background:
+linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.5)),
+url("https://wallpapercave.com/wp/wp9087904.jpg") center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:60px;
+font-family:'Playfair Display',serif;
+letter-spacing:2px;
+}
+
+.hero p{
+margin-top:10px;
+font-size:18px;
+opacity:0.9;
+}
+
+/* DESTINATIONS */
+
+.section{
+padding:80px 20px;
+max-width:1300px;
+margin:auto;
+}
+
+.section-title{
+text-align:center;
+font-family:'Playfair Display';
+font-size:40px;
+margin-bottom:60px;
+color:var(--royal-navy);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:40px;
+}
+
+.card{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,0.1);
+transition:0.4s;
+position:relative;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+.card img{
+width:100%;
+height:230px;
+object-fit:cover;
+transition:0.4s;
+}
+
+.card:hover img{
+transform:scale(1.1);
+}
+
+.card-content{
+padding:25px;
+}
+
+.card h3{
+font-family:'Playfair Display';
+font-size:24px;
+margin-bottom:8px;
+}
+
+.rating{
+color:gold;
+margin-bottom:10px;
+}
+
+.price{
+font-weight:600;
+color:var(--gold);
+margin-bottom:10px;
+}
+
+.features{
+font-size:14px;
+margin-bottom:20px;
+color:#666;
+}
+
+.features i{
+color:var(--gold);
+margin-right:8px;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+gap:10px;
+}
+
+.book-btn{
+flex:1;
+background:var(--royal-navy);
+color:white;
+padding:12px;
+border-radius:25px;
+text-align:center;
+text-decoration:none;
+transition:0.3s;
+}
+
+.book-btn:hover{
+background:var(--gold);
+color:black;
+}
+
+.map-btn{
+flex:1;
+border:2px solid var(--gold);
+color:var(--royal-navy);
+padding:12px;
+border-radius:25px;
+text-align:center;
+text-decoration:none;
+}
+
+/* WISHLIST */
+
+.wishlist{
+position:absolute;
+top:15px;
+right:15px;
+background:white;
+border-radius:50%;
+padding:10px;
+cursor:pointer;
+}
+
+/* STATS */
+
+.stats{
+background:var(--royal-navy);
+color:white;
+padding:60px 20px;
+text-align:center;
+}
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:40px;
+max-width:1000px;
+margin:auto;
+}
+
+.stat h2{
+font-size:40px;
+color:var(--gold);
+}
+
+.stat p{
+margin-top:10px;
+}
+
+footer{
+background:#111;
+color:#aaa;
+text-align:center;
+padding:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="nav-container">
+
+<div class="logo">Wanderlust Royale</div>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="destinations.html">Destinations</a></li>
+<li><a href="packages.html">Packages</a></li>
+<li><a href="trip info.html">Trip Info</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+</div>
+</nav>
+
+<section class="hero">
+<div>
+<h1>Luxury Destinations</h1>
+<p>Curated travel experiences for world explorers</p>
+</div>
+</section>
+
+
+<section class="section">
+
+<h2 class="section-title">Popular Destinations</h2>
+
+<div class="grid">
+
+<!-- PARIS -->
+<div class="card">
+  <div class="wishlist">
+    <i class="fa fa-heart"></i>
+  </div>
+  <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34">
+  <div class="card-content">
+    <h3>Love of Paris, France</h3>
+    <div class="rating">★★★★★</div>
+    <div class="price">From ₹1,25,000</div>
+    <div class="features">
+      <i class="fa fa-hotel"></i>5 Star Hotel <br>
+      <i class="fa fa-plane"></i>Business Class Flight <br>
+      <i class="fa fa-utensils"></i>Dinner Cruise on Seine
+    </div>
+    <div class="buttons">
+      <a href="booking.html?place=Paris&price=125000" class="book-btn">Book Now</a>
+      <a href="https://maps.google.com" class="map-btn">Map</a>
+    </div>
+  </div>
+</div>
+
+<!-- BANGKOK -->
+<div class="card">
+  <div class="wishlist">
+    <i class="fa fa-heart"></i>
+  </div>
+  <img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365">
+  <div class="card-content">
+    <h3>vibeletric Bangkok, Thailand</h3>
+    <div class="rating">★★★★☆</div>
+    <div class="price">From ₹85,000</div>
+    <div class="features">
+      <i class="fa fa-hotel"></i>Luxury Hotel <br>
+      <i class="fa fa-ship"></i>Chao Phraya River Cruise <br>
+      <i class="fa fa-shopping-bag"></i>Shopping Tour
+    </div>
+    <div class="buttons">
+      <a href="booking.html?place=Bangkok&price=85000" class="book-btn">Book Now</a>
+      <a href="https://maps.google.com" class="map-btn">Map</a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- LONDON -->
+<div class="card">
+  <div class="wishlist">
+    <i class="fa fa-heart"></i>
+  </div>
+  <img src="https://images.unsplash.com/photo-1473951574080-01fe45ec8643">
+  <div class="card-content">
+    <h3>London, UK</h3>
+    <div class="rating">★★★★☆</div>
+    <div class="price">From ₹1,80,000</div>
+    <div class="features">
+      <i class="fa fa-hotel"></i>Central City Hotel <br>
+      <i class="fa fa-bus"></i>City Sightseeing Tour <br>
+      <i class="fa fa-landmark"></i>Thames Cruise
+    </div>
+    <div class="buttons">
+      <a href="booking.html?place=London&price=180000" class="book-btn">Book Now</a>
+      <a href="https://maps.google.com" class="map-btn">Map</a>
+    </div>
+  </div>
+</div>
+
+<!-- TOKYO -->
+<div class="card">
+  <div class="wishlist">
+    <i class="fa fa-heart"></i>
+  </div>
+  <img src="https://images.unsplash.com/photo-1517720359744-6d12f8a09b10">
+  <div class="card-content">
+    <h3>Tokyo, Japan</h3>
+    <div class="rating">★★★★★</div>
+    <div class="price">From ₹2,25,000</div>
+    <div class="features">
+      <i class="fa fa-subway"></i>City Metro Pass <br>
+      <i class="fa fa-bowl-rice"></i>Gourmet Food Tour <br>
+      <i class="fa fa-tree"></i>Cherry Blossom Walk
+    </div>
+    <div class="buttons">
+      <a href="booking.html?place=Tokyo&price=225000" class="book-btn">Book Now</a>
+      <a href="https://maps.google.com" class="map-btn">Map</a>
+    </div>
+  </div>
+</div>
+
+<!-- SWITZERLAND -->
+<div class="card">
+  <div class="wishlist">
+    <i class="fa fa-heart"></i>
+  </div>
+  <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090">
+  <div class="card-content">
+    <h3>Zermatt,Switzerland</h3>
+    <div class="rating">★★★★★</div>
+    <div class="price">From ₹2,60,000</div>
+    <div class="features">
+      <i class="fa fa-mountain"></i>Alps Scenic Train <br>
+      <i class="fa fa-snowflake"></i>Snow Activities <br>
+      <i class="fa fa-cheese"></i>Swiss Cheese Tasting
+    </div>
+    <div class="buttons">
+      <a href="booking.html?place=Switzerland&price=260000" class="book-btn">Book Now</a>
+      <a href="https://maps.google.com" class="map-btn">Map</a>
+    </div>
+  </div>
+</div>
+
+<!-- BALI (INDONESIA) -->
+<div class="card">
+  <div class="wishlist">
+    <i class="fa fa-heart"></i>
+  </div>
+  <img src="https://tse4.mm.bing.net/th/id/OIP.IsUYMFOvsu6G8pUbWMy8WAHaE8?rs=1&pid=ImgDetMain&o=7&rm=3">
+  <div class="card-content">
+    <h3>Amazon Rainforest, South America</h3>
+    <div class="rating">★★★★★</div>
+    <div class="price">From ₹1,10,000</div>
+    <div class="features">
+      <i class="fa fa-water"></i>Private Pool Villa <br>
+      <i class="fa fa-spa"></i>Spa & Wellness <br>
+      <i class="fa fa-ship"></i>River boating <br>
+      <i class="fa fa-tree"></i>Jungle Trekking
+    </div>
+    <div class="buttons">
+      <a href="booking.html?place=Bali&price=110000" class="book-btn">Book Now</a>
+      <a href="https://maps.google.com" class="map-btn">Map</a>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+</section>
+
+
+<footer>
+© 2026 Wanderlust Royale | Luxury Travel Agency
+</footer>
+
+</body>
+</html>

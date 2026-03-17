@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Island Buyout</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--navy:#0f1c2e;
+--gold:#e6c068;
+--cream:#f8f5ef;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(180deg,#ffffff,#f8f5ef);
+color:#333;
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(15,28,46,0.95);
+padding:20px;
+backdrop-filter:blur(12px);
+z-index:1000;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+nav h1{
+color:var(--gold);
+font-family:'Playfair Display',serif;
+letter-spacing:1px;
+}
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+background:linear-gradient(rgba(0,0,0,0.6),rgba(15,28,46,0.8)),url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21') center/cover fixed;
+}
+.hero h1{
+font-size:4rem;
+font-family:'Playfair Display',serif;
+letter-spacing:3px;
+text-shadow:0 10px 30px rgba(0,0,0,0.8);
+}
+
+.section{
+padding:120px 40px;
+display:flex;
+flex-direction:column;
+gap:100px;
+}
+
+.island{
+display:flex;
+align-items:center;
+gap:50px;
+}
+
+.island:nth-child(even){
+flex-direction:row-reverse;
+}
+
+.island-card{
+width:50%;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 25px 70px rgba(0,0,0,0.2);
+position:relative;
+}
+
+.island-card::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+width:6px;
+height:100%;
+background:var(--gold);
+border-radius:20px 0 0 20px;
+}
+
+.island-card h2{
+font-family:'Playfair Display',serif;
+color:var(--navy);
+margin-bottom:15px;
+}
+
+.island-card p{
+color:#555;
+line-height:1.8;
+}
+
+.island-img{
+width:50%;
+height:350px;
+border-radius:20px;
+background-size:cover;
+background-position:center;
+box-shadow:0 25px 70px rgba(0,0,0,0.25);
+transition:0.5s;
+}
+
+.island:hover .island-img{
+transform:scale(1.07);
+}
+
+.badge{
+display:inline-block;
+background:var(--gold);
+padding:6px 14px;
+border-radius:20px;
+font-size:0.8rem;
+margin-bottom:10px;
+font-weight:600;
+}
+
+footer{
+background:var(--navy);
+color:white;
+text-align:center;
+padding:40px;
+border-top:2px solid var(--gold);
+}
+</style>
+</head>
+<body>
+
+<nav><h1>Private Island Buyout</h1></nav>
+
+<section class="hero">
+<h1>Own the Ocean Experience</h1>
+</section>
+
+<section class="section">
+
+<div class="island">
+<div class="island-img" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470')"></div>
+<div class="island-card">
+<span class="badge">Ultra Luxury</span>
+<h2>Necker Island</h2>
+<p>Exclusive island owned by elite investors offering full private buyout experiences.</p>
+</div>
+</div>
+
+<div class="island">
+<div class="island-img" style="background-image:url('https://images.unsplash.com/photo-1493558103817-58b2924bce98')"></div>
+<div class="island-card">
+<span class="badge">Private</span>
+<h2>Laucala Island</h2>
+<p>A paradise in Fiji offering ultra-premium private ownership and experiences.</p>
+</div>
+</div>
+
+<div class="island">
+<div class="island-img" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')"></div>
+<div class="island-card">
+<span class="badge">Elite</span>
+<h2>North Island Seychelles</h2>
+<p>High-end eco luxury island buyouts with complete privacy.</p>
+</div>
+</div>
+
+<div class="island">
+<div class="island-img" style="background-image:url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21')"></div>
+<div class="island-card">
+<span class="badge">Signature</span>
+<h2>Cocoa Island Maldives</h2>
+<p>Iconic overwater luxury combined with full island buyout options.</p>
+</div>
+</div>
+
+<div class="island">
+<div class="island-img" style="background-image:url('https://images.unsplash.com/photo-1470115636492-6d2b56f9146d')"></div>
+<div class="island-card">
+<span class="badge">Royal</span>
+<h2>Fregate Island</h2>
+<p>Private island offering unmatched nature and ultra-luxury accommodation.</p>
+</div>
+</div>
+
+<div class="island">
+<div class="island-img" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')"></div>
+<div class="island-card">
+<span class="badge">Premium</span>
+<h2>Musha Cay</h2>
+<p>Owned by celebrities, this island provides ultimate exclusivity and luxury.</p>
+</div>
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 Private Island Buyout</p>
+</footer>
+
+</body>
+</html>

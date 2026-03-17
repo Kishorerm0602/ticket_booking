@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Booking - Wanderlust Royale</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+:root{
+--royal-navy:#1a2633;
+--gold-accent:#d4af37;
+--marble-white:#f8f5f2;
+--warm-cream:#f4f1e9;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+line-height:1.7;
+}
+
+/* NAVBAR */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(26,38,51,0.95);
+padding:18px 0;
+z-index:1000;
+}
+
+.nav-container{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+}
+
+.logo{
+font-family:'Playfair Display',serif;
+font-size:1.6rem;
+color:var(--gold-accent);
+}
+
+nav ul{
+display:flex;
+list-style:none;
+}
+
+nav li{
+margin-left:25px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:500;
+}
+
+nav a:hover{
+color:var(--gold-accent);
+}
+
+/* HERO */
+
+.hero{
+height:60vh;
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.5)),
+url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") center/cover;
+
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:55px;
+}
+
+.selected-place{
+margin-bottom:15px;
+font-size:20px;
+color:var(--gold-accent);
+}
+
+/* BOOKING SECTION */
+
+.booking-section{
+padding:100px 20px;
+background:var(--warm-cream);
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.booking-card{
+background:white;
+padding:50px;
+border-radius:20px;
+box-shadow:0 20px 60px rgba(0,0,0,0.1);
+}
+
+.booking-title{
+text-align:center;
+font-size:32px;
+font-family:'Playfair Display',serif;
+margin-bottom:20px;
+}
+
+.booking-price{
+text-align:center;
+font-size:40px;
+color:var(--gold-accent);
+margin-bottom:30px;
+}
+
+/* FORM */
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+width:100%;
+padding:15px;
+border-radius:10px;
+border:1px solid #ddd;
+font-family:inherit;
+}
+
+.full-width{
+grid-column:1/3;
+}
+
+.submit-btn{
+margin-top:30px;
+width:100%;
+padding:18px;
+background:var(--royal-navy);
+color:white;
+border:none;
+border-radius:15px;
+font-size:18px;
+cursor:pointer;
+}
+
+.submit-btn:hover{
+background:var(--gold-accent);
+color:black;
+}
+
+/* SUMMARY */
+
+.summary-box{
+margin-top:40px;
+background:var(--royal-navy);
+color:white;
+padding:25px;
+border-radius:15px;
+text-align:center;
+display:none;
+}
+
+.total-price{
+font-size:30px;
+color:var(--gold-accent);
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+<div class="nav-container">
+
+<div class="logo">Wanderlust Royale</div>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="destinations.html">Destinations</a></li>
+<li><a href="packages.html">Packages</a></li>
+<li><a href="trip info.html">Trip Info</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+</div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div>
+
+<div class="selected-place" id="selectedPlace">
+Select a destination
+</div>
+
+<h1>Secure Your Journey</h1>
+
+</div>
+
+</section>
+
+<!-- BOOKING FORM -->
+
+<section class="booking-section">
+
+<div class="container">
+
+<div class="booking-card">
+
+<h2 class="booking-title" id="bookingTitle">
+Complete Your Booking
+</h2>
+
+<div class="booking-price" id="bookingPrice">
+₹1,35,000
+</div>
+
+<form id="bookingForm">
+
+<div class="form-grid">
+
+<div class="form-group">
+<input type="text" id="name" placeholder="Full Name" required>
+</div>
+
+<div class="form-group">
+<input type="email" id="email" placeholder="Email Address" required>
+</div>
+
+<div class="form-group">
+<input type="tel" id="phone" placeholder="Phone Number">
+</div>
+
+<div class="form-group">
+<input type="date" id="date">
+</div>
+
+<div class="form-group">
+<select id="travellers">
+
+<option value="1">1 Traveller</option>
+<option value="2">2 Travellers</option>
+<option value="3">3 Travellers</option>
+<option value="4">4 Travellers</option>
+
+</select>
+</div>
+
+<div class="form-group full-width">
+<textarea rows="4" placeholder="Special Requirements"></textarea>
+</div>
+
+</div>
+
+<button type="submit" class="submit-btn">
+<i class="fas fa-lock"></i> Confirm Booking
+</button>
+
+</form>
+
+<div class="summary-box" id="summaryBox">
+
+<h3>Booking Summary</h3>
+
+<div class="total-price" id="totalPrice">
+₹1,35,000
+</div>
+
+<p id="summaryText"></p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/* DEFAULT PRICE */
+
+let basePrice = 0;
+
+/* GET URL PARAMETERS */
+
+const params = new URLSearchParams(window.location.search);
+
+const place = params.get("place");
+const price = params.get("price");
+
+if(place){
+document.getElementById("selectedPlace").textContent = place;
+document.getElementById("bookingTitle").textContent = place + " Luxury Experience";
+}
+
+if(price){
+basePrice = parseInt(price);
+}
+
+document.getElementById("bookingPrice").textContent =
+"₹" + basePrice.toLocaleString();
+
+/* PRICE CALCULATION */
+
+document.getElementById("travellers").addEventListener("change", updatePrice);
+
+function updatePrice(){
+
+let travellers = parseInt(document.getElementById("travellers").value);
+
+let total = basePrice * travellers;
+
+document.getElementById("summaryBox").style.display = "block";
+
+document.getElementById("totalPrice").textContent =
+"₹" + total.toLocaleString();
+
+document.getElementById("summaryText").innerHTML =
+travellers + " Traveller(s) × ₹" + basePrice.toLocaleString();
+
+}
+
+/* FORM SUBMIT */
+
+document.getElementById("bookingForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+alert("🎉 Booking confirmed! Our team will contact you soon.");
+
+this.reset();
+
+document.getElementById("summaryBox").style.display="none";
+
+});
+
+</script>
+
+</body>
+</html>

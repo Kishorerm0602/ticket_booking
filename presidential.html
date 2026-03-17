@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presidential Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--navy:#1a2633;
+--gold:#d4af37;
+--cream:#f4f1e9;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(180deg,#ffffff,#f4f1e9);
+color:#333;
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(26,38,51,0.95);
+padding:20px;
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+nav h1{
+color:var(--gold);
+font-family:'Playfair Display',serif;
+}
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+background:linear-gradient(rgba(0,0,0,0.6),rgba(26,38,51,0.7)),url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+}
+.hero h1{
+font-size:4rem;
+font-family:'Playfair Display',serif;
+letter-spacing:3px;
+}
+
+.section{
+padding:120px 40px;
+display:flex;
+flex-direction:column;
+gap:80px;
+}
+
+/* NEW LAYOUT STYLE (CARD SPLIT) */
+.suite{
+display:grid;
+grid-template-columns:1fr 1fr;
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 60px rgba(0,0,0,0.15);
+transition:0.5s;
+}
+
+.suite:nth-child(even) .suite-img{
+order:2;
+}
+
+.suite-img{
+height:350px;
+background-size:cover;
+background-position:center;
+}
+
+.suite-content{
+padding:40px;
+position:relative;
+}
+
+.suite-content::before{
+content:'';
+width:60px;
+height:3px;
+background:var(--gold);
+display:block;
+margin-bottom:15px;
+}
+
+.suite h2{
+font-family:'Playfair Display',serif;
+color:var(--navy);
+margin-bottom:15px;
+}
+
+.suite p{
+color:#555;
+line-height:1.8;
+}
+
+.badge{
+background:var(--gold);
+padding:5px 12px;
+border-radius:20px;
+font-size:0.8rem;
+display:inline-block;
+margin-bottom:10px;
+}
+
+.suite:hover{
+transform:translateY(-10px);
+}
+
+footer{
+background:var(--navy);
+color:white;
+text-align:center;
+padding:40px;
+border-top:2px solid var(--gold);
+}
+</style>
+</head>
+<body>
+
+<nav><h1>Presidential Suite</h1></nav>
+
+<section class="hero">
+<h1>Ultimate Luxury Stay</h1>
+</section>
+
+<section class="section">
+
+<div class="suite">
+<div class="suite-img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945')"></div>
+<div class="suite-content">
+<span class="badge">Luxury</span>
+<h2>Burj Al Arab Suite</h2>
+<p>Experience unmatched luxury in Dubai's iconic hotel with world-class service and stunning interiors.</p>
+</div>
+</div>
+
+<div class="suite">
+<div class="suite-img" style="background-image:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa')"></div>
+<div class="suite-content">
+<span class="badge">Elite</span>
+<h2>The Plaza New York</h2>
+<p>Classic elegance meets modern comfort in one of the most famous hotels in the world.</p>
+</div>
+</div>
+
+<div class="suite">
+<div class="suite-img" style="background-image:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85')"></div>
+<div class="suite-content">
+<span class="badge">Premium</span>
+<h2>Ritz Paris Suite</h2>
+<p>Parisian luxury at its finest with exquisite decor and top-tier hospitality.</p>
+</div>
+</div>
+
+<div class="suite">
+<div class="suite-img" style="background-image:url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267')"></div>
+<div class="suite-content">
+<span class="badge">Royal</span>
+<h2>Atlantis The Palm</h2>
+<p>A blend of ocean views and opulence offering a unique luxury experience.</p>
+</div>
+</div>
+
+<div class="suite">
+<div class="suite-img" style="background-image:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb')"></div>
+<div class="suite-content">
+<span class="badge">Signature</span>
+<h2>Marina Bay Sands</h2>
+<p>Iconic skyline views combined with world-class luxury and service.</p>
+</div>
+</div>
+
+<div class="suite">
+<div class="suite-img" style="background-image:url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461')"></div>
+<div class="suite-content">
+<span class="badge">Exclusive</span>
+<h2>Waldorf Astoria</h2>
+<p>Timeless elegance with premium comfort and high-end service.</p>
+</div>
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 Presidential Suite</p>
+</footer>
+
+</body>
+</html>

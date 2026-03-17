@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Yacht Charter | Wanderlust Royale</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+    --navy:#1a2633;
+    --gold:#d4af37;
+    --cream:#f4f1e9;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Poppins',sans-serif;
+    color:#333;
+    background:linear-gradient(180deg,#ffffff,#f4f1e9);
+}
+
+/* NAVBAR - FULLY LINKED */
+nav{
+    position:fixed;
+    top:0;width:100%;
+    background:rgba(26,38,51,0.95);
+    padding:18px 0;
+    z-index:1000;
+    backdrop-filter:blur(20px);
+}
+.nav-container{
+    max-width:1200px;margin:auto;
+    display:flex;justify-content:space-between;
+    align-items:center;padding:0 20px;
+}
+.logo{
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;
+    background:linear-gradient(45deg,var(--gold),#f4d03f);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+nav ul{display:flex;list-style:none;gap:2rem;}
+nav a{
+    color:white;text-decoration:none;
+    font-weight:600;position:relative;
+}
+nav a::after{
+    content:'';position:absolute;
+    bottom:-5px;left:0;width:0;height:2px;
+    background:var(--gold);transition:0.3s;
+}
+nav a:hover::after,
+nav a.active::after{width:100%;}
+nav a:hover,
+nav a.active{color:var(--gold);}
+
+/* HERO */
+.hero{
+    height:100vh;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+    text-align:center;color:white;
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(26,38,51,0.7)),
+    url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+}
+.hero h1{
+    font-size:clamp(3.5rem,8vw,5rem);
+    font-family:'Playfair Display',serif;
+    letter-spacing:3px;text-shadow:0 10px 30px rgba(0,0,0,0.8);
+    margin-bottom:15px;
+}
+.hero p{max-width:650px;font-size:1.15rem;opacity:0.95;}
+
+.section{padding:120px 20px;}
+.container{max-width:1300px;margin:auto;}
+.section-title{
+    font-family:'Playfair Display',serif;font-size:2.8rem;
+    color:var(--navy);text-align:center;margin-bottom:15px;
+}
+.section-subtitle{
+    text-align:center;color:#666;font-size:1rem;margin-bottom:60px;
+}
+
+/* YACHT CARDS */
+.yachts-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+    gap:40px;
+}
+.yacht{
+    background:white;border-radius:25px;overflow:hidden;
+    box-shadow:0 25px 70px rgba(0,0,0,0.15);transition:all 0.5s ease;
+}
+.yacht:hover{
+    transform:translateY(-15px);box-shadow:0 40px 100px rgba(0,0,0,0.2);
+}
+.yacht-img{width:100%;height:280px;object-fit:cover;}
+.yacht-content{padding:30px;}
+.yacht-name{
+    font-family:'Playfair Display',serif;font-size:1.8rem;
+    color:var(--navy);margin-bottom:12px;
+}
+.yacht-rating{color:var(--gold);margin-bottom:15px;font-size:1.1rem;}
+.yacht-features{list-style:none;margin-bottom:20px;}
+.yacht-features li{margin-bottom:8px;font-size:0.95rem;}
+.yacht-features i{color:var(--gold);margin-right:10px;width:20px;}
+.yacht-btn{
+    background:var(--navy);color:white;padding:12px 28px;
+    border-radius:30px;text-decoration:none;font-weight:600;
+    display:inline-block;transition:0.3s;
+}
+.yacht-btn:hover{background:var(--gold);color:var(--navy);}
+
+/* CTA SECTION */
+.cta-section{
+    background:linear-gradient(120deg,var(--navy),#2f3b4d);
+    color:white;text-align:center;padding:80px 20px;
+    margin:60px 0;border-radius:25px;
+}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:15px;}
+.cta-btn{background:var(--gold);color:var(--navy);padding:15px 40px;
+    border-radius:35px;font-weight:600;font-size:1.1rem;display:inline-block;
+    transition:0.3s;text-decoration:none;}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(212,175,55,0.4);}
+
+/* FOOTER */
+footer{background:var(--navy);color:#ccc;text-align:center;padding:40px 20px;}
+
+@media (max-width:900px){.yachts-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">Wanderlust Royale</div>
+
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Luxury Yacht Experiences</h1>
+    <p>Private charters for Maldives, Dubai, Greece & more – curated for Chennai's elite travelers</p>
+</section>
+
+<!-- YACHTS SECTION -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Premium Yacht Brands</h2>
+        <p class="section-subtitle">World's finest luxury yachts for private charters</p>
+
+        <div class="yachts-grid">
+            <!-- SUNSEEKER -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1000&q=80" alt="Sunseeker">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Sunseeker</h3>
+                    <div class="yacht-rating">★★★★★</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-ship"></i>British luxury motor yachts</li>
+                        <li><i class="fa fa-crown"></i>Custom superyachts up to 50m</li>
+                        <li><i class="fa fa-wind"></i>35+ knots top speed</li>
+                    </ul>
+                    <a href="booking.html?yacht=sunseeker" class="yacht-btn">Charter Sunseeker</a>
+                </div>
+            </div>
+
+            <!-- FERRETTI GROUP -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&w=1000&q=80" alt="Ferretti">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Ferretti Group</h3>
+                    <div class="yacht-rating">★★★★★</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-star"></i>Italian craftsmanship</li>
+                        <li><i class="fa fa-gem"></i>Custom Riva yachts</li>
+                        <li><i class="fa fa-anchor"></i>Pershing speed yachts</li>
+                    </ul>
+                    <a href="booking.html?yacht=ferretti" class="yacht-btn">Charter Ferretti</a>
+                </div>
+            </div>
+
+            <!-- AZIMUT YACHTS -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1000&q=80" alt="Azimut">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Azimut Yachts</h3>
+                    <div class="yacht-rating">★★★★☆</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-satellite-dish"></i>Advanced navigation</li>
+                        <li><i class="fa fa-bed"></i>Master suites</li>
+                        <li><i class="fa fa-swimming-pool"></i>Beach clubs</li>
+                    </ul>
+                    <a href="booking.html?yacht=azimut" class="yacht-btn">Charter Azimut</a>
+                </div>
+            </div>
+
+            <!-- PRINCESS YACHTS -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80" alt="Princess">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Princess Yachts</h3>
+                    <div class="yacht-rating">★★★★☆</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-crown"></i>British engineering</li>
+                        <li><i class="fa fa-utensils"></i>Gourmet galleys</li>
+                        <li><i class="fa fa-wifi"></i>Satellite internet</li>
+                    </ul>
+                    <a href="booking.html?yacht=princess" class="yacht-btn">Charter Princess</a>
+                </div>
+            </div>
+
+            <!-- BENETTI -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1000&q=80" alt="Benetti">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Benetti</h3>
+                    <div class="yacht-rating">★★★★★</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-mountain"></i>100m+ superyachts</li>
+                        <li><i class="fa fa-spa"></i>Spa facilities</li>
+                        <li><i class="fa fa-umbrella-beach"></i>Tender garages</li>
+                    </ul>
+                    <a href="booking.html?yacht=benetti" class="yacht-btn">Charter Benetti</a>
+                </div>
+            </div>
+
+            <!-- HEESEN YACHTS -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1522861014-90a7754136cd?auto=format&fit=crop&w=1000&q=80" alt="Heesen">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Heesen Yachts</h3>
+                    <div class="yacht-rating">★★★★★</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-bolt"></i>40+ knots performance</li>
+                        <li><i class="fa fa-fire"></i>Aluminium hulls</li>
+                        <li><i class="fa fa-eye"></i>Panoramic windows</li>
+                    </ul>
+                    <a href="booking.html?yacht=heesen" class="yacht-btn">Charter Heesen</a>
+                </div>
+            </div>
+
+            <!-- LÜRSSEN -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=80" alt="Lürssen">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Lürssen</h3>
+                    <div class="yacht-rating">★★★★★</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-trophy"></i>World's largest yachts</li>
+                        <li><i class="fa fa-crown"></i>Royal commissions</li>
+                        <li><i class="fa fa-rocket"></i>Custom engineering</li>
+                    </ul>
+                    <a href="booking.html?yacht=lurssen" class="yacht-btn">Charter Lürssen</a>
+                </div>
+            </div>
+
+            <!-- FEADSHIP -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1000&q=80" alt="Feadship">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Feadship</h3>
+                    <div class="yacht-rating">★★★★★</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-gem"></i>Bespoke luxury</li>
+                        <li><i class="fa fa-leaf"></i>Sustainable tech</li>
+                        <li><i class="fa fa-users"></i>20+ crew capacity</li>
+                    </ul>
+                    <a href="booking.html?yacht=feadship" class="yacht-btn">Charter Feadship</a>
+                </div>
+            </div>
+
+            <!-- OCEANCO -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1501117716987-c8e1ecb2108a?auto=format&fit=crop&w=1000&q=80" alt="Oceanco">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">Oceanco</h3>
+                    <div class="yacht-rating">★★★★☆</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-lightbulb"></i>Innovative design</li>
+                        <li><i class="fa fa-solar-panel"></i>Hybrid propulsion</li>
+                        <li><i class="fa fa-palette"></i>Custom interiors</li>
+                    </ul>
+                    <a href="booking.html?yacht=oceanco" class="yacht-btn">Charter Oceanco</a>
+                </div>
+            </div>
+
+            <!-- CRN YACHTS -->
+            <div class="yacht">
+                <img class="yacht-img" src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=1000&q=80" alt="CRN">
+                <div class="yacht-content">
+                    <h3 class="yacht-name">CRN Yachts</h3>
+                    <div class="yacht-rating">★★★★★</div>
+                    <ul class="yacht-features">
+                        <li><i class="fa fa-tools"></i>Ferretti ownership</li>
+                        <li><i class="fa fa-chart-line"></i>80m+ specialists</li>
+                        <li><i class="fa fa-clock"></i>Fast delivery</li>
+                    </ul>
+                    <a href="booking.html?yacht=crn" class="yacht-btn">Charter CRN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready for Your Private Yacht Adventure?</h2>
+        <p>Charter from ₹8L/day | Maldives, Greece, Dubai | Fully crewed with chef</p>
+        <a href="contact.html" class="cta-btn"><i class="fa fa-anchor"></i> Book Yacht Charter</a>
+    </div>
+</section>
+
+<footer>
+    © 2026 Wanderlust Royale | Private Yacht Charters from Chennai
+</footer>
+
+</body>
+</html>

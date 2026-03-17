@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP Experiences - Wanderlust Royale</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --royal-navy: #1a2633;
+  --imperial-gold: #d4af37;
+  --ivory-cream: #f8f5f2;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(212, 175, 55, 0.3);
+  --navy-shadow: rgba(26, 38, 51, 0.4);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background:url("https://wallpaperaccess.com/full/203519.jpg") no-repeat center/cover;
+  color: #333;
+}
+
+/* HEADER - SAME AS SHIPWAY */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: rgba(26, 38, 51, 0.95);
+  backdrop-filter: blur(25px);
+  padding: 20px 60px;
+  z-index: 1000;
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px var(--navy-shadow);
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  background: linear-gradient(45deg, var(--imperial-gold), #f0d47a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 30px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+/* TITLE */
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  text-align: center;
+  padding: 140px 20px 80px;
+  background: linear-gradient(45deg, var(--imperial-gold), var(--royal-navy));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--imperial-gold), #f0d47a);
+}
+
+/* VIP GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 35px;
+  padding: 0 60px 100px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.vip-experience {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px var(--navy-shadow);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(15px);
+}
+
+.vip-experience::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--imperial-gold), #f0d47a, var(--imperial-gold));
+}
+
+.vip-experience:hover {
+  transform: translateY(-18px) scale(1.02);
+  box-shadow: 0 45px 90px rgba(212, 175, 55, 0.3);
+}
+
+.vip-experience img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.vip-experience:hover img { transform: scale(1.12); }
+
+.vip-content {
+  padding: 30px;
+  text-align: center;
+}
+
+.vip-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--royal-navy);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.vip-rating { color: var(--imperial-gold); font-size: 18px; margin-bottom: 10px; }
+
+.vip-price {
+  background: linear-gradient(45deg, var(--imperial-gold), #f0d47a);
+  color: var(--royal-navy);
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  display: inline-block;
+  margin: 15px 0 20px;
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+}
+
+.vip-features {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.vip-features i {
+  color: var(--imperial-gold);
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.vip-btn {
+  display: inline-block;
+  background: linear-gradient(45deg, var(--royal-navy), #2d3b4f);
+  color: white;
+  padding: 16px 35px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  box-shadow: 0 12px 35px var(--navy-shadow);
+}
+
+.vip-btn:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(45deg, var(--imperial-gold), #f0d47a);
+  color: var(--royal-navy);
+  box-shadow: 0 25px 55px rgba(212, 175, 55, 0.7);
+}
+
+@media (max-width: 768px) {
+  header { padding: 15px 20px; }
+  h1 { font-size: 36px; padding: 120px 20px 60px; }
+  .grid { padding: 0 20px 60px; grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-container">
+    <div class="logo">Wanderlust Royale</div>
+    <nav>
+      <a href="preview.html">← Preview</a>
+      <a href="airline.html">Airlines</a>
+      <a href="shipway.html">Shipway</a>
+    </nav>
+  </div>
+</header>
+
+<h1><i class="fas fa-crown"></i> Elite VIP Experiences</h1>
+
+<div class="grid">
+  <!-- Private Jet -->
+  <div class="vip-experience">
+    <img src="https://th.bing.com/th/id/OIP.KWPxocWP1mLxwiDdCYKWIAHaE8?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Private Jet">
+    <div class="vip-content">
+      <h3>Private Jet Charter</h3>
+      <div class="vip-features">
+        <div><i class="fas fa-plane"></i>Gulfstream G650</div>
+        <div><i class="fas fa-user-tie"></i>Personal Flight Attendant</div>
+        <div><i class="fas fa-utensils"></i>Gourmet Chef Onboard</div>
+      </div>
+      <a href="jet.html" class="vip-btn">About</a>
+    </div>
+  </div>
+
+  <!-- Luxury Yacht -->
+  <div class="vip-experience">
+    <img src="https://tse4.mm.bing.net/th/id/OIP.rxLzUnRwZCkMNc29GYJnKQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Yacht">
+    <div class="vip-content">
+      <h3>Private Yacht Charter</h3>
+      <div class="vip-features">
+        <div><i class="fas fa-anchor"></i>100ft Luxury Yacht</div>
+        <div><i class="fas fa-swimming-pool"></i>Private Water Toys</div>
+        <div><i class="fas fa-cocktail"></i>Premium Open Bar</div>
+      </div>
+      <a href="yacht.html" class="vip-btn">About</a>
+    </div>
+  </div>
+
+  <!-- Presidential Suite -->
+  <div class="vip-experience">
+    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Suite">
+    <div class="vip-content">
+      <h3>Presidential Suite</h3>
+      <div class="vip-features">
+        <div><i class="fas fa-concierge-bell"></i>24/7 Butler Service</div>
+        <div><i class="fas fa-car"></i>Private Limousine</div>
+        <div><i class="fas fa-spa"></i>Exclusive Spa Access</div>
+      </div>
+      <a href="presidential.html" class="vip-btn">About</a>
+    </div>
+  </div>
+
+  <!-- Island Buyout -->
+  <div class="vip-experience">
+    <img src="https://tse3.mm.bing.net/th/id/OIP.uRPs9TveBcYlbbaDZ60pcQHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Island">
+    <div class="vip-content">
+      <h3>Private Island Buyout</h3>
+      <div class="vip-features">
+        <div><i class="fas fa-island-tropical"></i>Entire Island Exclusive</div>
+        <div><i class="fas fa-helicopter"></i>Helicopter Transfer</div>
+        <div><i class="fas fa-star"></i>Michelin Star Chef</div>
+      </div>
+      <a href="island.html" class="vip-btn">About</a>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  const header = document.querySelector('header');
+  if (window.scrollY > 100) {
+    header.style.background = 'rgba(26, 38, 51, 0.98)';
+  } else {
+    header.style.background = 'rgba(26, 38, 51, 0.95)';
+  }
+});
+</script>
+</body>
+</html>

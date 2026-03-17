@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Cruises | Wanderlust Royale</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --navy:#1a2633;
+    --gold:#d4af37;
+    --cream:#f4f1e9;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:white;
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    background:rgba(26,38,51,0.95);
+    backdrop-filter:blur(15px);
+    z-index:1000;
+}
+
+.logo{
+    font-family:'Playfair Display';
+    color:var(--gold);
+    font-size:1.8rem;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+    position:relative;
+}
+
+nav a::after{
+    content:'';
+    position:absolute;
+    bottom:-5px;
+    left:0;
+    width:0%;
+    height:2px;
+    background:var(--gold);
+    transition:0.3s;
+}
+
+nav a:hover::after{
+    width:100%;
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.5)),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+    background-size:cover;
+    background-attachment:fixed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero h1{
+    font-size:60px;
+    font-family:'Playfair Display';
+}
+
+.hero p{
+    margin-top:20px;
+    max-width:600px;
+}
+
+.section{
+    padding:100px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+/* ZIGZAG */
+.zigzag{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    margin-bottom:80px;
+    transition:0.4s;
+}
+
+.zigzag:hover{
+    transform:scale(1.02);
+}
+
+.zigzag img{
+    width:50%;
+    border-radius:20px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
+
+.content{
+    width:50%;
+}
+
+.reverse{
+    flex-direction:row-reverse;
+}
+
+h2{
+    font-family:'Playfair Display';
+    color:var(--navy);
+}
+
+.brand{
+    color:var(--gold);
+    font-weight:bold;
+}
+
+/* FEATURE CARDS */
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.feature{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    transition:0.4s;
+}
+
+.feature:hover{
+    transform:translateY(-10px);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">Wanderlust Royale</div>
+<ul>
+
+</ul>
+</nav>
+
+<section class="hero">
+<div>
+<h1>Luxury Cruise Experiences</h1>
+<p>Explore premium cruise lines with unmatched elegance and ocean adventures.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+
+<div class="zigzag">
+<img src="https://tse3.mm.bing.net/th/id/OIP.YwP7Tz6vI2csv7pNQ_KnLAHaEo?rs=1&pid=ImgDetMain&o=7&rm=3">
+<div class="content">
+<h2>Royal Caribbean</h2>
+<p class="brand">Brand: Royal Caribbean International</p>
+<p>Innovative mega ships with entertainment, luxury cabins, and global destinations.</p>
+</div>
+</div>
+
+<div class="zigzag reverse">
+<img src="https://tse1.mm.bing.net/th/id/OIP.WOvdMyGipGBimyWjCfOIpQHaEo?rs=1&pid=ImgDetMain&o=7&rm=3">
+<div class="content">
+<h2>MSC Cruises</h2>
+<p class="brand">Brand: MSC Group</p>
+<p>European elegance combined with global luxury travel routes.</p>
+</div>
+</div>
+
+<div class="zigzag">
+<img src="https://wallpapers.com/images/hd/norwegian-mermaid-cruise-ship-mitu1cfln5z578nt.jpg">
+<div class="content">
+<h2>Norwegian Cruise Line</h2>
+<p class="brand">Brand: Norwegian Holdings</p>
+<p>Freestyle cruising with flexible dining and premium experiences.</p>
+</div>
+</div>
+
+</div>
+</section>
+<section class="section" style="background:var(--cream);">
+<div class="container">
+
+<h2 style="text-align:center;margin-bottom:50px;">Why Choose Our Cruises</h2>
+
+<div class="features">
+
+<div class="feature">
+<h3>Luxury Cabins</h3>
+<p>Experience world-class comfort and elegant interiors.</p>
+</div>
+
+<div class="feature">
+<h3>Global Destinations</h3>
+<p>Travel across continents with curated routes.</p>
+</div>
+
+<div class="feature">
+<h3>Fine Dining</h3>
+<p>Enjoy gourmet cuisine prepared by top chefs.</p>
+</div>
+
+<div class="feature">
+<h3>Entertainment</h3>
+<p>Live shows, events, and unforgettable onboard fun.</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+
+<div class="zigzag reverse">
+<img src="https://modularassets.cdn.ignitetravel.com/modular_multisite/wp-content/uploads/sites/2/2021/11/08153048/CUNARD-Queen-Mary-2-Ship-Exterior-1110X625.png">
+<div class="content">
+<h2>Cunard Line</h2>
+<p class="brand">Brand: Carnival Corporation</p>
+<p>Classic luxury voyages with British elegance.</p>
+</div>
+</div>
+
+<div class="zigzag">
+<img src="https://tse1.mm.bing.net/th/id/OIP.fVE_M2DaxagN4vhWfNtvhAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+<div class="content">
+<h2>Regent Seven Seas</h2>
+<p class="brand">Ultra Luxury Cruises</p>
+<p>All-inclusive premium experiences with fine dining.</p>
+</div>
+</div>
+
+</div>
+</section>
+<footer style="background:var(--navy);color:white;text-align:center;padding:60px;">
+<h2>Wanderlust Royale</h2>
+<p>Luxury Cruise & Travel Experiences</p>
+<p>Chennai | India 🇮🇳</p>
+</footer>
+
+<script>
+
+// scroll reveal animation
+const items=document.querySelectorAll('.zigzag');
+
+window.addEventListener('scroll',()=>{
+items.forEach(item=>{
+let top=item.getBoundingClientRect().top;
+if(top<window.innerHeight-100){
+item.style.opacity="1";
+item.style.transform="translateY(0)";
+}
+});
+});
+
+// initial state
+items.forEach(item=>{
+item.style.opacity="0";
+item.style.transform="translateY(50px)";
+item.style.transition="0.6s";
+});
+
+</script>
+
+</body>
+</html>

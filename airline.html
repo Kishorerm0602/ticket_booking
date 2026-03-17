@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Airlines | Wanderlust Royale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root{
+            --royal-navy:#1a2633;
+            --gold:#d4af37;
+            --cream:#f8f5f2;
+            --warm-cream:#f4f1e9;
+        }
+
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Poppins',sans-serif;
+            background:var(--cream);
+            color:#333;
+            line-height:1.7;
+        }
+
+        /* NAVBAR - PERFECT MATCH */
+        nav{
+            position:fixed;
+            width:100%;
+            top:0;
+            background:rgba(26,38,51,0.95);
+            padding:18px 0;
+            z-index:999;
+            backdrop-filter:blur(20px);
+            transition:all 0.4s ease;
+        }
+        nav.scrolled{
+            padding:12px 0;
+            box-shadow:0 5px 30px rgba(0,0,0,0.3);
+        }
+        .nav-container{
+            max-width:1200px;
+            margin:auto;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0 20px;
+        }
+        .logo{
+            font-family:'Playfair Display',serif;
+            font-size:1.8rem;
+            background:linear-gradient(45deg,var(--gold),#f4d03f);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        nav ul{
+            list-style:none;
+            display:flex;
+            gap:2rem;
+        }
+        nav a{
+            color:white;
+            text-decoration:none;
+            font-weight:600;
+            position:relative;
+            padding:8px 0;
+            transition:0.3s;
+        }
+        nav a::after{
+            content:'';
+            position:absolute;
+            bottom:0;
+            left:50%;
+            width:0;
+            height:2px;
+            background:var(--gold);
+            transform:translateX(-50%);
+            transition:0.3s;
+        }
+        nav a:hover::after,
+        nav a.active::after{width:100%;}
+        nav a:hover,
+        nav a.active{color:var(--gold);}
+
+        /* HERO */
+        .hero{
+            min-height:70vh;
+            padding-top:90px;
+            background:linear-gradient(rgba(26,38,51,0.75),rgba(0,0,0,0.4)),
+            url("https://tse3.mm.bing.net/th/id/OIP.Q_TeE8OqMe4R-DZPPFzHsAHaE7?rs=1&pid=ImgDetMain&o=7&rm=3")
+            center/cover;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            color:white;
+        }
+        .hero h1{
+            font-family:'Playfair Display',serif;
+            font-size:clamp(3rem,8vw,4.5rem);
+            margin-bottom:10px;
+            letter-spacing:2px;
+        }
+        .hero p{
+            max-width:600px;
+            font-size:1.1rem;
+            opacity:0.95;
+        }
+
+        /* SECTIONS */
+        .section{padding:100px 20px;}
+        .container{max-width:1300px;margin:auto;}
+        .section-title{
+            font-family:'Playfair Display',serif;
+            font-size:2.8rem;
+            color:var(--royal-navy);
+            text-align:center;
+            margin-bottom:15px;
+        }
+        .section-subtitle{
+            text-align:center;
+            color:#666;
+            font-size:1rem;
+            letter-spacing:1px;
+            margin-bottom:60px;
+        }
+
+        /* AIRLINE CARDS */
+        .airlines-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:30px;
+        }
+        .airline-card{
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 20px 50px rgba(0,0,0,0.1);
+            transition:0.4s;
+            position:relative;
+        }
+        .airline-card:hover{
+            transform:translateY(-10px);
+            box-shadow:0 30px 70px rgba(0,0,0,0.15);
+        }
+        .airline-img{
+            width:100%;
+            height:220px;
+            object-fit:cover;
+        }
+        .airline-content{
+            padding:25px;
+        }
+        .airline-name{
+            font-family:'Playfair Display',serif;
+            font-size:1.6rem;
+            color:var(--royal-navy);
+            margin-bottom:8px;
+        }
+        .airline-rating{
+            color:var(--gold);
+            margin-bottom:12px;
+            font-size:1.1rem;
+        }
+        .airline-features{
+            list-style:none;
+            margin-bottom:20px;
+        }
+        .airline-features li{
+            margin-bottom:6px;
+            font-size:0.95rem;
+        }
+        .airline-features i{
+            color:var(--gold);
+            margin-right:8px;
+            width:18px;
+        }
+        .book-btn{
+            background:var(--royal-navy);
+            color:white;
+            padding:12px 24px;
+            border-radius:25px;
+            text-decoration:none;
+            font-weight:600;
+            display:inline-block;
+            transition:0.3s;
+        }
+        .book-btn:hover{
+            background:var(--gold);
+            color:var(--royal-navy);
+        }
+
+        /* FILTERS */
+        .filters{
+            display:flex;
+            gap:15px;
+            justify-content:center;
+            margin-bottom:40px;
+            flex-wrap:wrap;
+        }
+        .filter-btn{
+            padding:10px 20px;
+            border:2px solid var(--gold);
+            background:transparent;
+            color:var(--royal-navy);
+            border-radius:25px;
+            cursor:pointer;
+            font-weight:600;
+            transition:0.3s;
+        }
+        .filter-btn.active,
+        .filter-btn:hover{
+            background:var(--gold);
+            color:white;
+        }
+
+        /* RANKING TABLE */
+        .ranking-table{
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 20px 50px rgba(0,0,0,0.1);
+        }
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+        th{
+            background:var(--royal-navy);
+            color:white;
+            padding:18px 12px;
+            text-align:center;
+            font-weight:600;
+        }
+        td{
+            padding:16px 12px;
+            text-align:center;
+            border-bottom:1px solid #eee;
+        }
+        tr:hover td{
+            background:var(--warm-cream);
+        }
+        .rank-badge{
+            background:var(--gold);
+            color:var(--royal-navy);
+            padding:4px 12px;
+            border-radius:20px;
+            font-weight:600;
+            font-size:0.9rem;
+        }
+
+        /* FEATURE BOXES */
+        .features-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:30px;
+            margin-top:60px;
+        }
+        .feature-box{
+            background:white;
+            border-radius:18px;
+            padding:30px 25px;
+            text-align:center;
+            box-shadow:0 15px 40px rgba(0,0,0,0.08);
+        }
+        .feature-icon{
+            font-size:3rem;
+            color:var(--gold);
+            margin-bottom:15px;
+        }
+        .feature-box h3{
+            font-family:'Playfair Display',serif;
+            color:var(--royal-navy);
+            margin-bottom:12px;
+        }
+
+        /* FOOTER */
+        footer{
+            background:var(--royal-navy);
+            color:#ccc;
+            text-align:center;
+            padding:30px 20px;
+            margin-top:60px;
+        }
+
+        @media (max-width:768px){
+            .filters{flex-direction:column;align-items:center;}
+            .airlines-grid{grid-template-columns:1fr;}
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Wanderlust Royale</div>
+            <ul>
+            
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Premium Airlines</h1>
+        <p>Business class partners for your luxury journeys from Chennai</p>
+    </section>
+
+    <!-- AIRLINES SECTION -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Airline Partners</h2>
+            <p class="section-subtitle">Handpicked for comfort, service & Chennai connectivity</p>
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Airlines</button>
+                <button class="filter-btn" data-filter="middle-east">Middle East</button>
+                <button class="filter-btn" data-filter="asia">Asia Pacific</button>
+                <button class="filter-btn" data-filter="europe">Europe</button>
+            </div>
+
+            <div class="airlines-grid">
+                <!-- QATAR AIRWAYS -->
+                <div class="airline-card" data-category="middle-east">
+                    <img class="airline-img" src="https://tse2.mm.bing.net/th/id/OIP.MOuQThmlNbaHk-qeKeMfbgHaE7?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Qatar Airways">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Qatar Airways</h3>
+                        <div class="airline-rating">★★★★★ <span>World #1</span></div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-door-open"></i>Qsuite privacy doors</li>
+                            <li><i class="fa fa-bed"></i>80″ fully flat beds</li>
+                            <li><i class="fa fa-wifi"></i>Fast WiFi + 4K screens</li>
+                        </ul>
+                        <a href="booking.html?airline=qatar" class="book-btn">Book Qatar</a>
+                    </div>
+                </div>
+
+                <!-- SINGAPORE AIRLINES -->
+                <div class="airline-card" data-category="asia">
+                    <img class="airline-img" src="https://tse4.mm.bing.net/th/id/OIP.JpCnWmrp01nONqtrL_Yl-wHaEo?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Singapore Airlines">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Singapore Airlines</h3>
+                        <div class="airline-rating">★★★★★</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-utensils"></i>Michelin-star dining</li>
+                            <li><i class="fa fa-couch"></i>30″ seat width suites</li>
+                            <li><i class="fa fa-user-tie"></i>Butler service</li>
+                        </ul>
+                        <a href="booking.html?airline=singapore" class="book-btn">Book SQ</a>
+                    </div>
+                </div>
+
+                <!-- EMIRATES -->
+                <div class="airline-card" data-category="middle-east">
+                    <img class="airline-img" src="https://wallpapercat.com/w/full/1/1/e/1458038-2032x1331-desktop-hd-emirates-airline-background-photo.jpg" alt="Emirates">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Emirates</h3>
+                        <div class="airline-rating">★★★★☆</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-shower"></i>A380 onboard showers</li>
+                            <li><i class="fa fa-tv"></i>6,500+ channels</li>
+                            <li><i class="fa fa-cocktail"></i>Onboard bar lounge</li>
+                        </ul>
+                        <a href="booking.html?airline=emirates" class="book-btn">Book EK</a>
+                    </div>
+                </div>
+
+                <!-- CATHAY PACIFIC -->
+                <div class="airline-card" data-category="asia">
+                    <img class="airline-img" src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=800&q=80" alt="Cathay Pacific">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Cathay Pacific</h3>
+                        <div class="airline-rating">★★★★☆</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-bed"></i>80″ reverse herringbone</li>
+                            <li><i class="fa fa-vr-cardboard"></i>VR lounge access</li>
+                            <li><i class="fa fa-leaf"></i>Carbon neutral flights</li>
+                        </ul>
+                        <a href="booking.html?airline=cathay" class="book-btn">Book CX</a>
+                    </div>
+                </div>
+
+                <!-- LUFTHANSA -->
+                <div class="airline-card" data-category="europe">
+                    <img class="airline-img" src="https://wallpaperaccess.com/full/2022329.jpg" alt="Lufthansa">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Lufthansa</h3>
+                        <div class="airline-rating">★★★★☆</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-utensils"></i>German cuisine</li>
+                            <li><i class="fa fa-wifi"></i>Unlimited WiFi</li>
+                            <li><i class="fa fa-bed"></i>Allegris suites</li>
+                        </ul>
+                        <a href="booking.html?airline=lufthansa" class="book-btn">Book LH</a>
+                    </div>
+                </div>
+
+                <!-- TURKISH AIRLINES -->
+                <div class="airline-card" data-category="europe">
+                    <img class="airline-img" src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80" alt="Turkish Airlines">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Turkish Airlines</h3>
+                        <div class="airline-rating">★★★★☆</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-utensils"></i>Flying kitchen</li>
+                            <li><i class="fa fa-route"></i>350+ cities</li>
+                            <li><i class="fa fa-bed"></i>Lie-flat seats</li>
+                        </ul>
+                        <a href="booking.html?airline=turkish" class="book-btn">Book TK</a>
+                    </div>
+                </div>
+
+                <!-- ANA -->
+                <div class="airline-card" data-category="asia">
+                    <img class="airline-img" src="https://wallpaperaccess.com/full/11933625.jpg" alt="ANA">
+                    <div class="airline-content">
+                        <h3 class="airline-name">ANA All Nippon</h3>
+                        <div class="airline-rating">★★★★★</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-door-open"></i>"The Room" suite</li>
+                            <li><i class="fa fa-leaf"></i>Carbon neutral</li>
+                            <li><i class="fa fa-utensils"></i>Kaiseki dining</li>
+                        </ul>
+                        <a href="booking.html?airline=ana" class="book-btn">Book NH</a>
+                    </div>
+                </div>
+
+                <!-- ETIHAD -->
+                <div class="airline-card" data-category="middle-east">
+                    <img class="airline-img" src="https://tse2.mm.bing.net/th/id/OIP.S4jk61zSK79-ZFQbLbTPdAHaEo?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Etihad">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Etihad Airways</h3>
+                        <div class="airline-rating">★★★★☆</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-bed"></i>Business Studios</li>
+                            <li><i class="fa fa-tv"></i>24″ screens</li>
+                            <li><i class="fa fa-utensils"></i>Gourmet menu</li>
+                        </ul>
+                        <a href="booking.html?airline=etihad" class="book-btn">Book EY</a>
+                    </div>
+                </div>
+
+                <!-- AIR FRANCE -->
+                <div class="airline-card" data-category="europe">
+                    <img class="airline-img" src="https://wallpaperaccess.com/full/6082815.jpg" alt="Air France">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Air France</h3>
+                        <div class="airline-rating">★★★★☆</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-utensils"></i>Michelin dining</li>
+                            <li><i class="fa fa-wine-bottle"></i>French champagne</li>
+                            <li><i class="fa fa-bed"></i>La Première suite</li>
+                        </ul>
+                        <a href="booking.html?airline=airfrance" class="book-btn">Book AF</a>
+                    </div>
+                </div>
+
+                <!-- JAPAN AIRLINES -->
+                <div class="airline-card" data-category="asia">
+                    <img class="airline-img" src="https://wallpapercave.com/wp/wp11248270.jpg" alt="Japan Airlines">
+                    <div class="airline-content">
+                        <h3 class="airline-name">Japan Airlines</h3>
+                        <div class="airline-rating">★★★★☆</div>
+                        <ul class="airline-features">
+                            <li><i class="fa fa-user-check"></i>Omotenashi service</li>
+                            <li><i class="fa fa-mobile-alt"></i>App upgrades</li>
+                            <li><i class="fa fa-bed"></i>Apex suites</li>
+                        </ul>
+                        <a href="booking.html?airline=japan" class="book-btn">Book JL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RANKING -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Skytrax 2026 Rankings</h2>
+            <p class="section-subtitle">World's best airlines for business class</p>
+
+            <div class="ranking-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Airline</th>
+                            <th>Rating</th>
+                            <th>Key Feature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="rank-badge">1</span></td>
+                            <td>Qatar Airways</td>
+                            <td>★★★★★</td>
+                            <td>Qsuite Privacy</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">2</span></td>
+                            <td>Singapore Airlines</td>
+                            <td>★★★★★</td>
+                            <td>Butler Service</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">3</span></td>
+                            <td>Cathay Pacific</td>
+                            <td>★★★★☆</td>
+                            <td>80″ Beds</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">4</span></td>
+                            <td>Emirates</td>
+                            <td>★★★★☆</td>
+                            <td>Onboard Showers</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">5</span></td>
+                            <td>ANA</td>
+                            <td>★★★★☆</td>
+                            <td>The Room Suite</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">6</span></td>
+                            <td>Lufthansa</td>
+                            <td>★★★★☆</td>
+                            <td>Allegris Suites</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">7</span></td>
+                            <td>Turkish Airlines</td>
+                            <td>★★★★☆</td>
+                            <td>Flying Kitchen</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">8</span></td>
+                            <td>Air France</td>
+                            <td>★★★★☆</td>
+                            <td>Michelin Dining</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">9</span></td>
+                            <td>Etihad Airways</td>
+                            <td>★★★★☆</td>
+                            <td>Business Studios</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">10</span></td>
+                            <td>Japan Airlines</td>
+                            <td>★★★★☆</td>
+                            <td>Omotenashi Service</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- UNIQUE FEATURES -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Airlines</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fa fa-plane"></i>
+                    </div>
+                    <h3>Chennai Priority</h3>
+                    <p>Best connections from MAA airport with lounge access, fast check-in & dedicated counters for our travelers</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fa fa-shield-alt"></i>
+                    </div>
+                    <h3>Health‑Safe Travel</h3>
+                    <p>HEPA filters, medical kits, doctor‑on‑call & preferred seating for maximum comfort & safety</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fa fa-headset"></i>
+                    </div>
+                    <h3>24×7 Concierge</h3>
+                    <p>Our team coordinates with airline staff for seat upgrades, meal requests & special assistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Wanderlust Royale | Premium Business Class from Chennai
+    </footer>
+
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.airline-card').forEach(card => {
+                    if(filter === 'all' || card.dataset.category === filter){
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

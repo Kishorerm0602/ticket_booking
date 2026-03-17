@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Schedule - Wanderlust Royale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --royal-navy: #1a2633; --gold-accent: #d4af37; --marble-white: #f8f5f2;
+            --deep-charcoal: #2c3e50; --warm-cream: #f4f1e9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            line-height: 1.7; color: #333;
+            background: var(--warm-cream); overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed; top: 0; width: 100%; 
+            background: rgba(26, 38, 51, 0.95); 
+            padding: 20px 0; z-index: 1000; 
+            backdrop-filter: blur(20px); transition: all 0.4s ease;
+        }
+        nav.scrolled { 
+            background: rgba(26, 38, 51, 0.98); 
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3); 
+            padding: 15px 0;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        nav ul {
+            list-style: none; display: flex; gap: 2rem;
+        }
+        nav a {
+            color: var(--marble-white); text-decoration: none; 
+            font-weight: 600; font-size: 1.1rem; 
+            position: relative; transition: all 0.3s ease;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            width: 0; height: 2px; background: var(--gold-accent);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: var(--gold-accent); }
+
+        /* HERO */
+        .hero {
+            height: 100vh; position: relative;
+            background: linear-gradient(rgba(26,38,51,0.7), rgba(0,0,0,0.4)),
+            url("https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center; color: white; padding: 0 2rem;
+        }
+        .hero h1 { 
+            font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 8vw, 5rem); 
+            margin-bottom: 20px; letter-spacing: 2px;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8);
+        }
+        .hero p { font-size: 1.4rem; opacity: 0.95; max-width: 600px; }
+
+        /* CONTAINER */
+        .container { max-width: 1200px; margin: auto; padding: 120px 20px 40px; }
+
+        /* CALENDAR */
+        .calendar {
+            background: white; border-radius: 25px; padding: 40px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+            position: relative; overflow: hidden;
+        }
+        .calendar::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 6px; background: linear-gradient(90deg, var(--gold-accent), #f4d03f);
+        }
+        .month {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; flex-wrap: wrap; gap: 15px;
+        }
+        .month h2 {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem; 
+            color: var(--royal-navy); margin: 0;
+        }
+        .month button {
+            background: var(--royal-navy); border: none; color: white;
+            padding: 15px 25px; border-radius: 30px; cursor: pointer;
+            font-weight: 600; transition: all 0.3s ease; font-size: 1rem;
+        }
+        .month button:hover {
+            background: var(--gold-accent); transform: translateY(-2px);
+        }
+
+        .weekdays {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            text-align: center; font-weight: 600; margin-bottom: 20px;
+            color: var(--royal-navy); font-size: 1rem;
+        }
+        .weekday { padding: 15px 0; }
+
+        .days {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+        .day {
+            min-height: 120px; border: 2px solid #f0f0f0;
+            padding: 15px; position: relative; cursor: pointer;
+            transition: all 0.3s ease; border-radius: 12px;
+            background: var(--marble-white);
+        }
+        .day:hover {
+            border-color: var(--gold-accent); 
+            box-shadow: 0 10px 30px rgba(212,175,55,0.2);
+            transform: translateY(-3px);
+        }
+        .day.today { 
+            background: linear-gradient(135deg, var(--gold-accent), #f4d03f);
+            color: var(--royal-navy); font-weight: 600;
+        }
+        .day span {
+            font-size: 1.1rem; font-weight: 700; display: block;
+            color: var(--royal-navy);
+        }
+        .event {
+            background: var(--royal-navy); color: white; padding: 8px 12px;
+            margin-top: 10px; border-radius: 20px; font-size: 0.85rem;
+            font-weight: 600; box-shadow: 0 4px 15px rgba(26,38,51,0.3);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .month { flex-direction: column; gap: 20px; }
+            .days { gap: 1px; }
+            .day { min-height: 90px; padding: 10px; }
+        }
+
+        footer {
+            background: var(--royal-navy); color: var(--marble-white);
+            text-align: center; padding: 30px; margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Wanderlust Royale</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html" >Packages</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="trip info.html">Trip Info</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div>
+            <h1>Tour Schedule Calendar</h1>
+            <p>Upcoming luxury departures from Chennai - Book your preferred dates</p>
+        </div>
+    </section>
+
+    <!-- CALENDAR -->
+    <div class="container">
+        <div class="calendar">
+            <div class="month">
+                <button onclick="prevMonth()"><i class="fas fa-chevron-left"></i> Previous</button>
+                <h2 id="monthYear"></h2>
+                <button onclick="nextMonth()">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="weekdays">
+                <div class="weekday">Sun</div>
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+            </div>
+
+            <div class="days" id="days"></div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Wanderlust Royale | Chennai's Premier Luxury Travel Agency
+    </footer>
+
+    <script>
+        let date = new Date();
+
+        function renderCalendar() {
+            const monthYear = document.getElementById("monthYear");
+            const daysContainer = document.getElementById("days");
+
+            const year = date.getFullYear();
+            const month = date.getMonth();
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            const months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            monthYear.innerText = months[month] + " " + year;
+
+            let days = "";
+
+            // Empty cells before first day
+            for (let i = 0; i < firstDay; i++) {
+                days += "<div class='day'></div>";
+            }
+
+            // Days of the month
+            for (let i = 1; i <= lastDate; i++) {
+                let event = "";
+                const today = new Date().getDate();
+                const currentMonth = new Date().getMonth();
+                const currentYear = new Date().getFullYear();
+
+                // Sample tour events for our 12 destinations
+                if (i === 5) event = "<div class='event'>Paris Departure</div>";
+                if (i === 8) event = "<div class='event'>Bangkok Group</div>";
+                if (i === 12) event = "<div class='event'>Sydney Luxury</div>";
+                if (i === 15) event = "<div class='event'>Dubai 5-Star</div>";
+                if (i === 18) event = "<div class='event'>Maldives Honeymoon</div>";
+                if (i === 22) event = "<div class='event'>London Elite</div>";
+                if (i === 25) event = "<div class='event'>Tokyo Fusion</div>";
+                if (i === 28) event = "<div class='event'>Swiss Alps</div>";
+
+                // Highlight today
+                if (i === today && month === currentMonth && year === currentYear) {
+                    days += `<div class="day today"><span>${i}</span>${event}</div>`;
+                } else {
+                    days += `<div class="day"><span>${i}</span>${event}</div>`;
+                }
+            }
+
+            daysContainer.innerHTML = days;
+        }
+
+        function prevMonth() {
+            date.setMonth(date.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            date.setMonth(date.getMonth() + 1);
+            renderCalendar();
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        renderCalendar();
+    </script>
+</body>
+</html>

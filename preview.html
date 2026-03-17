@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview Travel Booking - Wanderlust Royale</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ROYAL ELEGANCE CSS VARIABLES */
+:root {
+  --royal-navy: #1a2633;
+  --imperial-gold: #d4af37;
+  --ivory-cream: #f8f5f2;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(212, 175, 55, 0.3);
+  --navy-shadow: rgba(26, 38, 51, 0.4);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--royal-navy) 0%, var(--ivory-cream) 50%, #e8e3d8 100%);
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* GLASSMORPHISM NAVIGATION */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: rgba(26, 38, 51, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 20px 60px;
+  z-index: 1000;
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px var(--navy-shadow);
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  background: linear-gradient(45deg, var(--imperial-gold), #f0d47a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 35px;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 15px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 10px 0;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--imperial-gold), #f0d47a);
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+}
+
+nav a:hover {
+  color: var(--imperial-gold);
+  transform: translateY(-2px);
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+
+/* HERO SECTION */
+.hero {
+  height: 90vh;
+  background: linear-gradient(rgba(26, 38, 51, 0.75), rgba(26, 38, 51, 0.5)),
+              url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  margin-top: 80px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--glass-border), rgba(212, 175, 55, 0.15));
+  animation: royalShimmer 8s ease-in-out infinite;
+}
+
+@keyframes royalShimmer {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  animation: fadeInUp 1.2s ease-out;
+  position: relative;
+  z-index: 2;
+}
+
+.hero p {
+  max-width: 650px;
+  font-size: 20px;
+  opacity: 0.95;
+  margin-bottom: 35px;
+  animation: fadeInUp 1.2s ease-out 0.3s both;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: 18px 45px;
+  background: linear-gradient(45deg, var(--imperial-gold), #f0d47a);
+  color: var(--royal-navy);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 17px;
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 1.2s ease-out 0.6s both;
+}
+
+.hero-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.6s;
+}
+
+.hero-btn:hover::before { left: 100%; }
+.hero-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 20px 45px rgba(212, 175, 55, 0.6);
+}
+
+/* SECTIONS */
+.section {
+  padding: 100px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  margin-bottom: 70px;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--royal-navy), var(--imperial-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--imperial-gold), #f0d47a);
+  border-radius: 2px;
+}
+
+/* LUXURY CARDS WITH PRICING & RATINGS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 45px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px var(--navy-shadow);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(15px);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--imperial-gold), transparent, var(--imperial-gold));
+  background-size: 200% 100%;
+  animation: goldShift 4s ease infinite;
+}
+
+@keyframes goldShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.card:hover {
+  transform: translateY(-20px) scale(1.03);
+  box-shadow: 0 40px 80px rgba(212, 175, 55, 0.25);
+}
+
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card:hover img { transform: scale(1.12); }
+
+.card-content {
+  padding: 35px;
+  text-align: center;
+}
+
+.card-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: var(--royal-navy);
+  font-weight: 700;
+}
+
+/* 5-STAR TRUST SIGNALS */
+.rating {
+  color: var(--imperial-gold);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+/* PROFESSIONAL PRICING */
+.price-tag {
+  background: linear-gradient(45deg, var(--imperial-gold), #f0d47a);
+  color: var(--royal-navy);
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  display: inline-block;
+  margin: 15px 0 20px;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+  transition: all 0.3s ease;
+}
+
+.price-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+}
+
+/* SEAMLESS BOOKING BUTTONS */
+.btn-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.primary-btn {
+  flex: 1;
+  background: linear-gradient(45deg, var(--royal-navy), #2d3b4f);
+  color: white;
+  padding: 16px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px var(--navy-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s;
+}
+
+.primary-btn:hover::before { left: 100%; }
+.primary-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(26, 38, 51, 0.6);
+  background: linear-gradient(45deg, var(--imperial-gold), #f0d47a);
+  color: var(--royal-navy);
+}
+
+.secondary-btn {
+  flex: 1;
+  border: 2px solid var(--imperial-gold);
+  color: var(--royal-navy);
+  padding: 14px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+
+.secondary-btn:hover {
+  background: var(--imperial-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .section { padding: 60px 20px; }
+  .hero h1 { font-size: 42px; }
+  .cards { grid-template-columns: 1fr; gap: 30px; }
+  .nav-container { padding: 0 20px; }
+  nav ul { gap: 20px; }
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header>
+  <div class="nav-container">
+    <div class="logo">Wanderlust Royale</div>
+    <nav>
+      <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="trip info.html">Trip info</a></li>
+                <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Luxury Awaits</h1>
+  <p>Experience the world's most exclusive travel adventures with our premium airline, cruise, and VIP services</p>
+  <a href="#categories" class="hero-btn">Discover Journeys</a>
+</section>
+
+<!-- Categories -->
+<section class="section" id="categories">
+  <h2>Premium Travel Categories</h2>
+  <div class="cards">
+    <!-- Airlines -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Airlines">
+      <div class="card-content">
+        <h3><i class="fas fa-plane"></i> Premium Airlines</h3>
+        <p>Business class flights with lounge access and premium services worldwide.</p>
+        <div class="btn-group">
+          <a href="airline.html" class="primary-btn">View route</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipway -->
+    <div class="card">
+      <img src="https://www.remotelands.com/travelogues/app/uploads/2019/06/b170726001-768x376.jpg" alt="Shipway">
+      <div class="card-content">
+        <h3><i class="fas fa-ship"></i> Luxury Cruises</h3>
+        <p>Oceanfront suites with gourmet dining and world-class entertainment.</p>
+        <div class="btn-group">
+          <a href="shipway.html" class="primary-btn">View Itineraries</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIP Travel -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="VIP">
+      <div class="card-content">
+        <h3><i class="fas fa-crown"></i> VIP Experiences</h3>
+        <div class="rating">★★★★★</div>
+        <p>Private jets, yacht charters, and exclusive resort access.</p>
+        <div class="btn-group">
+          <a href="vip.html" class="primary-btn">View Packages</a>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* Smooth scrolling */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+
+/* Navbar scroll effect */
+window.addEventListener('scroll', () => {
+  const header = document.querySelector('header');
+  if (window.scrollY > 100) {
+    header.style.background = 'rgba(26, 38, 51, 0.98)';
+  } else {
+    header.style.background = 'rgba(26, 38, 51, 0.95)';
+  }
+});
+</script>
+</body>
+</html>
