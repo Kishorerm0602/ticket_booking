@@ -286,6 +286,10 @@ Complete Your Booking
 <i class="fas fa-lock"></i> Confirm Booking
 </button>
 
+<button type="submit" class="submit-btn">
+    <i><a href="ticket.html">Download the ticket</a></i>
+</button>
+
 </form>
 
 <div class="summary-box" id="summaryBox">
@@ -366,6 +370,30 @@ document.getElementById("summaryBox").style.display="none";
 });
 
 </script>
+
+<!-- In booking.html form submit -->
+<script>
+// AFTER FORM SUBMIT - REDIRECT WITH TOTAL!
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        place: document.getElementById("selectedPlace").textContent,
+        total: document.getElementById("totalPrice").textContent.replace(/[^0-9]/g, ''),
+        travellers: document.getElementById("travellers").value,
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        date: document.getElementById("date").value,
+        flight: "QR231" // Dynamic from destination
+    };
+    
+    // MAGIC REDIRECT WITH FULL DATA!
+    const params = new URLSearchParams(formData);
+    window.location.href = `ticket.html?${params.toString()}`;
+});
+</script>
+
 
 </body>
 </html>
