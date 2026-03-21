@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust Pro Store - Premium Global Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== ENHANCED GLOBAL STYLES ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #f4f7fb 0%, #e8f0fe 100%); color: #333; }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, #0f4c81, #1e6fa8, #0f4c81);
+            color: #fff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(15, 76, 129, 0.3);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-wishlist {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cart-btn, .wishlist-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cart-btn:hover, .wishlist-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(15, 76, 129, 0.8), rgba(30, 111, 168, 0.6)),
+                        url('https://images.unsplash.com/photo-1522199710521-72d69614c702') center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        /* ===== SEARCH + FILTERS ===== */
+        .controls {
+            padding: 40px 20px;
+            background: #fff;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-sort {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            padding: 15px 25px;
+            width: 350px;
+            border-radius: 30px;
+            border: 2px solid #e1e8ed;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #0f4c81;
+            box-shadow: 0 0 0 4px rgba(15, 76, 129, 0.1);
+        }
+
+        .sort-select {
+            padding: 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 25px;
+            background: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #0f4c81;
+            color: #fff;
+            border-color: #0f4c81;
+            transform: translateY(-2px);
+        }
+
+        /* ===== PRODUCTS GRID ===== */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 50px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .quick-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .quick-actions {
+            opacity: 1;
+        }
+
+        .quick-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .quick-btn:hover {
+            background: #0f4c81;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .country-badge {
+            background: linear-gradient(135deg, #0f4c81, #1e6fa8);
+            color: #fff;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .price {
+            color: #27ae60;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            color: #f39c12;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-primary, .btn-secondary {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0f4c81, #1e6fa8);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(15, 76, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #0f4c81;
+            border: 2px solid #0f4c81;
+        }
+
+        .btn-secondary:hover {
+            background: #0f4c81;
+            color: #fff;
+        }
+
+        /* ===== TOAST + MODALS ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #fff;
+            padding: 18px 25px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(39, 174, 96, 0.4);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            z-index: 2000;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, #111, #222);
+            color: #fff;
+            padding: 50px 20px 30px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #e6b580;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .search-sort { flex-direction: column; align-items: center; }
+            .search-bar input { width: 100%; max-width: 350px; }
+            .filters { justify-content: center; }
+            .header-actions { gap: 10px; }
+            .cart-btn, .wishlist-btn { padding: 10px 15px; font-size: 14px; }
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-globe-americas"></i>
+            WanderLust Pro Store
+        </div>
+        <div class="header-actions">
+            <div class="search-icon" onclick="toggleSearch()">
+                <i class="fas fa-search"></i>
+            </div>
+            <a href="#" class="wishlist-btn" onclick="toggleWishlist()">
+                <i class="fas fa-heart"></i> Wishlist (<span id="wishlistCount">0</span>)
+            </a>
+            <a href="cart.html" class="cart-btn">
+                <i class="fas fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>🌟 Premium Global Collection</h1>
+        <p>Discover authentic luxury products from around the world ✈️</p>
+    </section>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+        <div class="search-sort">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Search 500+ global products...">
+            </div>
+            <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+                <option value="name">Sort by Name</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Rating</option>
+                <option value="new">Newest First</option>
+            </select>
+        </div>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="All">All Products</button>
+            <button class="filter-btn" data-filter="USA">🇺🇸 USA</button>
+            <button class="filter-btn" data-filter="Japan">🇯🇵 Japan</button>
+            <button class="filter-btn" data-filter="India">🇮🇳 India</button>
+            <button class="filter-btn" data-filter="Italy">🇮🇹 Italy</button>
+            <button class="filter-btn" data-filter="France">🇫🇷 France</button>
+            <button class="filter-btn" data-filter="Germany">🇩🇪 Germany</button>
+            <button class="filter-btn" data-filter="Travel">✈️ Travel</button>
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <section class="products" id="productGrid">
+        <div class="loading">Loading premium products...</div>
+    </section>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Added to cart!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-plane"></i> WanderLust Pro</h3>
+                <p>Premium international marketplace connecting global brands with travelers.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <p>Fashion • Electronics • Travel Gear • Luxury Goods • Accessories</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>support@wanderlustpro.com<br>+91 98765 43210</p>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #444; padding-top: 20px; margin-top: 30px;">
+            <p>&copy; 2026 WanderLust Pro Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ENHANCED PRODUCTS (25+ items)
+        const products = [
+            {id:1,name:"Nike Air Max Pro",price:12999,country:"USA",category:"Fashion",rating:4.8,img:"https://images.unsplash.com/photo-1585386959984-a415522316b3?ixlib=rb-4.0.3"},
+            {id:2,name:"iPhone 16 Pro Max",price:119999,country:"USA",category:"Electronics",rating:4.9,img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3"},
+            {id:3,name:"Casio G-Shock Pro",price:8999,country:"Japan",category:"Accessories",rating:4.7,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3"},
+            {id:4,name:"Kimono Silk Dress",price:12999,country:"Japan",category:"Fashion",rating:4.6,img:"https://images.unsplash.com/photo-1520975916090-3105956dac38?ixlib=rb-4.0.3"},
+            {id:5,name:"Italian Leather Bag",price:24999,country:"Italy",category:"Fashion",rating:4.9,img:"https://images.unsplash.com/photo-1512499617640-c2f999098c01?ixlib=rb-4.0.3"},
+            {id:6,name:"Banarasi Silk Saree",price:8999,country:"India",category:"Fashion",rating:4.8,img:"https://images.unsplash.com/photo-1618354691321-e851c56960d9?ixlib=rb-4.0.3"},
+            {id:7,name:"Sony WH-1000XM5",price:29999,country:"Japan",category:"Electronics",rating:4.9,img:"https://images.unsplash.com/photo-1518449030634-5c35c9a7d5b9?ixlib=rb-4.0.3"},
+            {id:8,name:"Chanel No.5 Perfume",price:12999,country:"France",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-4.0.3"},
+            {id:9,name:"Samsonite Carry-On",price:15999,country:"USA",category:"Travel",rating:4.7,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3"},
+            {id:10,name:"Montblanc Meisterstück",price:45999,country:"Germany",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3"},
+            {id:11,name:"Travel Neck Pillow",price:1999,country:"India",category:"Travel",rating:4.5,img:"https://images.unsplash.com/photo-1586953363581-f15b4b7781e9?ixlib=rb-4.0.3"},
+            {id:12,name:"Ray-Ban Aviator",price:12999,country:"Italy",category:"Accessories",rating:4.8,img:"https://images.unsplash.com/photo-1574179208501-42adbfa73e1d?ixlib=rb-4.0.3"},
+            {id:13,name:"GoPro HERO12",price:44999,country:"USA",category:"Electronics",rating:4.8,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3"},
+            {id:14,name:"Hermès Silk Scarf",price:34999,country:"France",category:"Fashion",rating:4.9,img:"https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3"},
+            {id:15,name:"DJI Mini Drone",price:54999,country:"China",category:"Electronics",rating:4.7,img:"https://images.unsplash.com/photo-1578308146096-eb4614831a80?ixlib=rb-4.0.3"},
+            {id:16,name:"Rolex Submariner",price:1250000,country:"Switzerland",category:"Luxury",rating:5.0,img:"https://images.unsplash.com/photo-1541781774459-bb2af2f9dcf2?ixlib=rb-4.0.3"},
+            {id:17,name:"Laptop Stand",price:2499,country:"India",category:"Travel",rating:4.6,img:"https://images.unsplash.com/photo-1585312289810-08a09ea46c7d?ixlib=rb-4.0.3"},
+            {id:18,name:"Bose QC45",price:24999,country:"USA",category:"Electronics",rating:4.8,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3"},
+            {id:19,name:"Leather Passport Holder",price:2999,country:"Italy",category:"Travel",rating:4.7,img:"https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3"},
+            {id:20,name:"MacBook Pro M3",price:189999,country:"USA",category:"Electronics",rating:4.9,img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3"},
+            {id:21,name:"AirTag 4-Pack",price:9999,country:"USA",category:"Travel",rating:4.6,img:"https://images.unsplash.com/photo-1629138897530-64edf105fb5e?ixlib=rb-4.0.3"},
+            {id:22,name:"Tumi Backpack",price:34999,country:"USA",category:"Travel",rating:4.8,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3"},
+            {id:23,name:"Omega Speedmaster",price:650000,country:"Switzerland",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1541781774459-bb2af2f9dcf2?ixlib=rb-4.0.3"},
+            {id:24,name:"Power Bank Anker",price:3499,country:"China",category:"Travel",rating:4.7,img:"https://images.unsplash.com/photo-1610945262588-8c993f87d347?ixlib=rb-4.0.3"},
+            {id:25,name:"Louis Vuitton Cardholder",price:29999,country:"France",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3"}
+        ];
+
+        // STATE
+        let cart = JSON.parse(localStorage.getItem("wanderlustCart")) || [];
+        let wishlist = JSON.parse(localStorage.getItem("wanderlustWishlist")) || [];
+        let filteredProducts = [...products];
+        let currentSort = 'name';
+
+        // INIT
+        function initStore() {
+            renderProducts();
+            updateCartCount();
+            updateWishlistCount();
+            setupEventListeners();
+        }
+
+        function renderProducts() {
+            const container = document.getElementById("productGrid");
+            if (filteredProducts.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #666;">
+                        <i class="fas fa-search" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h2>No products found</h2>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="card">
+                    <div class="card-image">
+                        <img src="${product.img}" alt="${product.name}" loading="lazy">
+                        <div class="quick-actions">
+                            <button class="quick-btn" onclick="quickAddToCart(${product.id})" title="Quick Add">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="quick-btn" onclick="toggleWishlist(${product.id})" title="${wishlist.some(p => p.id === product.id) ? 'Remove from' : 'Add to'} Wishlist">
+                                <i class="fas ${wishlist.some(p => p.id === product.id) ? 'fas fa-heart' : 'far fa-heart'}"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <span class="country-badge">${getFlag(product.country)} ${product.country}</span>
+                        <h3>${product.name}</h3>
+                        <div class="rating">
+                            ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                            <span style="color: #666; font-size: 14px;">(${product.rating})</span>
+                        </div>
+                        <div class="price">₹${product.price.toLocaleString()}</div>
+                        <div class="card-actions">
+                            <button class="btn-primary" onclick="addToCart(${product.id})">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="btn-secondary" onclick="toggleWishlist(${product.id})">
+                                <i class="fas ${wishlist.some(p => p.id === product.id) ? 'fas fa-heart' : 'far fa-heart'}"></i> 
+                                ${wishlist.some(p => p.id === product.id) ? 'Wishlisted' : 'Wishlist'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getFlag(country) {
+            const flags = {
+                'USA': '🇺🇸', 'Japan': '🇯🇵', 'India': '🇮🇳', 'Italy': '🇮🇹', 
+                'France': '🇫🇷', 'Germany': '🇩🇪', 'Switzerland': '🇨🇭', 'China': '🇨🇳'
+            };
+            return flags[country] || '🌍';
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity = (existing.quantity || 1) + 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            localStorage.setItem("wanderlustCart", JSON.stringify(cart));
+            updateCartCount();
+            showToast("✅ " + product.name + " added to cart!");
+        }
+
+        function quickAddToCart(id) {
+            addToCart(id);
+            showToast("⚡ Quick added to cart!");
+        }
+
+        function toggleWishlist(id) {
+            const product = products.find(p => p.id === id);
+            const index = wishlist.findIndex(item => item.id === id);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                showToast("❤️ Removed from wishlist!");
+            } else {
+                wishlist.push(product);
+                showToast("💖 Added to wishlist!");
+            }
+            localStorage.setItem("wanderlustWishlist", JSON.stringify(wishlist));
+            updateWishlistCount();
+            renderProducts();
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            document.getElementById("cartCount").textContent = count;
+        }
+
+        function updateWishlistCount() {
+            document.getElementById("wishlistCount").textContent = wishlist.length;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            document.getElementById("toastMessage").textContent = message;
+            toast.style.display = "flex";
+            setTimeout(() => toast.style.display = "none", 3000);
+        }
+
+        // FILTERING + SEARCHING
+        document.getElementById("searchInput").addEventListener("input", e => {
+            const query = e.target.value.toLowerCase();
+            filteredProducts = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.country.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query)
+            );
+            renderProducts();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                if (filter === 'All') {
+                    filteredProducts = [...products];
+                } else {
+                    filteredProducts = products.filter(p => p.country === filter || p.category === filter);
+                }
+                renderProducts();
+            });
+        });
+
+        function sortProducts() {
+            const sortValue = document.getElementById("sortSelect").value;
+            filteredProducts.sort((a, b) => {
+                if (sortValue === 'price-low') return a.price - b.price;
+                if (sortValue === 'price-high') return b.price - a.price;
+                if (sortValue === 'rating') return b.rating - a.rating;
+                return a.name.localeCompare(b.name);
+            });
+            renderProducts();
+        }
+
+        function setupEventListeners() {
+            // Enter key for search
+            document.getElementById("searchInput").addEventListener("keypress", e => {
+                if (e.key === 'Enter') {
+                    e.target.blur();
+                }
+            });
+        }
+
+        // INIT
+        initStore();
+    </script>
+</body>
+</html>

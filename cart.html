@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - WanderLust Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #f4f7fb 0%, #e8f0fe 100%); padding: 40px;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+        <h1 style="text-align: center; color: #0f4c81; margin-bottom: 40px;">
+            <i class="fas fa-shopping-cart"></i> Your Cart
+        </h1>
+        
+        <div id="cartItems" style="background: #fff; border-radius: 20px; padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); min-height: 200px;">
+            <!-- Cart items populated by JS -->
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 30px; margin-top: 30px; align-items: end;">
+            <div>
+                <button onclick="continueShopping()" style="background: #6c757d; color: #fff; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </button>
+            </div>
+            <div id="checkoutSummary" style="background: linear-gradient(135deg, #0f4c81, #1e6fa8); color: #fff; padding: 25px; border-radius: 15px; text-align: center;">
+                <h3>Total: ₹<span id="totalAmount">0</span></h3>
+                <button onclick="checkout()" style="background: #27ae60; color: #fff; border: none; padding: 15px 40px; border-radius: 12px; font-size: 18px; font-weight: 600; cursor: pointer; margin-top: 15px;">
+                    <i class="fas fa-credit-card"></i> Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("wanderlustCart")) || [];
+        
+        function renderCart() {
+            const container = document.getElementById("cartItems");
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px; color: #666;">
+                        <i class="fas fa-shopping-cart" style="font-size: 6rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h2>Your cart is empty</h2>
+                        <p>Add some amazing products to get started!</p>
+                    </div>
+                `;
+                document.getElementById("checkoutSummary").style.display = "none";
+                return;
+            }
+
+            container.innerHTML = cart.map((item, index) => `
+                <div style="display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid #eee; align-items: center;">
+                    <img src="${item.img}" alt="${item.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px;">
+                    <div style="flex: 1;">
+                        <h3 style="margin-bottom: 5px; color: #0f4c81;">${item.name}</h3>
+                        <span style="background: #0f4c81; color: #fff; padding: 4px 10px; border-radius: 15px; font-size: 12px;">${item.country}</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-weight: 700; color: #27ae60; font-size: 20px;">₹${item.price.toLocaleString()}</div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                            <button onclick="updateQuantity(${index}, -1)" style="width: 35px; height: 35px; border: 1px solid #ddd; background: #f8f9fa; border-radius: 8px; cursor: pointer;">-</button>
+                            <span style="font-weight: 600; min-width: 30px;">${item.quantity || 1}</span>
+                            <button onclick="updateQuantity(${index}, 1)" style="width: 35px; height: 35px; border: 1px solid #ddd; background: #f8f9fa; border-radius: 8px; cursor: pointer;">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeItem(${index})" style="background: #dc3545; color: #fff; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            updateTotal();
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + change);
+            localStorage.setItem("wanderlustCart", JSON.stringify(cart));
+            renderCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem("wanderlustCart", JSON.stringify(cart));
+            renderCart();
+        }
+
+        function updateTotal() {
+            const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+            document.getElementById("totalAmount").textContent = total.toLocaleString();
+        }
+
+        function continueShopping() {
+            window.location.href = "index.html";
+        }
+
+        function checkout() {
+    window.location.href = "payment.html";
+}
+
+
+        // INIT
+        renderCart();
+    </script>
+</body>
+</html>
