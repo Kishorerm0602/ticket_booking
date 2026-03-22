@@ -1,328 +1,915 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations – Wanderlust Royale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --royal-navy: #1a2633;
+            --gold-accent: #d4af37;
+            --gold-light: #f0d47a;
+            --marble-white: #f8f5f2;
+            --warm-cream: #f4f1e9;
+            --glass-border: rgba(212,175,55,0.3);
+            --navy-shadow: rgba(26,38,51,0.35);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Poppins',sans-serif; line-height:1.7; color:#333; overflow-x:hidden; background:var(--marble-white); }
 
-<title>Destinations - Wanderlust Royale</title>
+        /* ── NAVBAR ── */
+        nav { position:fixed; top:0; width:100%; background:rgba(26,38,51,0.95); padding:18px 0; z-index:1000; backdrop-filter:blur(20px); transition:all 0.4s ease; border-bottom:1px solid var(--glass-border); }
+        nav.scrolled { background:rgba(26,38,51,0.99); box-shadow:0 5px 30px var(--navy-shadow); padding:13px 0; }
+        .nav-container { max-width:1300px; margin:0 auto; padding:0 30px; display:flex; justify-content:space-between; align-items:center; }
+        .logo { font-family:'Playfair Display',serif; font-size:1.9rem; background:linear-gradient(45deg,var(--gold-accent),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700; letter-spacing:1px; text-decoration:none; }
+        nav ul { list-style:none; display:flex; align-items:center; }
+        nav li { margin:0 12px; }
+        nav a { color:var(--marble-white); text-decoration:none; font-weight:500; font-size:0.93rem; position:relative; transition:all 0.3s ease; letter-spacing:0.5px; padding:8px 0; }
+        nav a::after { content:''; position:absolute; bottom:0; left:50%; width:0; height:2px; background:var(--gold-accent); transition:all 0.3s ease; transform:translateX(-50%); }
+        nav a:hover::after, nav a.active::after { width:100%; }
+        nav a:hover, nav a.active { color:var(--gold-accent); }
+        .nav-cta { background:linear-gradient(135deg,var(--gold-accent),var(--gold-light)); color:var(--royal-navy)!important; padding:9px 22px!important; border-radius:25px; font-weight:700!important; font-size:0.85rem!important; }
+        .nav-cta::after { display:none!important; }
+        .nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(212,175,55,0.4); }
+        .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+        .hamburger span { width:25px; height:3px; background:var(--gold-accent); transition:0.3s; }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        /* ── PAGE HERO ── */
+        .page-hero {
+            height:62vh; min-height:440px; position:relative;
+            background:linear-gradient(rgba(10,20,32,0.76),rgba(26,38,51,0.58)),
+                url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display:flex; flex-direction:column; justify-content:center;
+            align-items:center; text-align:center; color:white; padding:0 2rem;
+            margin-top:0; overflow:hidden;
+        }
+        .page-hero::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,rgba(212,175,55,0.1),transparent 60%); animation:heroShimmer 8s ease-in-out infinite; }
+        @keyframes heroShimmer { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+        .page-hero .badge { border:1px solid var(--gold-accent); color:var(--gold-accent); padding:6px 22px; border-radius:50px; font-size:0.72rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px; animation:fadeUp 0.9s ease both; position:relative; z-index:2; }
+        .page-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(3rem,7vw,5.5rem); letter-spacing:2px; text-shadow:2px 2px 20px rgba(0,0,0,0.7); animation:fadeUp 0.9s ease 0.2s both; position:relative; z-index:2; font-weight:900; }
+        .page-hero h1 span { color:var(--gold-accent); }
+        .page-hero p { margin-top:14px; font-size:1.05rem; opacity:0.88; font-weight:300; animation:fadeUp 0.9s ease 0.4s both; position:relative; z-index:2; }
+        .breadcrumb { position:absolute; bottom:26px; left:50%; transform:translateX(-50%); display:flex; gap:8px; align-items:center; font-size:0.78rem; color:rgba(255,255,255,0.55); z-index:2; }
+        .breadcrumb a { color:var(--gold-accent); text-decoration:none; }
+        .breadcrumb i { font-size:0.58rem; }
 
-<style>
+        @keyframes fadeUp { from{opacity:0;transform:translateY(28px);} to{opacity:1;transform:translateY(0);} }
 
-:root{
---royal-navy:#1a2633;
---gold-accent:#d4af37;
---marble-white:#f8f5f2;
---warm-cream:#f4f1e9;
-}
+        /* ── FILTER BAR ── */
+        .filter-wrap { background:white; padding:22px 30px; box-shadow:0 4px 20px rgba(0,0,0,0.07); position:sticky; top:67px; z-index:900; border-bottom:1px solid rgba(212,175,55,0.12); }
+        .filter-inner { max-width:1300px; margin:auto; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+        .filter-left { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+        .filter-label { font-size:0.72rem; font-weight:700; color:var(--royal-navy); text-transform:uppercase; letter-spacing:1px; margin-right:4px; white-space:nowrap; }
+        .filter-btn { padding:8px 18px; border-radius:22px; border:2px solid #e0dbd0; background:transparent; font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600; cursor:pointer; transition:all 0.3s ease; color:#666; white-space:nowrap; }
+        .filter-btn:hover, .filter-btn.active { background:var(--royal-navy); color:white; border-color:var(--royal-navy); box-shadow:0 4px 14px rgba(26,38,51,0.22); }
+        .filter-right { display:flex; gap:10px; align-items:center; }
+        .sort-select { padding:9px 16px; border:2px solid #e0dbd0; border-radius:22px; font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600; color:var(--royal-navy); background:white; cursor:pointer; outline:none; transition:border-color 0.3s ease; }
+        .sort-select:focus { border-color:var(--gold-accent); }
+        .view-btns { display:flex; gap:6px; }
+        .view-btn { width:36px; height:36px; border:2px solid #e0dbd0; border-radius:10px; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.88rem; color:#999; transition:all 0.3s ease; }
+        .view-btn.active, .view-btn:hover { background:var(--royal-navy); color:var(--gold-accent); border-color:var(--royal-navy); }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        /* ── MAIN ── */
+        .main-wrap { max-width:1300px; margin:0 auto; padding:55px 30px 90px; }
 
-body{
-font-family:'Poppins',sans-serif;
-line-height:1.7;
-color:#333;
-}
+        /* Results bar */
+        .results-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; }
+        .results-bar p { font-size:0.88rem; color:#888; }
+        .results-bar span { color:var(--royal-navy); font-weight:700; }
 
-/* NAVBAR */
+        /* ── FEATURED HERO CARD ── */
+        .featured-hero {
+            position:relative; border-radius:26px; overflow:hidden; height:480px;
+            margin-bottom:50px; cursor:pointer;
+            box-shadow:0 30px 80px var(--navy-shadow);
+        }
+        .featured-hero img { width:100%; height:100%; object-fit:cover; transition:transform 0.7s ease; }
+        .featured-hero:hover img { transform:scale(1.04); }
+        .featured-hero .fh-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(10,20,30,0.9) 40%,rgba(10,20,30,0.2) 100%); }
+        .featured-hero::before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--gold-accent),var(--gold-light),var(--gold-accent)); background-size:200% 100%; animation:goldShift 4s ease infinite; z-index:2; }
+        @keyframes goldShift { 0%,100%{background-position:0%50%;} 50%{background-position:100%50%;} }
+        .fh-content { position:absolute; top:50%; left:56px; transform:translateY(-50%); color:white; max-width:500px; z-index:2; }
+        .fh-content .region { font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold-accent); font-weight:600; margin-bottom:10px; }
+        .fh-content h2 { font-family:'Playfair Display',serif; font-size:3.2rem; line-height:1.1; margin-bottom:14px; }
+        .fh-content p { font-size:0.9rem; opacity:0.8; line-height:1.8; margin-bottom:24px; font-weight:300; }
+        .fh-badges { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+        .fh-badge { background:rgba(255,255,255,0.12); backdrop-filter:blur(8px); padding:6px 14px; border-radius:20px; font-size:0.73rem; color:white; border:1px solid rgba(255,255,255,0.18); }
+        .fh-badge i { color:var(--gold-accent); margin-right:5px; }
+        .fh-tag { position:absolute; top:26px; right:26px; z-index:3; background:var(--gold-accent); color:var(--royal-navy); padding:8px 22px; border-radius:25px; font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+        .btn-gold { display:inline-block; background:linear-gradient(135deg,var(--gold-accent),var(--gold-light)); color:var(--royal-navy); padding:14px 34px; border-radius:35px; font-weight:700; font-family:'Playfair Display',serif; font-size:0.98rem; text-decoration:none; transition:all 0.35s ease; box-shadow:0 8px 25px rgba(212,175,55,0.4); }
+        .btn-gold:hover { transform:translateY(-4px); box-shadow:0 16px 38px rgba(212,175,55,0.55); background:white; }
 
-nav{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(26,38,51,0.95);
-padding:20px 0;
-z-index:1000;
-}
+        /* ── DESTINATION GRID ── */
+        .dest-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; transition:all 0.3s ease; }
+        .dest-grid.list-view { grid-template-columns:1fr; }
+        .dest-grid.list-view .dest-card { flex-direction:row; height:200px; }
+        .dest-grid.list-view .dest-card .dest-img { width:300px; height:100%; flex-shrink:0; border-radius:0; }
+        .dest-grid.list-view .dest-card .dest-body { display:flex; align-items:center; gap:24px; padding:24px 28px; }
+        .dest-grid.list-view .dest-card .dest-footer { border-top:none; padding:0; flex-direction:row; align-items:center; margin-left:auto; flex-shrink:0; gap:16px; }
 
-nav ul{
-list-style:none;
-display:flex;
-justify-content:center;
-}
+        /* ── DEST CARD ── */
+        .dest-card { background:white; border-radius:22px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.09); transition:all 0.42s ease; cursor:pointer; position:relative; display:flex; flex-direction:column; }
+        .dest-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--gold-accent),var(--gold-light),var(--gold-accent)); background-size:200% 100%; animation:goldShift 4s ease infinite; z-index:2; }
+        .dest-card:hover { transform:translateY(-10px); box-shadow:0 28px 75px rgba(0,0,0,0.16); }
+        .dest-card.hidden { display:none!important; }
 
-nav li{
-margin:0 25px;
-}
+        .dest-img { height:230px; overflow:hidden; position:relative; flex-shrink:0; }
+        .dest-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.55s ease; }
+        .dest-card:hover .dest-img img { transform:scale(1.08); }
+        .dest-img-overlay { position:absolute; inset:0; background:linear-gradient(180deg,transparent 50%,rgba(10,20,30,0.75) 100%); }
+        .dest-region { position:absolute; bottom:14px; left:16px; font-size:0.68rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold-accent); font-weight:600; z-index:2; }
+        .dest-season-badge { position:absolute; top:14px; right:14px; background:rgba(26,38,51,0.82); color:white; padding:4px 12px; border-radius:15px; font-size:0.68rem; font-weight:600; backdrop-filter:blur(5px); z-index:2; }
+        .dest-tag { position:absolute; top:14px; left:14px; padding:4px 12px; border-radius:15px; font-size:0.68rem; font-weight:700; text-transform:uppercase; z-index:2; }
+        .dest-tag.hot { background:linear-gradient(135deg,#ff6b35,#ff4500); color:white; }
+        .dest-tag.new { background:var(--royal-navy); color:var(--gold-accent); }
+        .dest-tag.top { background:var(--gold-accent); color:var(--royal-navy); }
 
-nav a{
-color:white;
-text-decoration:none;
-font-weight:500;
-}
+        .dest-body { padding:22px 24px 16px; flex:1; }
+        .dest-body h3 { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--royal-navy); margin-bottom:8px; }
+        .dest-body p { color:#777; font-size:0.83rem; line-height:1.75; margin-bottom:14px; }
+        .dest-meta { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:14px; }
+        .dest-meta span { font-size:0.74rem; color:#999; }
+        .dest-meta span i { color:var(--gold-accent); margin-right:4px; }
+        .dest-rating { display:flex; align-items:center; gap:6px; }
+        .dest-rating .stars { color:var(--gold-accent); font-size:0.78rem; }
+        .dest-rating .count { font-size:0.72rem; color:#bbb; }
 
-nav a:hover{
-color:var(--gold-accent);
-}
+        .dest-footer { display:flex; justify-content:space-between; align-items:center; padding:14px 24px 20px; border-top:1px solid #f0ebe2; }
+        .dest-price .from { font-size:0.65rem; color:#bbb; text-transform:uppercase; letter-spacing:1px; display:block; }
+        .dest-price .amount { font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--royal-navy); font-weight:700; line-height:1.1; }
+        .dest-price .per { font-size:0.7rem; color:#aaa; }
+        .dest-link { background:var(--royal-navy); color:white; padding:10px 22px; border-radius:22px; text-decoration:none; font-size:0.8rem; font-weight:600; transition:all 0.3s ease; white-space:nowrap; }
+        .dest-link:hover { background:var(--gold-accent); color:var(--royal-navy); transform:translateY(-2px); box-shadow:0 6px 18px rgba(212,175,55,0.3); }
 
-/* HERO */
+        /* ── REGION DIVIDER ── */
+        .region-divider { display:flex; align-items:center; gap:16px; margin:50px 0 28px; }
+        .region-divider h3 { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--royal-navy); white-space:nowrap; }
+        .region-divider .line { flex:1; height:1px; background:rgba(212,175,55,0.25); }
+        .region-divider .dot { width:8px; height:8px; border-radius:50%; background:var(--gold-accent); flex-shrink:0; }
 
-.hero{
-height:100vh;
+        /* ── COMPARE BAR ── */
+        .compare-bar {
+            position:fixed; bottom:0; left:0; right:0; background:var(--royal-navy);
+            border-top:3px solid var(--gold-accent); padding:16px 30px; z-index:800;
+            display:none; align-items:center; gap:20px; flex-wrap:wrap;
+            box-shadow:0 -10px 40px var(--navy-shadow);
+        }
+        .compare-bar.show { display:flex; }
+        .compare-bar h4 { color:var(--gold-accent); font-family:'Playfair Display',serif; font-size:1rem; white-space:nowrap; }
+        .compare-slots { display:flex; gap:12px; flex:1; flex-wrap:wrap; }
+        .compare-slot { background:rgba(255,255,255,0.08); border:1px solid rgba(212,175,55,0.3); border-radius:10px; padding:8px 16px; color:white; font-size:0.82rem; display:flex; align-items:center; gap:8px; }
+        .compare-slot .remove-btn { cursor:pointer; color:rgba(255,255,255,0.5); transition:color 0.2s; font-size:0.8rem; }
+        .compare-slot .remove-btn:hover { color:var(--gold-accent); }
+        .compare-slot.empty { opacity:0.4; border-style:dashed; }
+        .compare-actions { display:flex; gap:12px; }
+        .compare-go { background:var(--gold-accent); color:var(--royal-navy); border:none; padding:10px 24px; border-radius:22px; font-family:'Poppins',sans-serif; font-size:0.85rem; font-weight:700; cursor:pointer; transition:all 0.3s ease; }
+        .compare-go:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(212,175,55,0.4); }
+        .compare-clear { background:transparent; color:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.2); padding:10px 18px; border-radius:22px; font-family:'Poppins',sans-serif; font-size:0.82rem; cursor:pointer; transition:all 0.3s ease; }
+        .compare-clear:hover { border-color:var(--gold-accent); color:var(--gold-accent); }
 
-background:linear-gradient(rgba(26,38,51,0.7),rgba(0,0,0,0.4)),
-url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80")
-center/cover;
+        /* ── COMPARE MODAL ── */
+        .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(10,18,28,0.9); backdrop-filter:blur(12px); z-index:2000; align-items:center; justify-content:center; padding:20px; overflow-y:auto; }
+        .modal-backdrop.open { display:flex; }
+        .modal { background:var(--marble-white); border-radius:26px; padding:40px; max-width:1100px; width:100%; border:1px solid var(--glass-border); box-shadow:0 40px 100px var(--navy-shadow); animation:modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes modalIn { from{transform:scale(0.9);opacity:0;} to{transform:scale(1);opacity:1;} }
+        .modal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; }
+        .modal-head h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--royal-navy); }
+        .modal-close { width:38px; height:38px; border-radius:50%; background:var(--gold-accent); color:var(--royal-navy); border:none; font-size:1rem; cursor:pointer; font-weight:700; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
+        .modal-close:hover { transform:rotate(90deg); }
+        .compare-table { display:grid; gap:0; border-radius:18px; overflow:hidden; border:1px solid #e0dbd0; }
+        .compare-row { display:grid; grid-template-columns:160px repeat(3,1fr); }
+        .compare-row:nth-child(even) { background:rgba(244,241,233,0.5); }
+        .compare-cell { padding:16px 20px; font-size:0.86rem; color:#555; border-right:1px solid #e8e2d8; display:flex; align-items:center; }
+        .compare-cell:last-child { border-right:none; }
+        .compare-cell.header { background:var(--royal-navy); color:white; font-weight:700; font-family:'Playfair Display',serif; font-size:1.05rem; flex-direction:column; text-align:center; gap:4px; border-right:1px solid rgba(255,255,255,0.1); justify-content:center; }
+        .compare-cell.label { font-weight:700; color:var(--royal-navy); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.5px; background:rgba(26,38,51,0.04); }
+        .compare-cell.price-cell { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--royal-navy); font-weight:700; }
+        .compare-cell .check { color:#138808; } .compare-cell .cross { color:#e05555; }
 
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-color:white;
-}
+        /* ── WISHLIST TOAST ── */
+        .toast { position:fixed; bottom:90px; right:30px; background:var(--royal-navy); color:white; padding:14px 22px; border-radius:14px; font-size:0.84rem; font-weight:600; z-index:1500; transform:translateY(20px); opacity:0; transition:all 0.35s ease; border:1px solid var(--glass-border); display:flex; align-items:center; gap:10px; }
+        .toast.show { transform:translateY(0); opacity:1; }
+        .toast i { color:var(--gold-accent); }
 
-.hero h1{
-font-family:'Playfair Display',serif;
-font-size:60px;
-margin-bottom:15px;
-}
+        /* ── FOOTER ── */
+        footer { background:var(--royal-navy); color:var(--marble-white); padding:60px 30px 28px; }
+        .footer-top { max-width:1300px; margin:auto; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:50px; margin-bottom:40px; }
+        .footer-logo { font-family:'Playfair Display',serif; font-size:1.8rem; background:linear-gradient(45deg,var(--gold-accent),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:block; margin-bottom:5px; font-weight:700; }
+        .footer-tagline { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; color:rgba(212,175,55,0.65); margin-bottom:14px; display:block; }
+        .footer-brand p { font-size:0.84rem; opacity:0.6; line-height:1.85; }
+        .footer-col h4 { font-family:'Playfair Display',serif; color:var(--gold-accent); margin-bottom:18px; font-size:1.08rem; }
+        .footer-col ul { list-style:none; }
+        .footer-col li { margin-bottom:10px; }
+        .footer-col a { color:rgba(255,255,255,0.62); text-decoration:none; font-size:0.85rem; transition:all 0.3s ease; }
+        .footer-col a:hover { color:var(--gold-accent); padding-left:5px; }
+        .footer-col p { font-size:0.85rem; color:rgba(255,255,255,0.62); line-height:1.85; }
+        .footer-bottom { max-width:1300px; margin:auto; border-top:1px solid rgba(255,255,255,0.08); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+        .footer-bottom p { font-size:0.8rem; opacity:0.5; }
+        .gold-line { height:4px; background:linear-gradient(90deg,transparent,var(--gold-accent),transparent); margin-bottom:40px; border-radius:2px; max-width:1300px; margin-left:auto; margin-right:auto; }
 
-.hero p{
-font-size:20px;
-opacity:0.9;
-}
+        /* ── REVEAL ── */
+        .reveal { opacity:0; transform:translateY(35px); transition:all 0.65s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-d1 { transition-delay:0.1s; } .reveal-d2 { transition-delay:0.2s; } .reveal-d3 { transition-delay:0.3s; }
 
-/* DESTINATIONS */
-
-.destinations-grid{
-padding:120px 20px;
-background:var(--warm-cream);
-}
-
-.container{
-max-width:1400px;
-margin:auto;
-}
-
-.section-title{
-font-family:'Playfair Display',serif;
-font-size:40px;
-text-align:center;
-margin-bottom:60px;
-}
-
-.dest-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-gap:40px;
-}
-
-.dest-card{
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 20px 60px rgba(0,0,0,0.1);
-transition:0.4s;
-}
-
-.dest-card:hover{
-transform:translateY(-10px);
-}
-
-.dest-img{
-height:260px;
-background-size:cover;
-background-position:center;
-}
-
-.dest-info{
-padding:30px;
-text-align:center;
-}
-
-.dest-info h3{
-font-family:'Playfair Display',serif;
-font-size:26px;
-margin-bottom:10px;
-}
-
-.dest-price{
-font-size:20px;
-color:var(--gold-accent);
-font-weight:600;
-margin-bottom:20px;
-}
-
-.dest-btn{
-display:inline-block;
-padding:12px 30px;
-background:var(--royal-navy);
-color:white;
-text-decoration:none;
-border-radius:30px;
-font-weight:600;
-}
-
-.dest-btn:hover{
-background:var(--gold-accent);
-color:black;
-}
-
-</style>
+        /* ── RESPONSIVE ── */
+        @media (max-width:1100px) { .dest-grid { grid-template-columns:repeat(2,1fr); } .footer-top { grid-template-columns:1fr 1fr; } }
+        @media (max-width:768px) {
+            .hamburger { display:flex; }
+            nav ul { position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(26,38,51,0.98); flex-direction:column; justify-content:center; align-items:center; gap:2rem; transform:translateX(100%); transition:transform 0.4s ease; }
+            nav ul.active { transform:translateX(0); }
+            nav li { margin:0; } nav a { font-size:1.15rem; }
+            .dest-grid { grid-template-columns:1fr; }
+            .dest-grid.list-view .dest-card { flex-direction:column; height:auto; }
+            .dest-grid.list-view .dest-card .dest-img { width:100%; height:200px; }
+            .fh-content { left:24px; right:24px; max-width:100%; }
+            .fh-content h2 { font-size:2.2rem; }
+            .featured-hero { height:auto; }
+            .featured-hero img { height:380px; }
+            .featured-hero .fh-overlay { background:linear-gradient(180deg,transparent 30%,rgba(10,20,30,0.92) 100%); }
+            .fh-content { top:auto; bottom:30px; transform:none; }
+            .filter-inner { flex-direction:column; align-items:flex-start; }
+            .compare-bar { flex-direction:column; align-items:flex-start; }
+            .compare-table .compare-row { grid-template-columns:120px repeat(3,1fr); }
+            .footer-top { grid-template-columns:1fr; }
+            .footer-bottom { flex-direction:column; text-align:center; }
+        }
+    </style>
 </head>
-
 <body>
 
 <!-- NAVBAR -->
-
-<nav>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="destinations.html">Destinations</a></li>
-<li><a href="packages.html">Packages</a></li>
-<li><a href="trip info.html">Trip Info</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">Wanderlust Royale</a>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html" class="active">Destinations</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="trip info.html">Trip Info</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="boarding-pass.html" class="nav-cta"><i class="fas fa-ticket-alt"></i>&nbsp;Boarding Pass</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
 </nav>
 
-<!-- HERO -->
-
-<section class="hero">
-<h1>12 World-Class Destinations</h1>
-<p>Explore luxury travel curated for elite travellers</p>
+<!-- PAGE HERO -->
+<section class="page-hero" style="padding-top:67px;">
+    <div class="badge"><i class="fas fa-globe" style="margin-right:8px"></i> 12 World-Class Destinations</div>
+    <h1>Luxury <span>Destinations</span></h1>
+    <p>Handpicked international experiences crafted for the elite traveller</p>
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Destinations</span>
+    </div>
 </section>
 
-<!-- DESTINATIONS -->
-
-<section class="destinations-grid">
-
-<div class="container">
-
-<h2 class="section-title">Our Destinations</h2>
-
-<div class="dest-grid">
-
-<!-- PARIS -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34')"></div>
-<div class="dest-info">
-<h3>Paris, France</h3>
-<div class="dest-price">From ₹1,25,000</div>
-<a href="booking.html?place=Paris&price=125000" class="dest-btn">Book Experience</a>
-</div>
-</div>
-
-<!-- BANGKOK -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/c2/79/7f/caption.jpg?w=2400&h=1000&s=1')"></div>
-<div class="dest-info">
-<h3>Bangkok, Thailand</h3>
-<div class="dest-price">From ₹85,000</div>
-<a href="booking.html?place=Bangkok&price=85000" class="dest-btn">Book Experience</a>
-</div>
+<!-- FILTER BAR -->
+<div class="filter-wrap">
+    <div class="filter-inner">
+        <div class="filter-left">
+            <span class="filter-label"><i class="fas fa-filter"></i>&nbsp;Filter:</span>
+            <button class="filter-btn active" data-filter="all">All Destinations</button>
+            <button class="filter-btn" data-filter="europe">Europe</button>
+            <button class="filter-btn" data-filter="asia">Asia</button>
+            <button class="filter-btn" data-filter="oceania">Oceania</button>
+            <button class="filter-btn" data-filter="africa">Africa</button>
+            <button class="filter-btn" data-filter="americas">Americas</button>
+        </div>
+        <div class="filter-right">
+            <select class="sort-select" id="sortSelect">
+                <option value="default">Featured</option>
+                <option value="low">Price: Low → High</option>
+                <option value="high">Price: High → Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="name">A → Z</option>
+            </select>
+            <div class="view-btns">
+                <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid view"><i class="fas fa-th"></i></button>
+                <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="List view"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- SYDNEY -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1544551763-46a013bb70d5')"></div>
-<div class="dest-info">
-<h3>Sydney, Australia</h3>
-<div class="dest-price">From ₹2,10,000</div>
-<a href="booking.html?place=Sydney&price=210000" class="dest-btn">Book Experience</a>
-</div>
+<!-- MAIN -->
+<div class="main-wrap">
+
+    <div class="results-bar reveal">
+        <p>Showing <span id="resultCount">12</span> destinations</p>
+        <p style="font-size:0.8rem;color:#bbb;">Click <i class="fas fa-heart" style="color:var(--gold-accent)"></i> to wishlist · Click <i class="fas fa-balance-scale" style="color:var(--gold-accent)"></i> to compare (max 3)</p>
+    </div>
+
+    <!-- FEATURED HERO CARD -->
+    <div class="featured-hero reveal" id="featuredCard">
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80" alt="Paris" id="featuredImg">
+        <div class="fh-overlay"></div>
+        <span class="fh-tag">⭐ Editor's Pick</span>
+        <div class="fh-content">
+            <p class="region"><i class="fas fa-map-pin"></i>&nbsp; Europe · France</p>
+            <h2>Paris,<br>The City of Light</h2>
+            <p>Michelin-starred dining, private Seine river cruises, and Eiffel Tower at golden hour. Paris is not just a destination — it is a love affair that never ends.</p>
+            <div class="fh-badges">
+                <span class="fh-badge"><i class="fas fa-clock"></i> 7–10 Days</span>
+                <span class="fh-badge"><i class="fas fa-plane"></i> Direct flights from Chennai</span>
+                <span class="fh-badge"><i class="fas fa-rupee-sign"></i> From ₹1,25,000</span>
+            </div>
+            <a href="booking.html?place=Paris&price=125000" class="btn-gold"><i class="fas fa-crown"></i>&nbsp; Book This Experience</a>
+        </div>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="region-divider reveal"><div class="dot"></div><h3>Europe</h3><div class="line"></div></div>
+    <div class="dest-grid" id="destGrid">
+
+        <div class="dest-card reveal reveal-d1" data-region="europe" data-price="125000" data-rating="4.9" data-name="Paris">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80" alt="Paris">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Europe · France</span>
+                <span class="dest-season-badge"><i class="fas fa-sun"></i> Apr–Oct</span>
+                <span class="dest-tag top">⭐ Editor's Pick</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Paris, France</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Paris')" title="Add to wishlist" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Paris','₹1,25,000','4.9','Europe','7-10 Days','Apr-Oct')" title="Compare" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>The City of Light dazzles with the Eiffel Tower, Louvre, Versailles, and Michelin-starred restaurants along cobblestone boulevards.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 7–10 Days</span>
+                    <span><i class="fas fa-plane"></i> ~9h flight</span>
+                    <span><i class="fas fa-passport"></i> Schengen Visa</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(312 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹1,25,000</span></div>
+                <a href="booking.html?place=Paris&price=125000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d2" data-region="europe" data-price="180000" data-rating="4.8" data-name="London">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80" alt="London">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Europe · UK</span>
+                <span class="dest-season-badge"><i class="fas fa-cloud"></i> Year-round</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>London, UK</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'London')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'London','₹1,80,000','4.8','Europe','6-8 Days','Year-round')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Buckingham Palace, West End theatre, Michelin-starred cuisine in Mayfair, and the world's most prestigious museums — all within a single royal city.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 6–8 Days</span>
+                    <span><i class="fas fa-plane"></i> ~10h flight</span>
+                    <span><i class="fas fa-passport"></i> UK Visa</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(278 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹1,80,000</span></div>
+                <a href="booking.html?place=London&price=180000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d3" data-region="europe" data-price="280000" data-rating="4.9" data-name="Switzerland">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1586348943529-beaae6c28db9?auto=format&fit=crop&w=800&q=80" alt="Switzerland">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Europe · Switzerland</span>
+                <span class="dest-season-badge"><i class="fas fa-snowflake"></i> Dec–Mar</span>
+                <span class="dest-tag hot">🔥 Hot</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Switzerland</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Switzerland')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Switzerland','₹2,80,000','4.9','Europe','8-10 Days','Dec-Mar')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Snow-capped Alps, chocolate-box villages, pristine lakes, and private ski chalet experiences in Zermatt and Verbier — Europe at its most breathtaking.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 8–10 Days</span>
+                    <span><i class="fas fa-plane"></i> ~10h flight</span>
+                    <span><i class="fas fa-passport"></i> Schengen Visa</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(195 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹2,80,000</span></div>
+                <a href="booking.html?place=Switzerland&price=280000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d1" data-region="europe" data-price="165000" data-rating="4.7" data-name="Rome">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80" alt="Rome">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Europe · Italy</span>
+                <span class="dest-season-badge"><i class="fas fa-sun"></i> Mar–Jun</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Rome, Italy</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Rome')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Rome','₹1,65,000','4.7','Europe','5-7 Days','Mar-Jun')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>The Colosseum, Vatican, and Trevi Fountain by day; private rooftop dinners overlooking the Forum by night. The Eternal City never disappoints.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 5–7 Days</span>
+                    <span><i class="fas fa-plane"></i> ~10h flight</span>
+                    <span><i class="fas fa-passport"></i> Schengen Visa</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★☆</span><span class="count">(241 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹1,65,000</span></div>
+                <a href="booking.html?place=Rome&price=165000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <!-- ASIA -->
+        <div class="region-divider reveal" style="grid-column:1/-1;"><div class="dot"></div><h3>Asia &amp; Middle East</h3><div class="line"></div></div>
+
+        <div class="dest-card reveal reveal-d1" data-region="asia" data-price="85000" data-rating="4.7" data-name="Bangkok">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=800&q=80" alt="Bangkok">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Asia · Thailand</span>
+                <span class="dest-season-badge"><i class="fas fa-sun"></i> Nov–Mar</span>
+                <span class="dest-tag new">✦ Value Pick</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Bangkok, Thailand</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Bangkok')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Bangkok','₹85,000','4.7','Asia','5-7 Days','Nov-Mar')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Gleaming golden temples, rooftop infinity pools, Michelin-starred street food, and the legendary Thai wellness retreats — Asia's ultimate luxury gateway.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 5–7 Days</span>
+                    <span><i class="fas fa-plane"></i> ~4h flight</span>
+                    <span><i class="fas fa-passport"></i> Visa on Arrival</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★☆</span><span class="count">(387 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹85,000</span></div>
+                <a href="booking.html?place=Bangkok&price=85000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d2" data-region="asia" data-price="175000" data-rating="4.8" data-name="Dubai">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" alt="Dubai">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Middle East · UAE</span>
+                <span class="dest-season-badge"><i class="fas fa-snowflake"></i> Oct–Apr</span>
+                <span class="dest-tag hot">🔥 Hot</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Dubai, UAE</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Dubai')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Dubai','₹1,75,000','4.8','Asia','4-6 Days','Oct-Apr')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>The world's tallest building, indoor ski slopes, seven-star hotels, and a desert safari under the stars. Dubai redefines the word "luxury" at every turn.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 4–6 Days</span>
+                    <span><i class="fas fa-plane"></i> ~3.5h flight</span>
+                    <span><i class="fas fa-passport"></i> Visa on Arrival</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(452 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹1,75,000</span></div>
+                <a href="booking.html?place=Dubai&price=175000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d3" data-region="asia" data-price="225000" data-rating="4.9" data-name="Tokyo">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80" alt="Tokyo">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Asia · Japan</span>
+                <span class="dest-season-badge"><i class="fas fa-leaf"></i> Mar–May</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Tokyo, Japan</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Tokyo')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Tokyo','₹2,25,000','4.9','Asia','7-10 Days','Mar-May')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Cherry blossoms in spring, omakase sushi at counter tables, ancient temples beside neon-lit skyscrapers. Tokyo is the most extraordinary city on Earth.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 7–10 Days</span>
+                    <span><i class="fas fa-plane"></i> ~8h flight</span>
+                    <span><i class="fas fa-passport"></i> e-Visa</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(329 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹2,25,000</span></div>
+                <a href="booking.html?place=Tokyo&price=225000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d1" data-region="asia" data-price="120000" data-rating="4.8" data-name="Bali">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80" alt="Bali">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Asia · Indonesia</span>
+                <span class="dest-season-badge"><i class="fas fa-sun"></i> Apr–Oct</span>
+                <span class="dest-tag hot">🔥 Trending</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Bali, Indonesia</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Bali')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Bali','₹1,20,000','4.8','Asia','6-8 Days','Apr-Oct')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Rice terraces at sunrise, infinity pools in Ubud, cliff-top temples at Tanah Lot, and the world's finest private villa resorts at Seminyak. Bali is magic.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 6–8 Days</span>
+                    <span><i class="fas fa-plane"></i> ~5h flight</span>
+                    <span><i class="fas fa-passport"></i> Visa on Arrival</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(411 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹1,20,000</span></div>
+                <a href="booking.html?place=Bali&price=120000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <!-- ISLANDS & OCEANIA -->
+        <div class="region-divider reveal" style="grid-column:1/-1;"><div class="dot"></div><h3>Islands &amp; Oceania</h3><div class="line"></div></div>
+
+        <div class="dest-card reveal reveal-d1" data-region="oceania" data-price="350000" data-rating="5.0" data-name="Maldives">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" alt="Maldives">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Indian Ocean · Maldives</span>
+                <span class="dest-season-badge"><i class="fas fa-water"></i> Nov–Apr</span>
+                <span class="dest-tag top">★ Most Luxury</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Maldives</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Maldives')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Maldives','₹3,50,000','5.0','Islands','5-7 Days','Nov-Apr')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Overwater villas with glass floors above crystal lagoons, private butler service, bioluminescent beaches at midnight, and seaplane arrivals at sunset.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 5–7 Days</span>
+                    <span><i class="fas fa-plane"></i> ~3h + seaplane</span>
+                    <span><i class="fas fa-passport"></i> Visa on Arrival</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(512 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹3,50,000</span></div>
+                <a href="booking.html?place=Maldives&price=350000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d2" data-region="oceania" data-price="210000" data-rating="4.8" data-name="Sydney">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80" alt="Sydney">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Oceania · Australia</span>
+                <span class="dest-season-badge"><i class="fas fa-sun"></i> Nov–Mar</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Sydney, Australia</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Sydney')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Sydney','₹2,10,000','4.8','Oceania','8-12 Days','Nov-Mar')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Harbour Bridge at dawn, Opera House tours, Bondi Beach's golden sand, Blue Mountains, and some of the world's finest wine country just a drive away.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 8–12 Days</span>
+                    <span><i class="fas fa-plane"></i> ~12h flight</span>
+                    <span><i class="fas fa-passport"></i> ETA (e-Visa)</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(268 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹2,10,000</span></div>
+                <a href="booking.html?place=Sydney&price=210000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <!-- AMERICAS & AFRICA -->
+        <div class="region-divider reveal" style="grid-column:1/-1;"><div class="dot"></div><h3>Americas &amp; Africa</h3><div class="line"></div></div>
+
+        <div class="dest-card reveal reveal-d1" data-region="americas" data-price="240000" data-rating="4.7" data-name="New York">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=800&q=80" alt="New York">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Americas · USA</span>
+                <span class="dest-season-badge"><i class="fas fa-leaf"></i> Sep–Nov</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>New York, USA</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'New York')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'New York','₹2,40,000','4.7','Americas','7-10 Days','Sep-Nov')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Fifth Avenue's luxury retail, Broadway's greatest shows, Central Park in autumn gold, and helicopter views over Manhattan at night. The city that never sleeps.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 7–10 Days</span>
+                    <span><i class="fas fa-plane"></i> ~17h flight</span>
+                    <span><i class="fas fa-passport"></i> US Visa</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★☆</span><span class="count">(304 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹2,40,000</span></div>
+                <a href="booking.html?place=NewYork&price=240000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="dest-card reveal reveal-d2" data-region="africa" data-price="195000" data-rating="4.8" data-name="Cape Town">
+            <div class="dest-img">
+                <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=800&q=80" alt="Cape Town">
+                <div class="dest-img-overlay"></div>
+                <span class="dest-region">Africa · South Africa</span>
+                <span class="dest-season-badge"><i class="fas fa-sun"></i> Nov–Feb</span>
+                <span class="dest-tag new">✦ New Route</span>
+            </div>
+            <div class="dest-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <h3>Cape Town, South Africa</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this,'Cape Town')" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-heart"></i></button>
+                        <button class="compare-add-btn" onclick="addToCompare(this,'Cape Town','₹1,95,000','4.8','Africa','8-10 Days','Nov-Feb')" style="background:none;border:none;cursor:pointer;font-size:0.95rem;color:#ddd;transition:all 0.25s;"><i class="fas fa-balance-scale"></i></button>
+                    </div>
+                </div>
+                <p>Table Mountain at sunrise, Winelands of Stellenbosch, great white shark dives, and the most spectacular coastal drives in the world. Africa's crown jewel.</p>
+                <div class="dest-meta">
+                    <span><i class="fas fa-clock"></i> 8–10 Days</span>
+                    <span><i class="fas fa-plane"></i> ~11h flight</span>
+                    <span><i class="fas fa-passport"></i> Visa Required</span>
+                </div>
+                <div class="dest-rating"><span class="stars">★★★★★</span><span class="count">(187 reviews)</span></div>
+            </div>
+            <div class="dest-footer">
+                <div class="dest-price"><span class="from">From</span><span class="amount">₹1,95,000</span></div>
+                <a href="booking.html?place=CapeTown&price=195000" class="dest-link">Book Now</a>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults" style="grid-column:1/-1;display:none;text-align:center;padding:70px 20px;">
+            <i class="fas fa-map-marked-alt" style="font-size:3rem;color:rgba(26,38,51,0.1);display:block;margin-bottom:14px;"></i>
+            <p style="color:#bbb;font-size:1rem;">No destinations found for this filter. Try a different region!</p>
+        </div>
+
+    </div><!-- /destGrid -->
+</div><!-- /main-wrap -->
+
+<!-- COMPARE BAR -->
+<div class="compare-bar" id="compareBar">
+    <h4><i class="fas fa-balance-scale"></i>&nbsp; Compare</h4>
+    <div class="compare-slots" id="compareSlots">
+        <div class="compare-slot empty" id="slot0"><i class="fas fa-plus"></i> Add destination</div>
+        <div class="compare-slot empty" id="slot1"><i class="fas fa-plus"></i> Add destination</div>
+        <div class="compare-slot empty" id="slot2"><i class="fas fa-plus"></i> Add destination</div>
+    </div>
+    <div class="compare-actions">
+        <button class="compare-go" onclick="openCompareModal()"><i class="fas fa-chart-bar"></i>&nbsp; Compare Now</button>
+        <button class="compare-clear" onclick="clearCompare()">Clear All</button>
+    </div>
 </div>
 
-<!-- DUBAI -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://tse1.mm.bing.net/th/id/OIP.XmsuLGeW3TXnDQ-HUPBMJQHaFS')"></div>
-<div class="dest-info">
-<h3>Dubai, UAE</h3>
-<div class="dest-price">From ₹1,75,000</div>
-<a href="booking.html?place=Dubai&price=175000" class="dest-btn">Book Experience</a>
-</div>
-</div>
-
-<!-- MALDIVES -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://tse2.mm.bing.net/th/id/OIP.HEEO7ogZJMRkQviBybhwiwHaEK')"></div>
-<div class="dest-info">
-<h3>Maldives</h3>
-<div class="dest-price">From ₹3,50,000</div>
-<a href="booking.html?place=Maldives&price=350000" class="dest-btn">Book Experience</a>
-</div>
+<!-- COMPARE MODAL -->
+<div class="modal-backdrop" id="compareModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h2><i class="fas fa-balance-scale" style="color:var(--gold-accent);margin-right:10px;font-size:1.4rem"></i> Destination Comparison</h2>
+            <button class="modal-close" onclick="closeCompareModal()">✕</button>
+        </div>
+        <div class="compare-table" id="compareTable"></div>
+    </div>
 </div>
 
-<!-- LONDON -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://tse1.mm.bing.net/th/id/OIP.JY7U1ed4tzv61daW2vTiKAHaFj')"></div>
-<div class="dest-info">
-<h3>London, UK</h3>
-<div class="dest-price">From ₹1,80,000</div>
-<a href="booking.html?place=London&price=180000" class="dest-btn">Book Experience</a>
-</div>
-</div>
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-heart"></i><span id="toastMsg">Added to wishlist!</span></div>
 
-<!-- TOKYO -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf')"></div>
-<div class="dest-info">
-<h3>Tokyo, Japan</h3>
-<div class="dest-price">From ₹2,25,000</div>
-<a href="booking.html?place=Tokyo&price=225000" class="dest-btn">Book Experience</a>
-</div>
-</div>
+<!-- FOOTER -->
+<footer>
+    <div style="max-width:1300px;margin:auto;"><div class="gold-line"></div></div>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <span class="footer-logo">Wanderlust Royale</span>
+            <span class="footer-tagline">Premium International Travel · Est. 2016</span>
+            <p>Crafting extraordinary international journeys from Chennai — luxury airline, cruise, and VIP experiences to every corner of the world.</p>
+        </div>
+        <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="destinations.html">Destinations</a></li><li><a href="packages.html">Packages</a></li><li><a href="trip info.html">Trip Info</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Top Destinations</h4><ul><li><a href="#">Paris, France</a></li><li><a href="#">Maldives</a></li><li><a href="#">Tokyo, Japan</a></li><li><a href="#">Dubai, UAE</a></li><li><a href="#">Switzerland</a></li></ul></div>
+        <div class="footer-col"><h4>Chennai HQ</h4><p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018<br>India 🇮🇳<br><br>+91 98400 00000<br>hello@wanderlustroyale.com</p></div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Wanderlust Royale. All Rights Reserved.</p>
+        <p>Made with ❤️ in Chennai, India 🇮🇳</p>
+    </div>
+</footer>
 
-<!-- SWITZERLAND -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e')"></div>
-<div class="dest-info">
-<h3>Switzerland</h3>
-<div class="dest-price">From ₹2,80,000</div>
-<a href="booking.html?place=Switzerland&price=280000" class="dest-btn">Book Experience</a>
-</div>
-</div>
+<script>
+    // Navbar
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    document.getElementById('hamburger').addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.toggle('active');
+    });
+    document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('active')));
 
-<!-- NEW YORK -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30')"></div>
-<div class="dest-info">
-<h3>New York, USA</h3>
-<div class="dest-price">From ₹2,40,000</div>
-<a href="booking.html?place=NewYork&price=240000" class="dest-btn">Book Experience</a>
-</div>
-</div>
+    // Reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-<!-- BALI -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1551632811-561732d1e306')"></div>
-<div class="dest-info">
-<h3>Bali, Indonesia</h3>
-<div class="dest-price">From ₹1,20,000</div>
-<a href="booking.html?place=Bali&price=120000" class="dest-btn">Book Experience</a>
-</div>
-</div>
+    // ── FILTER ──
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            let visible = 0;
+            document.querySelectorAll('.dest-card').forEach(card => {
+                const match = filter === 'all' || card.dataset.region === filter;
+                card.classList.toggle('hidden', !match);
+                if (match) visible++;
+            });
+            document.querySelectorAll('.region-divider').forEach(d => d.style.display = filter === 'all' ? '' : 'none');
+            document.getElementById('featuredCard').style.display = (filter === 'all' || filter === 'europe') ? '' : 'none';
+            document.getElementById('resultCount').textContent = visible;
+            document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+        });
+    });
 
-<!-- ROME -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://th.bing.com/th/id/OIP.xXUakXOCDQt2vRaoIpedWwHaFj')"></div>
-<div class="dest-info">
-<h3>Rome, Italy</h3>
-<div class="dest-price">From ₹1,65,000</div>
-<a href="booking.html?place=Rome&price=165000" class="dest-btn">Book Experience</a>
-</div>
-</div>
+    // ── SORT ──
+    document.getElementById('sortSelect').addEventListener('change', function() {
+        const cards = [...document.querySelectorAll('.dest-card:not(.hidden)')];
+        const grid = document.getElementById('destGrid');
+        cards.sort((a,b) => {
+            if (this.value === 'low')    return +a.dataset.price - +b.dataset.price;
+            if (this.value === 'high')   return +b.dataset.price - +a.dataset.price;
+            if (this.value === 'rating') return +b.dataset.rating - +a.dataset.rating;
+            if (this.value === 'name')   return a.dataset.name.localeCompare(b.dataset.name);
+            return 0;
+        });
+        const dividers = [...document.querySelectorAll('.region-divider')];
+        const noRes = document.getElementById('noResults');
+        cards.forEach(c => grid.appendChild(c));
+        dividers.forEach(d => grid.appendChild(d));
+        grid.appendChild(noRes);
+    });
 
-<!-- CAPE TOWN -->
-<div class="dest-card">
-<div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4')"></div>
-<div class="dest-info">
-<h3>Cape Town, South Africa</h3>
-<div class="dest-price">From ₹1,95,000</div>
-<a href="booking.html?place=CapeTown&price=195000" class="dest-btn">Book Experience</a>
-</div>
-</div>
+    // ── VIEW TOGGLE ──
+    function setView(v) {
+        const grid = document.getElementById('destGrid');
+        document.getElementById('gridViewBtn').classList.toggle('active', v === 'grid');
+        document.getElementById('listViewBtn').classList.toggle('active', v === 'list');
+        grid.classList.toggle('list-view', v === 'list');
+    }
 
-</div>
-</div>
+    // ── WISHLIST ──
+    let wishlist = JSON.parse(localStorage.getItem('royaleWishlist') || '[]');
+    function toggleWishlist(btn, name) {
+        const idx = wishlist.indexOf(name);
+        if (idx === -1) {
+            wishlist.push(name);
+            btn.style.color = '#e05555';
+            showToast('❤️ ' + name + ' added to wishlist!');
+        } else {
+            wishlist.splice(idx, 1);
+            btn.style.color = '#ddd';
+            showToast('💔 ' + name + ' removed from wishlist.');
+        }
+        localStorage.setItem('royaleWishlist', JSON.stringify(wishlist));
+    }
+    // Restore wishlist state
+    document.querySelectorAll('.dest-card').forEach(card => {
+        const name = card.dataset.name;
+        if (wishlist.includes(name)) {
+            const btn = card.querySelector('.wishlist-btn');
+            if (btn) btn.style.color = '#e05555';
+        }
+    });
 
-</section>
+    // ── TOAST ──
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        document.getElementById('toastMsg').textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
 
+    // ── COMPARE ──
+    let compareList = [];
+    function addToCompare(btn, name, price, rating, region, duration, season) {
+        const existing = compareList.findIndex(d => d.name === name);
+        if (existing > -1) {
+            compareList.splice(existing, 1);
+            btn.style.color = '#ddd';
+            showToast('Removed ' + name + ' from compare.');
+        } else {
+            if (compareList.length >= 3) { showToast('⚠️ Max 3 destinations to compare!'); return; }
+            compareList.push({ name, price, rating, region, duration, season });
+            btn.style.color = 'var(--gold-accent)';
+            showToast('⚖️ ' + name + ' added to compare!');
+        }
+        updateCompareBar();
+    }
+    function updateCompareBar() {
+        const bar = document.getElementById('compareBar');
+        bar.classList.toggle('show', compareList.length > 0);
+        [0,1,2].forEach(i => {
+            const slot = document.getElementById('slot' + i);
+            if (compareList[i]) {
+                slot.className = 'compare-slot';
+                slot.innerHTML = '<i class="fas fa-map-pin" style="color:var(--gold-accent)"></i> ' + compareList[i].name + ' <span class="remove-btn" onclick="removeCompare(' + i + ')"><i class="fas fa-times"></i></span>';
+            } else {
+                slot.className = 'compare-slot empty';
+                slot.innerHTML = '<i class="fas fa-plus"></i> Add destination';
+            }
+        });
+    }
+    function removeCompare(i) {
+        const removed = compareList.splice(i, 1)[0];
+        document.querySelectorAll('.dest-card').forEach(card => {
+            if (card.dataset.name === removed.name) {
+                const b = card.querySelector('.compare-add-btn');
+                if (b) b.style.color = '#ddd';
+            }
+        });
+        updateCompareBar();
+    }
+    function clearCompare() {
+        compareList = [];
+        document.querySelectorAll('.compare-add-btn').forEach(b => b.style.color = '#ddd');
+        updateCompareBar();
+    }
+    function openCompareModal() {
+        if (compareList.length < 2) { showToast('⚠️ Add at least 2 destinations to compare!'); return; }
+        const table = document.getElementById('compareTable');
+        const rows = [
+            ['', ...compareList.map(d => d.name)],
+            ['Starting Price', ...compareList.map(d => d.price)],
+            ['Region', ...compareList.map(d => d.region)],
+            ['Duration', ...compareList.map(d => d.duration)],
+            ['Best Season', ...compareList.map(d => d.season)],
+            ['Rating', ...compareList.map(d => '★ ' + d.rating)],
+        ];
+        table.innerHTML = rows.map((row, ri) => `
+            <div class="compare-row">
+                ${row.map((cell, ci) => `
+                    <div class="compare-cell ${ri === 0 ? 'header' : ci === 0 ? 'label' : ''} ${ri === 1 && ci > 0 ? 'price-cell' : ''}">
+                        ${ri === 0 && ci > 0 ? '<i class="fas fa-map-marker-alt" style="color:var(--gold-accent);margin-bottom:4px;"></i>' : ''}
+                        ${cell}
+                    </div>
+                `).join('')}
+            </div>
+        `).join('');
+        document.getElementById('compareModal').classList.add('open');
+    }
+    function closeCompareModal() { document.getElementById('compareModal').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCompareModal(); });
+    document.getElementById('compareModal').addEventListener('click', function(e) { if (e.target === this) closeCompareModal(); });
+</script>
 </body>
 </html>
