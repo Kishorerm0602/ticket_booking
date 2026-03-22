@@ -3,650 +3,638 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WanderLust Pro Store - Premium Global Products</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Global Shopping – Wanderlust Royale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== ENHANCED GLOBAL STYLES ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: linear-gradient(135deg, #f4f7fb 0%, #e8f0fe 100%); color: #333; }
+        :root {
+            --royal-navy: #1a2633;
+            --gold: #d4af37;
+            --gold-light: #f0d47a;
+            --cream: #f8f5f2;
+            --warm: #f4f1e9;
+            --glass-border: rgba(212,175,55,0.3);
+            --navy-shadow: rgba(26,38,51,0.35);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Poppins',sans-serif; background:var(--cream); color:#333; overflow-x:hidden; }
 
-        /* ===== HEADER ===== */
+        /* ── HEADER ── */
         header {
-            background: linear-gradient(135deg, #0f4c81, #1e6fa8, #0f4c81);
-            color: #fff;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(15, 76, 129, 0.3);
+            position:sticky; top:0; width:100%;
+            background:rgba(26,38,51,0.97);
+            backdrop-filter:blur(25px); -webkit-backdrop-filter:blur(25px);
+            padding:16px 40px; z-index:1000;
+            border-bottom:1px solid var(--glass-border);
+            box-shadow:0 6px 28px var(--navy-shadow);
+            transition:all 0.4s ease;
         }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .nav-container { max-width:1400px; margin:auto; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+        .logo { font-family:'Playfair Display',serif; font-size:1.8rem; background:linear-gradient(45deg,var(--gold),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700; letter-spacing:1px; text-decoration:none; white-space:nowrap; }
+        nav ul { list-style:none; display:flex; align-items:center; flex-wrap:wrap; }
+        nav li { margin:0 10px; }
+        nav a { color:#f8f5f2; text-decoration:none; font-weight:500; font-size:0.9rem; position:relative; transition:all 0.3s ease; padding:8px 0; }
+        nav a::after { content:''; position:absolute; bottom:0; left:50%; width:0; height:2px; background:var(--gold); transition:all 0.3s ease; transform:translateX(-50%); }
+        nav a:hover::after, nav a.active::after { width:100%; }
+        nav a:hover, nav a.active { color:var(--gold); }
+        .header-right { display:flex; align-items:center; gap:12px; }
+        .hdr-btn {
+            display:flex; align-items:center; gap:8px;
+            background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.3);
+            color:white; padding:9px 18px; border-radius:22px; cursor:pointer;
+            font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600;
+            transition:all 0.3s ease; text-decoration:none; white-space:nowrap;
         }
+        .hdr-btn i { color:var(--gold); }
+        .hdr-btn:hover { background:rgba(212,175,55,0.22); transform:translateY(-2px); box-shadow:0 6px 18px rgba(212,175,55,0.2); }
+        .hdr-btn .badge { background:var(--gold); color:var(--royal-navy); border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:0.68rem; font-weight:700; }
+        .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+        .hamburger span { width:25px; height:3px; background:var(--gold); transition:0.3s; }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .cart-wishlist {
-            display: flex;
-            gap: 15px;
-        }
-
-        .cart-btn, .wishlist-btn {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 20px;
-            border-radius: 25px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .cart-btn:hover, .wishlist-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-        }
-
-        /* ===== HERO ===== */
+        /* ── HERO ── */
         .hero {
-            height: 70vh;
-            background: linear-gradient(rgba(15, 76, 129, 0.8), rgba(30, 111, 168, 0.6)),
-                        url('https://images.unsplash.com/photo-1522199710521-72d69614c702') center/cover;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-align: center;
-            position: relative;
+            height:68vh; min-height:420px; position:relative;
+            background:linear-gradient(rgba(10,18,28,0.80),rgba(26,38,51,0.6)),
+                url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display:flex; flex-direction:column; justify-content:center;
+            align-items:center; text-align:center; color:white; padding:0 2rem; overflow:hidden;
         }
+        .hero::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,rgba(212,175,55,0.1),transparent 60%); animation:heroShimmer 8s ease-in-out infinite; }
+        @keyframes heroShimmer { 0%,100%{opacity:0.3;} 50%{opacity:0.8;} }
+        .hero-badge { border:1px solid var(--gold); color:var(--gold); padding:7px 22px; border-radius:50px; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px; position:relative; z-index:2; animation:fadeUp 0.9s ease both; }
+        .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(3rem,7vw,5.5rem); font-weight:900; letter-spacing:2px; text-shadow:2px 4px 30px rgba(0,0,0,0.6); position:relative; z-index:2; animation:fadeUp 0.9s ease 0.2s both; line-height:1.1; margin-bottom:10px; }
+        .hero h1 span { color:var(--gold); }
+        .hero-sub { font-size:1.05rem; opacity:0.88; font-weight:300; max-width:580px; position:relative; z-index:2; animation:fadeUp 0.9s ease 0.4s both; margin-bottom:36px; }
+        .hero-stats { display:flex; gap:36px; position:relative; z-index:2; animation:fadeUp 0.9s ease 0.6s both; flex-wrap:wrap; justify-content:center; }
+        .hs { text-align:center; }
+        .hs .hn { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--gold); display:block; }
+        .hs .hl { font-size:0.68rem; letter-spacing:1.5px; text-transform:uppercase; opacity:0.55; }
+        .hero-div { width:1px; height:40px; background:rgba(255,255,255,0.2); align-self:center; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(25px);} to{opacity:1;transform:translateY(0);} }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
+        /* ── CONTROLS ── */
+        .controls-wrap { background:white; padding:24px 40px; box-shadow:0 4px 20px rgba(0,0,0,0.07); position:sticky; top:73px; z-index:900; border-bottom:1px solid rgba(212,175,55,0.1); }
+        .controls-inner { max-width:1400px; margin:auto; display:flex; flex-direction:column; gap:18px; }
+        .search-sort-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; justify-content:space-between; }
 
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
+        /* Search */
+        .search-wrap { position:relative; flex:1; min-width:260px; }
+        .search-wrap i { position:absolute; left:18px; top:50%; transform:translateY(-50%); color:var(--gold); font-size:0.9rem; }
+        .search-wrap input { width:100%; padding:13px 18px 13px 46px; border:2px solid #eee; border-radius:28px; font-family:'Poppins',sans-serif; font-size:0.9rem; outline:none; background:#fafaf8; transition:all 0.3s ease; color:#333; }
+        .search-wrap input:focus { border-color:var(--gold); background:white; box-shadow:0 0 0 4px rgba(212,175,55,0.1); }
 
-        /* ===== SEARCH + FILTERS ===== */
-        .controls {
-            padding: 40px 20px;
-            background: #fff;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
+        /* Sort & view */
+        .sort-sel { padding:12px 18px; border:2px solid #eee; border-radius:22px; font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600; color:var(--royal-navy); background:white; cursor:pointer; outline:none; transition:border-color 0.3s; }
+        .sort-sel:focus { border-color:var(--gold); }
+        .view-btns { display:flex; gap:6px; }
+        .view-btn { width:38px; height:38px; border:2px solid #eee; border-radius:10px; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.88rem; color:#bbb; transition:all 0.3s; }
+        .view-btn.active, .view-btn:hover { background:var(--royal-navy); color:var(--gold); border-color:var(--royal-navy); }
+        .result-badge { font-size:0.8rem; color:#aaa; white-space:nowrap; padding:8px 14px; border:2px solid #eee; border-radius:22px; }
 
-        .search-sort {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
+        /* Filters */
+        .filter-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+        .filter-lbl { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--royal-navy); margin-right:4px; }
+        .f-btn { padding:8px 16px; border-radius:22px; border:2px solid #e0dbd0; background:transparent; font-family:'Poppins',sans-serif; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.3s; color:#777; white-space:nowrap; }
+        .f-btn:hover, .f-btn.active { background:var(--royal-navy); color:white; border-color:var(--royal-navy); box-shadow:0 4px 12px var(--navy-shadow); }
 
-        .search-bar input {
-            padding: 15px 25px;
-            width: 350px;
-            border-radius: 30px;
-            border: 2px solid #e1e8ed;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+        /* Price range */
+        .price-range { display:flex; align-items:center; gap:10px; margin-left:auto; }
+        .price-range label { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--royal-navy); white-space:nowrap; }
+        .price-range input[type=range] { width:120px; height:4px; accent-color:var(--gold); cursor:pointer; }
+        .price-range span { font-size:0.78rem; color:var(--gold); font-weight:700; white-space:nowrap; }
 
-        .search-bar input:focus {
-            border-color: #0f4c81;
-            box-shadow: 0 0 0 4px rgba(15, 76, 129, 0.1);
-        }
+        /* ── PRODUCT GRID ── */
+        .products-section { max-width:1400px; margin:0 auto; padding:50px 40px 90px; }
+        .products-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
+        .products-grid.list-v { grid-template-columns:1fr; }
+        .products-grid.list-v .prod-card { flex-direction:row; height:200px; }
+        .products-grid.list-v .prod-card .card-img { width:240px; height:100%; flex-shrink:0; }
+        .products-grid.list-v .prod-card .card-img img { height:100%; }
+        .products-grid.list-v .prod-card .card-body { display:flex; flex-direction:column; justify-content:center; }
+        .products-grid.list-v .prod-card .card-desc { display:none; }
 
-        .sort-select {
-            padding: 15px 20px;
-            border: 2px solid #e1e8ed;
-            border-radius: 25px;
-            background: #fff;
-            font-size: 16px;
-            cursor: pointer;
+        /* ── PRODUCT CARD ── */
+        .prod-card {
+            background:white; border-radius:22px; overflow:hidden;
+            box-shadow:0 12px 38px rgba(0,0,0,0.08);
+            transition:all 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+            position:relative; display:flex; flex-direction:column;
+            border:1px solid rgba(212,175,55,0.1);
         }
+        .prod-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold)); background-size:200% 100%; animation:goldShift 4s ease infinite; z-index:2; }
+        @keyframes goldShift { 0%,100%{background-position:0%50%;} 50%{background-position:100%50%;} }
+        .prod-card:hover { transform:translateY(-12px) scale(1.02); box-shadow:0 28px 70px rgba(212,175,55,0.16); }
+        .prod-card.hidden { display:none!important; }
 
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+        /* Image */
+        .card-img { height:220px; overflow:hidden; position:relative; flex-shrink:0; }
+        .card-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; }
+        .prod-card:hover .card-img img { transform:scale(1.1); }
+        .card-img .img-overlay { position:absolute; inset:0; background:linear-gradient(180deg,transparent 50%,rgba(10,18,28,0.6) 100%); }
 
-        .filter-btn {
-            padding: 10px 20px;
-            border-radius: 25px;
-            border: 2px solid #ddd;
-            background: #fff;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
+        /* Country badge */
+        .country-badge { position:absolute; bottom:12px; left:14px; z-index:3; background:linear-gradient(135deg,var(--royal-navy),#2d3b4f); color:var(--gold); padding:4px 12px; border-radius:14px; font-size:0.68rem; font-weight:700; backdrop-filter:blur(5px); }
+        /* Category badge */
+        .cat-badge { position:absolute; top:14px; left:14px; z-index:3; padding:4px 11px; border-radius:14px; font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+        .cat-badge.luxury    { background:linear-gradient(135deg,#6a0dad,#9b39e8); color:white; }
+        .cat-badge.fashion   { background:linear-gradient(135deg,#c0392b,#e74c3c); color:white; }
+        .cat-badge.electronics { background:linear-gradient(135deg,#0f4c81,#1e6fa8); color:white; }
+        .cat-badge.travel    { background:linear-gradient(135deg,#138808,#27ae60); color:white; }
+        .cat-badge.accessories { background:linear-gradient(135deg,#b8860b,var(--gold)); color:var(--royal-navy); }
+        /* Discount badge */
+        .disc-badge { position:absolute; top:14px; right:14px; z-index:3; background:#e74c3c; color:white; padding:4px 10px; border-radius:12px; font-size:0.68rem; font-weight:700; }
+        /* Wishlist btn */
+        .wish-btn { position:absolute; top:50px; right:14px; width:36px; height:36px; background:rgba(255,255,255,0.9); backdrop-filter:blur(6px); border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.95rem; color:#ccc; transition:all 0.3s; z-index:3; }
+        .wish-btn:hover { transform:scale(1.15); }
+        .wish-btn.active { color:#e05555; background:white; }
+        /* Quick add (shows on hover) */
+        .quick-add { position:absolute; bottom:0; left:0; right:0; background:rgba(26,38,51,0.88); color:var(--gold); text-align:center; padding:12px; font-size:0.8rem; font-weight:700; cursor:pointer; transform:translateY(100%); transition:transform 0.35s ease; z-index:3; border:none; font-family:'Poppins',sans-serif; backdrop-filter:blur(6px); }
+        .prod-card:hover .quick-add { transform:translateY(0); }
+        .quick-add:hover { background:var(--gold); color:var(--royal-navy); }
 
-        .filter-btn.active, .filter-btn:hover {
-            background: #0f4c81;
-            color: #fff;
-            border-color: #0f4c81;
-            transform: translateY(-2px);
-        }
+        /* Body */
+        .card-body { padding:20px 22px 16px; flex:1; }
+        .card-body h3 { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--royal-navy); margin-bottom:6px; line-height:1.3; }
+        .card-desc { font-size:0.78rem; color:#aaa; line-height:1.6; margin-bottom:10px; }
+        .card-rating { display:flex; align-items:center; gap:6px; margin-bottom:10px; }
+        .stars { color:var(--gold); font-size:0.8rem; }
+        .rating-val { font-size:0.78rem; font-weight:700; color:var(--royal-navy); }
+        .rating-count { font-size:0.7rem; color:#ccc; }
+        .card-price { margin-bottom:16px; }
+        .price-main { font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--royal-navy); font-weight:700; }
+        .price-original { font-size:0.82rem; color:#ccc; text-decoration:line-through; margin-left:6px; }
+        .price-saved { font-size:0.72rem; color:#27ae60; font-weight:600; margin-left:6px; }
 
-        /* ===== PRODUCTS GRID ===== */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 50px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+        /* Card actions */
+        .card-actions { display:flex; gap:8px; }
+        .btn-cart { flex:1; background:linear-gradient(135deg,var(--royal-navy),#243447); color:white; padding:11px 14px; border-radius:22px; border:none; font-family:'Poppins',sans-serif; font-size:0.8rem; font-weight:600; cursor:pointer; transition:all 0.35s ease; display:flex; align-items:center; justify-content:center; gap:6px; }
+        .btn-cart::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); transition:left 0.5s; }
+        .btn-cart:hover { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--royal-navy); transform:translateY(-2px); box-shadow:0 8px 20px rgba(212,175,55,0.35); }
+        .btn-wish { width:42px; height:42px; border-radius:50%; border:2px solid #eee; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.9rem; color:#ccc; transition:all 0.3s; flex-shrink:0; }
+        .btn-wish:hover, .btn-wish.active { border-color:#e05555; color:#e05555; background:#fff8f8; }
 
-        .card {
-            background: #fff;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
+        /* ── CART DRAWER ── */
+        .cart-backdrop { display:none; position:fixed; inset:0; background:rgba(10,18,28,0.6); backdrop-filter:blur(4px); z-index:1800; }
+        .cart-backdrop.open { display:block; }
+        .cart-drawer {
+            position:fixed; top:0; right:0; width:420px; max-width:100vw; height:100vh;
+            background:white; z-index:1900; transform:translateX(100%);
+            transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+            display:flex; flex-direction:column; box-shadow:-20px 0 60px var(--navy-shadow);
         }
+        .cart-drawer.open { transform:translateX(0); }
+        .cart-drawer-head { background:linear-gradient(135deg,var(--royal-navy),#243447); padding:22px 26px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; border-bottom:1px solid var(--glass-border); }
+        .cart-drawer-head h3 { font-family:'Playfair Display',serif; color:white; font-size:1.3rem; }
+        .cart-close { background:rgba(212,175,55,0.18); border:1px solid rgba(212,175,55,0.3); color:var(--gold); width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
+        .cart-close:hover { background:var(--gold); color:var(--royal-navy); transform:rotate(90deg); }
+        .cart-items { flex:1; overflow-y:auto; padding:16px; }
+        .cart-items::-webkit-scrollbar { width:4px; }
+        .cart-items::-webkit-scrollbar-thumb { background:rgba(212,175,55,0.3); border-radius:2px; }
+        .cart-item { display:flex; gap:14px; padding:14px 0; border-bottom:1px solid #f0ebe2; align-items:center; }
+        .cart-item img { width:62px; height:62px; border-radius:12px; object-fit:cover; flex-shrink:0; }
+        .ci-body { flex:1; min-width:0; }
+        .ci-name { font-size:0.85rem; font-weight:700; color:var(--royal-navy); margin-bottom:3px; }
+        .ci-price { font-family:'Playfair Display',serif; font-size:0.98rem; color:var(--gold); font-weight:700; }
+        .ci-qty { display:flex; align-items:center; gap:8px; margin-top:6px; }
+        .ci-qty button { width:26px; height:26px; border-radius:50%; border:1px solid #eee; background:var(--warm); cursor:pointer; font-size:0.9rem; font-weight:700; color:var(--royal-navy); display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+        .ci-qty button:hover { background:var(--gold); color:var(--royal-navy); border-color:var(--gold); }
+        .ci-qty .qty-val { font-size:0.88rem; font-weight:700; color:var(--royal-navy); min-width:20px; text-align:center; }
+        .ci-remove { background:none; border:none; color:#ddd; cursor:pointer; font-size:0.9rem; transition:color 0.2s; padding:4px; }
+        .ci-remove:hover { color:#e05555; }
+        .cart-empty { text-align:center; padding:60px 20px; }
+        .cart-empty i { font-size:3rem; color:rgba(26,38,51,0.1); display:block; margin-bottom:14px; }
+        .cart-empty p { color:#bbb; font-size:0.9rem; }
+        .cart-footer { padding:18px; border-top:2px solid rgba(212,175,55,0.15); flex-shrink:0; }
+        .cart-total-row { display:flex; justify-content:space-between; margin-bottom:16px; }
+        .cart-total-row .label { font-size:0.82rem; color:#888; text-transform:uppercase; letter-spacing:1px; }
+        .cart-total-row .amount { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--royal-navy); font-weight:700; }
+        .checkout-btn { width:100%; padding:15px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--royal-navy); border:none; border-radius:14px; font-family:'Poppins',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.35s ease; letter-spacing:0.5px; }
+        .checkout-btn:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(212,175,55,0.4); }
 
-        .card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-        }
+        /* ── TOAST ── */
+        .toast { position:fixed; bottom:32px; right:32px; background:var(--royal-navy); color:white; padding:14px 20px; border-radius:14px; font-size:0.83rem; font-weight:600; z-index:2000; transform:translateY(16px); opacity:0; transition:all 0.35s ease; border:1px solid var(--glass-border); display:flex; align-items:center; gap:10px; max-width:320px; }
+        .toast.show { transform:translateY(0); opacity:1; }
+        .toast i { color:var(--gold); flex-shrink:0; }
 
-        .card-image {
-            position: relative;
-            height: 220px;
-            overflow: hidden;
-        }
+        /* ── NO RESULTS ── */
+        .no-results { grid-column:1/-1; text-align:center; padding:70px 20px; }
+        .no-results i { font-size:3rem; color:rgba(26,38,51,0.1); display:block; margin-bottom:14px; }
+        .no-results p { color:#bbb; font-size:1rem; }
 
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
+        /* ── FOOTER ── */
+        footer { background:var(--royal-navy); color:var(--cream); padding:60px 40px 28px; }
+        .footer-top { max-width:1400px; margin:auto; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:48px; margin-bottom:42px; }
+        .footer-logo { font-family:'Playfair Display',serif; font-size:1.8rem; background:linear-gradient(45deg,var(--gold),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:block; margin-bottom:5px; font-weight:700; }
+        .footer-tagline { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; color:rgba(212,175,55,0.65); margin-bottom:14px; display:block; }
+        .footer-brand p { font-size:0.84rem; opacity:0.6; line-height:1.85; margin-bottom:20px; }
+        .footer-social { display:flex; gap:10px; }
+        .footer-social a { width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.18); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.62); text-decoration:none; font-size:0.88rem; transition:all 0.3s; }
+        .footer-social a:hover { background:var(--gold); border-color:var(--gold); color:var(--royal-navy); }
+        .footer-col h4 { font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:18px; font-size:1.05rem; }
+        .footer-col ul { list-style:none; }
+        .footer-col li { margin-bottom:10px; }
+        .footer-col a { color:rgba(255,255,255,0.62); text-decoration:none; font-size:0.84rem; transition:all 0.3s; }
+        .footer-col a:hover { color:var(--gold); padding-left:5px; }
+        .footer-col p { font-size:0.84rem; color:rgba(255,255,255,0.62); line-height:1.85; }
+        .footer-bottom { max-width:1400px; margin:auto; border-top:1px solid rgba(255,255,255,0.08); padding-top:22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+        .footer-bottom p { font-size:0.79rem; opacity:0.5; }
+        .gold-line { height:4px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin-bottom:38px; border-radius:2px; }
 
-        .card:hover img {
-            transform: scale(1.1);
-        }
+        /* ── REVEAL ── */
+        .reveal { opacity:0; transform:translateY(28px); transition:all 0.6s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
 
-        .quick-actions {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            gap: 8px;
-            opacity: 0;
-            transition: all 0.3s ease;
+        /* ── RESPONSIVE ── */
+        @media (max-width:1200px) { .products-grid { grid-template-columns:repeat(3,1fr); } .footer-top { grid-template-columns:1fr 1fr; } }
+        @media (max-width:900px)  { .products-grid { grid-template-columns:repeat(2,1fr); } }
+        @media (max-width:768px)  {
+            header { padding:14px 20px; }
+            .hamburger { display:flex; }
+            nav ul { position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(26,38,51,0.98); flex-direction:column; justify-content:center; align-items:center; gap:2rem; transform:translateX(100%); transition:transform 0.4s ease; z-index:950; }
+            nav ul.active { transform:translateX(0); }
+            nav li { margin:0; } nav a { font-size:1.1rem; }
+            .controls-wrap { padding:18px 16px; top:62px; }
+            .products-section { padding:30px 16px 60px; }
+            .products-grid { grid-template-columns:repeat(2,1fr); gap:16px; }
+            .products-grid.list-v { grid-template-columns:1fr; }
+            .hero-stats { gap:18px; }
+            footer { padding:50px 20px 26px; }
+            .footer-top { grid-template-columns:1fr; gap:28px; }
+            .footer-bottom { flex-direction:column; text-align:center; }
+            .cart-drawer { width:100vw; }
+            .price-range { display:none; }
         }
-
-        .card:hover .quick-actions {
-            opacity: 1;
-        }
-
-        .quick-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .quick-btn:hover {
-            background: #0f4c81;
-            color: #fff;
-            transform: scale(1.1);
-        }
-
-        .card-content {
-            padding: 25px;
-        }
-
-        .country-badge {
-            background: linear-gradient(135deg, #0f4c81, #1e6fa8);
-            color: #fff;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-
-        .card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .price {
-            color: #27ae60;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-            color: #f39c12;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-primary, .btn-secondary {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #0f4c81, #1e6fa8);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(15, 76, 129, 0.4);
-        }
-
-        .btn-secondary {
-            background: #fff;
-            color: #0f4c81;
-            border: 2px solid #0f4c81;
-        }
-
-        .btn-secondary:hover {
-            background: #0f4c81;
-            color: #fff;
-        }
-
-        /* ===== TOAST + MODALS ===== */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-            color: #fff;
-            padding: 18px 25px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(39, 174, 96, 0.4);
-            display: none;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            z-index: 2000;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: linear-gradient(135deg, #111, #222);
-            color: #fff;
-            padding: 50px 20px 30px;
-            text-align: center;
-            margin-top: 80px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            color: #e6b580;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .search-sort { flex-direction: column; align-items: center; }
-            .search-bar input { width: 100%; max-width: 350px; }
-            .filters { justify-content: center; }
-            .header-actions { gap: 10px; }
-            .cart-btn, .wishlist-btn { padding: 10px 15px; font-size: 14px; }
-        }
-
-        /* ===== LOADING ===== */
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-            font-size: 18px;
-            color: #666;
-        }
+        @media (max-width:480px) { .products-grid { grid-template-columns:1fr; } }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="logo">
-            <i class="fas fa-globe-americas"></i>
-            WanderLust Pro Store
+
+<!-- HEADER -->
+<header id="header">
+    <div class="nav-container">
+        <a href="index.html" class="logo">Wanderlust Royale</a>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="trip info.html">Trip Info</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <button class="hdr-btn" onclick="openCart()"><i class="fas fa-shopping-cart"></i> Cart <span class="badge" id="cartBadge">0</span></button>
+            <button class="hdr-btn" onclick="filterWishlist()"><i class="fas fa-heart"></i> Wishlist <span class="badge" id="wishBadge">0</span></button>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div>
-        <div class="header-actions">
-            <div class="search-icon" onclick="toggleSearch()">
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-badge"><i class="fas fa-globe" style="margin-right:8px"></i> Wanderlust Royale · Global Store</div>
+    <h1>Premium <span>Global</span><br>Collection</h1>
+    <p class="hero-sub">Discover authentic luxury products from 50+ countries — curated exclusively for the world traveller</p>
+    <div class="hero-stats">
+        <div class="hs"><span class="hn">25+</span><span class="hl">Products</span></div>
+        <div class="hero-div"></div>
+        <div class="hs"><span class="hn">8</span><span class="hl">Countries</span></div>
+        <div class="hero-div"></div>
+        <div class="hs"><span class="hn">4.8★</span><span class="hl">Avg Rating</span></div>
+        <div class="hero-div"></div>
+        <div class="hs"><span class="hn">Free</span><span class="hl">Shipping</span></div>
+    </div>
+</section>
+
+<!-- CONTROLS -->
+<div class="controls-wrap">
+    <div class="controls-inner">
+        <div class="search-sort-row">
+            <div class="search-wrap">
                 <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search products, brands, countries...">
             </div>
-            <a href="#" class="wishlist-btn" onclick="toggleWishlist()">
-                <i class="fas fa-heart"></i> Wishlist (<span id="wishlistCount">0</span>)
-            </a>
-            <a href="cart.html" class="cart-btn">
-                <i class="fas fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)
-            </a>
-        </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero">
-        <h1>🌟 Premium Global Collection</h1>
-        <p>Discover authentic luxury products from around the world ✈️</p>
-    </section>
-
-    <!-- CONTROLS -->
-    <div class="controls">
-        <div class="search-sort">
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="🔍 Search 500+ global products...">
-            </div>
-            <select class="sort-select" id="sortSelect" onchange="sortProducts()">
-                <option value="name">Sort by Name</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Rating</option>
-                <option value="new">Newest First</option>
+            <select class="sort-sel" id="sortSel">
+                <option value="default">Featured</option>
+                <option value="price-low">Price ↑ Low to High</option>
+                <option value="price-high">Price ↓ High to Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="name">A → Z</option>
             </select>
+            <div class="view-btns">
+                <button class="view-btn active" id="gridBtn" onclick="setView('grid')"><i class="fas fa-th"></i></button>
+                <button class="view-btn" id="listBtn" onclick="setView('list')"><i class="fas fa-list"></i></button>
+            </div>
+            <div class="result-badge"><span id="resultCount">25</span> products</div>
         </div>
-        <div class="filters">
-            <button class="filter-btn active" data-filter="All">All Products</button>
-            <button class="filter-btn" data-filter="USA">🇺🇸 USA</button>
-            <button class="filter-btn" data-filter="Japan">🇯🇵 Japan</button>
-            <button class="filter-btn" data-filter="India">🇮🇳 India</button>
-            <button class="filter-btn" data-filter="Italy">🇮🇹 Italy</button>
-            <button class="filter-btn" data-filter="France">🇫🇷 France</button>
-            <button class="filter-btn" data-filter="Germany">🇩🇪 Germany</button>
-            <button class="filter-btn" data-filter="Travel">✈️ Travel</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div class="filter-row">
+                <span class="filter-lbl"><i class="fas fa-filter"></i>&nbsp;Filter:</span>
+                <button class="f-btn active" data-filter="All">All</button>
+                <button class="f-btn" data-filter="USA">🇺🇸 USA</button>
+                <button class="f-btn" data-filter="Japan">🇯🇵 Japan</button>
+                <button class="f-btn" data-filter="India">🇮🇳 India</button>
+                <button class="f-btn" data-filter="Italy">🇮🇹 Italy</button>
+                <button class="f-btn" data-filter="France">🇫🇷 France</button>
+                <button class="f-btn" data-filter="Germany">🇩🇪 Germany</button>
+                <button class="f-btn" data-filter="Travel">✈️ Travel</button>
+                <button class="f-btn" data-filter="Luxury">👑 Luxury</button>
+            </div>
+            <div class="price-range">
+                <label>Max Price:</label>
+                <input type="range" id="priceRange" min="1000" max="1300000" step="1000" value="1300000" oninput="updatePriceFilter(this.value)">
+                <span id="priceLabel">Any</span>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- PRODUCTS -->
-    <section class="products" id="productGrid">
-        <div class="loading">Loading premium products...</div>
-    </section>
+<!-- PRODUCTS -->
+<section class="products-section">
+    <div class="products-grid" id="prodGrid"></div>
+</section>
 
-    <!-- TOAST -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMessage">Added to cart!</span>
+<!-- CART BACKDROP -->
+<div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-head">
+        <h3><i class="fas fa-shopping-cart" style="color:var(--gold);margin-right:10px"></i> Your Cart</h3>
+        <button class="cart-close" onclick="closeCart()">✕</button>
     </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+        <div class="cart-total-row">
+            <span class="label">Total</span>
+            <span class="amount" id="cartTotal">₹0</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()"><a href="cart.html"><i class="fas fa-crown"></i>&nbsp; Checkout — <span id="checkoutAmt">₹0</span></a></button>
+    </div>
+</div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3><i class="fas fa-plane"></i> WanderLust Pro</h3>
-                <p>Premium international marketplace connecting global brands with travelers.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Categories</h3>
-                <p>Fashion • Electronics • Travel Gear • Luxury Goods • Accessories</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>support@wanderlustpro.com<br>+91 98765 43210</p>
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+<!-- FOOTER -->
+<footer>
+    <div style="max-width:1400px;margin:auto;"><div class="gold-line"></div></div>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <span class="footer-logo">Wanderlust Royale</span>
+            <span class="footer-tagline">Premium Global Shopping · Est. 2016</span>
+            <p>Curated luxury products from around the world — brought to your doorstep from the finest brands across 50+ countries.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
-        <div style="border-top: 1px solid #444; padding-top: 20px; margin-top: 30px;">
-            <p>&copy; 2026 WanderLust Pro Store. All rights reserved.</p>
-        </div>
-    </footer>
+        <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="destinations.html">Destinations</a></li><li><a href="packages.html">Packages</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Categories</h4><ul><li><a href="#">Luxury</a></li><li><a href="#">Fashion</a></li><li><a href="#">Electronics</a></li><li><a href="#">Travel Gear</a></li><li><a href="#">Accessories</a></li></ul></div>
+        <div class="footer-col"><h4>Chennai HQ</h4><p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018<br>India 🇮🇳<br><br>+91 98400 00000<br>hello@wanderlustroyale.com</p></div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Wanderlust Royale. All Rights Reserved.</p>
+        <p>Made with ❤️ in Chennai, India 🇮🇳</p>
+    </div>
+</footer>
 
-    <script>
-        // ENHANCED PRODUCTS (25+ items)
-        const products = [
-            {id:1,name:"Nike Air Max Pro",price:12999,country:"USA",category:"Fashion",rating:4.8,img:"https://images.unsplash.com/photo-1585386959984-a415522316b3?ixlib=rb-4.0.3"},
-            {id:2,name:"iPhone 16 Pro Max",price:119999,country:"USA",category:"Electronics",rating:4.9,img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3"},
-            {id:3,name:"Casio G-Shock Pro",price:8999,country:"Japan",category:"Accessories",rating:4.7,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3"},
-            {id:4,name:"Kimono Silk Dress",price:12999,country:"Japan",category:"Fashion",rating:4.6,img:"https://images.unsplash.com/photo-1520975916090-3105956dac38?ixlib=rb-4.0.3"},
-            {id:5,name:"Italian Leather Bag",price:24999,country:"Italy",category:"Fashion",rating:4.9,img:"https://images.unsplash.com/photo-1512499617640-c2f999098c01?ixlib=rb-4.0.3"},
-            {id:6,name:"Banarasi Silk Saree",price:8999,country:"India",category:"Fashion",rating:4.8,img:"https://images.unsplash.com/photo-1618354691321-e851c56960d9?ixlib=rb-4.0.3"},
-            {id:7,name:"Sony WH-1000XM5",price:29999,country:"Japan",category:"Electronics",rating:4.9,img:"https://images.unsplash.com/photo-1518449030634-5c35c9a7d5b9?ixlib=rb-4.0.3"},
-            {id:8,name:"Chanel No.5 Perfume",price:12999,country:"France",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-4.0.3"},
-            {id:9,name:"Samsonite Carry-On",price:15999,country:"USA",category:"Travel",rating:4.7,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3"},
-            {id:10,name:"Montblanc Meisterstück",price:45999,country:"Germany",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3"},
-            {id:11,name:"Travel Neck Pillow",price:1999,country:"India",category:"Travel",rating:4.5,img:"https://images.unsplash.com/photo-1586953363581-f15b4b7781e9?ixlib=rb-4.0.3"},
-            {id:12,name:"Ray-Ban Aviator",price:12999,country:"Italy",category:"Accessories",rating:4.8,img:"https://images.unsplash.com/photo-1574179208501-42adbfa73e1d?ixlib=rb-4.0.3"},
-            {id:13,name:"GoPro HERO12",price:44999,country:"USA",category:"Electronics",rating:4.8,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3"},
-            {id:14,name:"Hermès Silk Scarf",price:34999,country:"France",category:"Fashion",rating:4.9,img:"https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3"},
-            {id:15,name:"DJI Mini Drone",price:54999,country:"China",category:"Electronics",rating:4.7,img:"https://images.unsplash.com/photo-1578308146096-eb4614831a80?ixlib=rb-4.0.3"},
-            {id:16,name:"Rolex Submariner",price:1250000,country:"Switzerland",category:"Luxury",rating:5.0,img:"https://images.unsplash.com/photo-1541781774459-bb2af2f9dcf2?ixlib=rb-4.0.3"},
-            {id:17,name:"Laptop Stand",price:2499,country:"India",category:"Travel",rating:4.6,img:"https://images.unsplash.com/photo-1585312289810-08a09ea46c7d?ixlib=rb-4.0.3"},
-            {id:18,name:"Bose QC45",price:24999,country:"USA",category:"Electronics",rating:4.8,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3"},
-            {id:19,name:"Leather Passport Holder",price:2999,country:"Italy",category:"Travel",rating:4.7,img:"https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3"},
-            {id:20,name:"MacBook Pro M3",price:189999,country:"USA",category:"Electronics",rating:4.9,img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3"},
-            {id:21,name:"AirTag 4-Pack",price:9999,country:"USA",category:"Travel",rating:4.6,img:"https://images.unsplash.com/photo-1629138897530-64edf105fb5e?ixlib=rb-4.0.3"},
-            {id:22,name:"Tumi Backpack",price:34999,country:"USA",category:"Travel",rating:4.8,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3"},
-            {id:23,name:"Omega Speedmaster",price:650000,country:"Switzerland",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1541781774459-bb2af2f9dcf2?ixlib=rb-4.0.3"},
-            {id:24,name:"Power Bank Anker",price:3499,country:"China",category:"Travel",rating:4.7,img:"https://images.unsplash.com/photo-1610945262588-8c993f87d347?ixlib=rb-4.0.3"},
-            {id:25,name:"Louis Vuitton Cardholder",price:29999,country:"France",category:"Luxury",rating:4.9,img:"https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3"}
-        ];
+<script>
+// ── PRODUCT DATA ──
+const products = [
+    {id:1,  name:"Nike Air Max Pro",         price:12999,  orig:15999,  country:"USA",         cat:"Fashion",     rating:4.8, reviews:1240, img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",  desc:"Iconic cushioning meets premium style."},
+    {id:2,  name:"iPhone 16 Pro Max",        price:119999, orig:134999, country:"USA",         cat:"Electronics", rating:4.9, reviews:3210, img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",  desc:"The most powerful iPhone ever made."},
+    {id:3,  name:"Casio G-Shock Pro",        price:8999,   orig:11999,  country:"Japan",       cat:"Accessories", rating:4.7, reviews:876,  img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",  desc:"Shock-resistant, solar-powered perfection."},
+    {id:4,  name:"Kimono Silk Dress",        price:12999,  orig:null,   country:"Japan",       cat:"Fashion",     rating:4.6, reviews:342,  img:"https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=600&q=80",  desc:"Authentic Japanese artisan craftsmanship."},
+    {id:5,  name:"Italian Leather Bag",      price:24999,  orig:31999,  country:"Italy",       cat:"Fashion",     rating:4.9, reviews:654,  img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80",  desc:"Hand-stitched Florentine leather excellence."},
+    {id:6,  name:"Banarasi Silk Saree",      price:8999,   orig:null,   country:"India",       cat:"Fashion",     rating:4.8, reviews:1120, img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80",  desc:"Pure Banarasi silk with zari weaving."},
+    {id:7,  name:"Sony WH-1000XM5",         price:29999,  orig:34999,  country:"Japan",       cat:"Electronics", rating:4.9, reviews:2100, img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",  desc:"Industry-leading noise cancellation."},
+    {id:8,  name:"Chanel No.5 Perfume",     price:12999,  orig:null,   country:"France",      cat:"Luxury",      rating:4.9, reviews:890,  img:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80",  desc:"The world's most iconic fragrance."},
+    {id:9,  name:"Samsonite Carry-On",      price:15999,  orig:19999,  country:"USA",         cat:"Travel",      rating:4.7, reviews:430,  img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",  desc:"Lightweight polycarbonate hardshell."},
+    {id:10, name:"Montblanc Meisterstück",  price:45999,  orig:null,   country:"Germany",     cat:"Luxury",      rating:4.9, reviews:312,  img:"https://images.unsplash.com/photo-1585386959984-a415522316b3?auto=format&fit=crop&w=600&q=80",  desc:"The timeless German writing instrument."},
+    {id:11, name:"Travel Neck Pillow",      price:1999,   orig:2999,   country:"India",       cat:"Travel",      rating:4.5, reviews:2340, img:"https://images.unsplash.com/photo-1586953363581-f15b4b7781e9?auto=format&fit=crop&w=600&q=80",  desc:"Memory foam comfort for long journeys."},
+    {id:12, name:"Ray-Ban Aviator Gold",    price:12999,  orig:15999,  country:"Italy",       cat:"Accessories", rating:4.8, reviews:780,  img:"https://images.unsplash.com/photo-1574179208501-42adbfa73e1d?auto=format&fit=crop&w=600&q=80",  desc:"Classic gold-frame polarised aviators."},
+    {id:13, name:"GoPro HERO12 Black",      price:44999,  orig:49999,  country:"USA",         cat:"Electronics", rating:4.8, reviews:920,  img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",  desc:"5.3K video, HyperSmooth 6.0 stabilisation."},
+    {id:14, name:"Hermès Silk Scarf",       price:34999,  orig:null,   country:"France",      cat:"Luxury",      rating:4.9, reviews:215,  img:"https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=600&q=80",  desc:"Hand-rolled pure silk, Parisian artistry."},
+    {id:15, name:"DJI Mini 4 Pro Drone",    price:54999,  orig:64999,  country:"Japan",       cat:"Electronics", rating:4.7, reviews:680,  img:"https://images.unsplash.com/photo-1463528285606-2b4b376c91c1?auto=format&fit=crop&w=600&q=80",  desc:"4K HDR video, 34-min flight time."},
+    {id:16, name:"Rolex Submariner",        price:1250000,orig:null,   country:"Germany",     cat:"Luxury",      rating:5.0, reviews:98,   img:"https://images.unsplash.com/photo-1541781774459-bb2af2f9dcf2?auto=format&fit=crop&w=600&q=80",  desc:"The world's most coveted dive watch."},
+    {id:17, name:"Premium Laptop Stand",    price:2499,   orig:3499,   country:"India",       cat:"Travel",      rating:4.6, reviews:1340, img:"https://images.unsplash.com/photo-1655628631541-1d22e5e5b1c1?auto=format&fit=crop&w=600&q=80",  desc:"Foldable aluminium for on-the-go workers."},
+    {id:18, name:"Bose QuietComfort 45",    price:24999,  orig:29999,  country:"USA",         cat:"Electronics", rating:4.8, reviews:1100, img:"https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?auto=format&fit=crop&w=600&q=80",  desc:"24-hour battery, world-class sound."},
+    {id:19, name:"Leather Passport Holder", price:2999,   orig:3999,   country:"Italy",       cat:"Travel",      rating:4.7, reviews:670,  img:"https://images.unsplash.com/photo-1571624436279-b272aff752b5?auto=format&fit=crop&w=600&q=80",  desc:"Full-grain vegetable-tanned Italian leather."},
+    {id:20, name:"MacBook Pro M3",          price:189999, orig:214999, country:"USA",         cat:"Electronics", rating:4.9, reviews:1870, img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",  desc:"The most powerful Mac laptop ever."},
+    {id:21, name:"Apple AirTag 4-Pack",     price:9999,   orig:12999,  country:"USA",         cat:"Travel",      rating:4.6, reviews:2210, img:"https://images.unsplash.com/photo-1629138897530-64edf105fb5e?auto=format&fit=crop&w=600&q=80",  desc:"Never lose your luggage again."},
+    {id:22, name:"Tumi Alpha Backpack",     price:34999,  orig:41999,  country:"USA",         cat:"Travel",      rating:4.8, reviews:432,  img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",  desc:"Business-class carry that lasts a lifetime."},
+    {id:23, name:"Omega Speedmaster",       price:650000, orig:null,   country:"Germany",     cat:"Luxury",      rating:4.9, reviews:76,   img:"https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?auto=format&fit=crop&w=600&q=80",  desc:"The watch that went to the moon."},
+    {id:24, name:"Anker PowerCore 26800",   price:3499,   orig:4499,   country:"India",       cat:"Travel",      rating:4.7, reviews:3100, img:"https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80",  desc:"Triple output, enough for 6 charges."},
+    {id:25, name:"Louis Vuitton Cardholder",price:29999,  orig:null,   country:"France",      cat:"Luxury",      rating:4.9, reviews:287,  img:"https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?auto=format&fit=crop&w=600&q=80",  desc:"Monogram canvas, the ultimate travel flex."},
+];
 
-        // STATE
-        let cart = JSON.parse(localStorage.getItem("wanderlustCart")) || [];
-        let wishlist = JSON.parse(localStorage.getItem("wanderlustWishlist")) || [];
-        let filteredProducts = [...products];
-        let currentSort = 'name';
+const catColors = { Luxury:'luxury', Fashion:'fashion', Electronics:'electronics', Travel:'travel', Accessories:'accessories' };
+const flags = { USA:'🇺🇸', Japan:'🇯🇵', India:'🇮🇳', Italy:'🇮🇹', France:'🇫🇷', Germany:'🇩🇪', Switzerland:'🇨🇭', China:'🇨🇳' };
 
-        // INIT
-        function initStore() {
-            renderProducts();
-            updateCartCount();
-            updateWishlistCount();
-            setupEventListeners();
-        }
+// ── STATE ──
+let cart      = JSON.parse(localStorage.getItem('wr_cart')      || '[]');
+let wishlist  = JSON.parse(localStorage.getItem('wr_wishlist')  || '[]');
+let maxPrice  = 1300000;
+let isListView = false;
+let wishlistOnly = false;
 
-        function renderProducts() {
-            const container = document.getElementById("productGrid");
-            if (filteredProducts.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #666;">
-                        <i class="fas fa-search" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <h2>No products found</h2>
-                        <p>Try adjusting your search or filters</p>
-                    </div>
-                `;
-                return;
-            }
+// ── RENDER ──
+function getFiltered() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const filter = document.querySelector('.f-btn.active')?.dataset.filter || 'All';
+    return products.filter(p => {
+        const matchQ = p.name.toLowerCase().includes(q) || p.country.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q);
+        const matchF = filter === 'All' || p.country === filter || p.cat === filter;
+        const matchP = p.price <= maxPrice;
+        const matchW = !wishlistOnly || wishlist.some(w => w.id === p.id);
+        return matchQ && matchF && matchP && matchW;
+    });
+}
 
-            container.innerHTML = filteredProducts.map(product => `
-                <div class="card">
-                    <div class="card-image">
-                        <img src="${product.img}" alt="${product.name}" loading="lazy">
-                        <div class="quick-actions">
-                            <button class="quick-btn" onclick="quickAddToCart(${product.id})" title="Quick Add">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                            <button class="quick-btn" onclick="toggleWishlist(${product.id})" title="${wishlist.some(p => p.id === product.id) ? 'Remove from' : 'Add to'} Wishlist">
-                                <i class="fas ${wishlist.some(p => p.id === product.id) ? 'fas fa-heart' : 'far fa-heart'}"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <span class="country-badge">${getFlag(product.country)} ${product.country}</span>
-                        <h3>${product.name}</h3>
-                        <div class="rating">
-                            ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
-                            <span style="color: #666; font-size: 14px;">(${product.rating})</span>
-                        </div>
-                        <div class="price">₹${product.price.toLocaleString()}</div>
-                        <div class="card-actions">
-                            <button class="btn-primary" onclick="addToCart(${product.id})">
-                                <i class="fas fa-shopping-cart"></i> Add to Cart
-                            </button>
-                            <button class="btn-secondary" onclick="toggleWishlist(${product.id})">
-                                <i class="fas ${wishlist.some(p => p.id === product.id) ? 'fas fa-heart' : 'far fa-heart'}"></i> 
-                                ${wishlist.some(p => p.id === product.id) ? 'Wishlisted' : 'Wishlist'}
-                            </button>
-                        </div>
-                    </div>
+function sortList(arr) {
+    const v = document.getElementById('sortSel').value;
+    return [...arr].sort((a,b) => {
+        if (v === 'price-low')  return a.price - b.price;
+        if (v === 'price-high') return b.price - a.price;
+        if (v === 'rating')     return b.rating - a.rating;
+        if (v === 'name')       return a.name.localeCompare(b.name);
+        return 0;
+    });
+}
+
+function render() {
+    const filtered = sortList(getFiltered());
+    document.getElementById('resultCount').textContent = filtered.length;
+    const grid = document.getElementById('prodGrid');
+
+    if (!filtered.length) {
+        grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><p>No products found. Try a different search or filter.</p></div>`;
+        return;
+    }
+    grid.innerHTML = filtered.map(p => {
+        const inWish = wishlist.some(w => w.id === p.id);
+        const discount = p.orig ? Math.round((1 - p.price/p.orig)*100) : null;
+        return `
+        <div class="prod-card reveal">
+            <div class="card-img">
+                <img src="${p.img}" alt="${p.name}" loading="lazy">
+                <div class="img-overlay"></div>
+                <span class="cat-badge ${catColors[p.cat]||'travel'}">${p.cat}</span>
+                ${discount ? `<span class="disc-badge">-${discount}%</span>` : ''}
+                <button class="wish-btn ${inWish?'active':''}" onclick="toggleWish(${p.id})" title="Wishlist"><i class="fas fa-heart"></i></button>
+                <span class="country-badge">${flags[p.country]||'🌍'} ${p.country}</span>
+                <button class="quick-add" onclick="addToCart(${p.id})"><i class="fas fa-bolt"></i>&nbsp; Quick Add to Cart</button>
+            </div>
+            <div class="card-body">
+                <h3>${p.name}</h3>
+                <p class="card-desc">${p.desc}</p>
+                <div class="card-rating">
+                    <span class="stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}</span>
+                    <span class="rating-val">${p.rating}</span>
+                    <span class="rating-count">(${p.reviews.toLocaleString()})</span>
                 </div>
-            `).join('');
-        }
+                <div class="card-price">
+                    <span class="price-main">₹${p.price.toLocaleString('en-IN')}</span>
+                    ${p.orig ? `<span class="price-original">₹${p.orig.toLocaleString('en-IN')}</span><span class="price-saved">Save ₹${(p.orig-p.price).toLocaleString('en-IN')}</span>` : ''}
+                </div>
+                <div class="card-actions">
+                    <button class="btn-cart" onclick="addToCart(${p.id})"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                    <button class="btn-wish ${inWish?'active':''}" onclick="toggleWish(${p.id})"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
 
-        function getFlag(country) {
-            const flags = {
-                'USA': '🇺🇸', 'Japan': '🇯🇵', 'India': '🇮🇳', 'Italy': '🇮🇹', 
-                'France': '🇫🇷', 'Germany': '🇩🇪', 'Switzerland': '🇨🇭', 'China': '🇨🇳'
-            };
-            return flags[country] || '🌍';
-        }
+    // Re-observe new reveals
+    document.querySelectorAll('.prod-card.reveal:not(.visible)').forEach(el => revealObs.observe(el));
+}
 
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            if (existing) {
-                existing.quantity = (existing.quantity || 1) + 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            localStorage.setItem("wanderlustCart", JSON.stringify(cart));
-            updateCartCount();
-            showToast("✅ " + product.name + " added to cart!");
-        }
+// ── CART ──
+function addToCart(id) {
+    const p = products.find(x => x.id === id);
+    const ex = cart.find(x => x.id === id);
+    if (ex) ex.qty = (ex.qty||1)+1;
+    else cart.push({...p, qty:1});
+    saveCart();
+    showToast('🛒 ' + p.name + ' added to cart!');
+    renderCart();
+}
+function removeFromCart(id) {
+    cart = cart.filter(x => x.id !== id);
+    saveCart();
+    renderCart();
+}
+function changeQty(id, delta) {
+    const item = cart.find(x => x.id === id);
+    if (item) {
+        item.qty = Math.max(1, (item.qty||1)+delta);
+        saveCart();
+        renderCart();
+    }
+}
+function saveCart() {
+    localStorage.setItem('wr_cart', JSON.stringify(cart));
+    const total = cart.reduce((s,x) => s+(x.qty||1), 0);
+    document.getElementById('cartBadge').textContent = total;
+}
+function renderCart() {
+    const container = document.getElementById('cartItems');
+    if (!cart.length) {
+        container.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>Your cart is empty.<br>Add some luxury!</p></div>`;
+        document.getElementById('cartTotal').textContent = '₹0';
+        document.getElementById('checkoutAmt').textContent = '₹0';
+        return;
+    }
+    const total = cart.reduce((s,x) => s + x.price*(x.qty||1), 0);
+    container.innerHTML = cart.map(x => `
+        <div class="cart-item">
+            <img src="${x.img}" alt="${x.name}">
+            <div class="ci-body">
+                <div class="ci-name">${x.name}</div>
+                <div class="ci-price">₹${(x.price*(x.qty||1)).toLocaleString('en-IN')}</div>
+                <div class="ci-qty">
+                    <button onclick="changeQty(${x.id},-1)">−</button>
+                    <span class="qty-val">${x.qty||1}</span>
+                    <button onclick="changeQty(${x.id},1)">+</button>
+                </div>
+            </div>
+            <button class="ci-remove" onclick="removeFromCart(${x.id})"><i class="fas fa-times"></i></button>
+        </div>
+    `).join('');
+    const fmt = '₹'+total.toLocaleString('en-IN');
+    document.getElementById('cartTotal').textContent = fmt;
+    document.getElementById('checkoutAmt').textContent = fmt;
+}
+function openCart()  { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartBackdrop').classList.add('open'); renderCart(); }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartBackdrop').classList.remove('open'); }
+function checkout()  { showToast('👑 Proceeding to checkout!'); closeCart(); }
 
-        function quickAddToCart(id) {
-            addToCart(id);
-            showToast("⚡ Quick added to cart!");
-        }
+// ── WISHLIST ──
+function toggleWish(id) {
+    const p = products.find(x => x.id === id);
+    const idx = wishlist.findIndex(x => x.id === id);
+    if (idx > -1) { wishlist.splice(idx,1); showToast('💔 Removed from wishlist.'); }
+    else { wishlist.push(p); showToast('❤️ ' + p.name + ' wishlisted!'); }
+    localStorage.setItem('wr_wishlist', JSON.stringify(wishlist));
+    document.getElementById('wishBadge').textContent = wishlist.length;
+    render();
+}
+function filterWishlist() {
+    wishlistOnly = !wishlistOnly;
+    showToast(wishlistOnly ? '❤️ Showing wishlist only' : '📦 Showing all products');
+    render();
+}
 
-        function toggleWishlist(id) {
-            const product = products.find(p => p.id === id);
-            const index = wishlist.findIndex(item => item.id === id);
-            if (index > -1) {
-                wishlist.splice(index, 1);
-                showToast("❤️ Removed from wishlist!");
-            } else {
-                wishlist.push(product);
-                showToast("💖 Added to wishlist!");
-            }
-            localStorage.setItem("wanderlustWishlist", JSON.stringify(wishlist));
-            updateWishlistCount();
-            renderProducts();
-        }
+// ── VIEW TOGGLE ──
+function setView(v) {
+    isListView = v === 'list';
+    document.getElementById('prodGrid').classList.toggle('list-v', isListView);
+    document.getElementById('gridBtn').classList.toggle('active', !isListView);
+    document.getElementById('listBtn').classList.toggle('active', isListView);
+}
 
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            document.getElementById("cartCount").textContent = count;
-        }
+// ── PRICE FILTER ──
+function updatePriceFilter(val) {
+    maxPrice = parseInt(val);
+    document.getElementById('priceLabel').textContent = val >= 1300000 ? 'Any' : '₹' + parseInt(val).toLocaleString('en-IN');
+    render();
+}
 
-        function updateWishlistCount() {
-            document.getElementById("wishlistCount").textContent = wishlist.length;
-        }
+// ── TOAST ──
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+}
 
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            document.getElementById("toastMessage").textContent = message;
-            toast.style.display = "flex";
-            setTimeout(() => toast.style.display = "none", 3000);
-        }
+// ── REVEAL ──
+const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08 });
 
-        // FILTERING + SEARCHING
-        document.getElementById("searchInput").addEventListener("input", e => {
-            const query = e.target.value.toLowerCase();
-            filteredProducts = products.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.country.toLowerCase().includes(query) ||
-                p.category.toLowerCase().includes(query)
-            );
-            renderProducts();
-        });
+// ── EVENT LISTENERS ──
+document.getElementById('searchInput').addEventListener('input', render);
+document.getElementById('sortSel').addEventListener('change', render);
+document.querySelectorAll('.f-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        render();
+    });
+});
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('nav-menu').classList.toggle('active'));
+document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('active')));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
 
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelector('.filter-btn.active').classList.remove('active');
-                btn.classList.add('active');
-                const filter = btn.dataset.filter;
-                if (filter === 'All') {
-                    filteredProducts = [...products];
-                } else {
-                    filteredProducts = products.filter(p => p.country === filter || p.category === filter);
-                }
-                renderProducts();
-            });
-        });
-
-        function sortProducts() {
-            const sortValue = document.getElementById("sortSelect").value;
-            filteredProducts.sort((a, b) => {
-                if (sortValue === 'price-low') return a.price - b.price;
-                if (sortValue === 'price-high') return b.price - a.price;
-                if (sortValue === 'rating') return b.rating - a.rating;
-                return a.name.localeCompare(b.name);
-            });
-            renderProducts();
-        }
-
-        function setupEventListeners() {
-            // Enter key for search
-            document.getElementById("searchInput").addEventListener("keypress", e => {
-                if (e.key === 'Enter') {
-                    e.target.blur();
-                }
-            });
-        }
-
-        // INIT
-        initStore();
-    </script>
+// ── INIT ──
+saveCart();
+document.getElementById('wishBadge').textContent = wishlist.length;
+render();
+</script>
 </body>
 </html>
