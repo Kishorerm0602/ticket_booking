@@ -1,399 +1,914 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Journey – Wanderlust Royale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --royal-navy: #1a2633;
+            --gold-accent: #d4af37;
+            --gold-light: #f0d47a;
+            --marble-white: #f8f5f2;
+            --warm-cream: #f4f1e9;
+            --glass-border: rgba(212,175,55,0.3);
+            --navy-shadow: rgba(26,38,51,0.35);
+            --india-green: #138808;
+            --saffron: #ff9933;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Poppins',sans-serif; line-height:1.7; color:#333; overflow-x:hidden; background:var(--marble-white); }
 
-<title>Booking - Wanderlust Royale</title>
+        /* ── NAVBAR ── */
+        nav { position:fixed; top:0; width:100%; background:rgba(26,38,51,0.96); padding:18px 0; z-index:1000; backdrop-filter:blur(20px); border-bottom:1px solid var(--glass-border); transition:all 0.4s ease; }
+        nav.scrolled { box-shadow:0 5px 30px var(--navy-shadow); padding:13px 0; }
+        .nav-container { max-width:1300px; margin:0 auto; padding:0 30px; display:flex; justify-content:space-between; align-items:center; }
+        .logo { font-family:'Playfair Display',serif; font-size:1.9rem; background:linear-gradient(45deg,var(--gold-accent),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700; letter-spacing:1px; text-decoration:none; }
+        nav ul { list-style:none; display:flex; align-items:center; }
+        nav li { margin:0 12px; }
+        nav a { color:var(--marble-white); text-decoration:none; font-weight:500; font-size:0.93rem; position:relative; transition:all 0.3s ease; letter-spacing:0.5px; padding:8px 0; }
+        nav a::after { content:''; position:absolute; bottom:0; left:50%; width:0; height:2px; background:var(--gold-accent); transition:all 0.3s ease; transform:translateX(-50%); }
+        nav a:hover::after { width:100%; }
+        nav a:hover { color:var(--gold-accent); }
+        .nav-cta { background:linear-gradient(135deg,var(--gold-accent),var(--gold-light)); color:var(--royal-navy)!important; padding:9px 22px!important; border-radius:25px; font-weight:700!important; }
+        .nav-cta::after { display:none!important; }
+        .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+        .hamburger span { width:25px; height:3px; background:var(--gold-accent); transition:0.3s; }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        /* ── PAGE HERO ── */
+        .page-hero {
+            height:55vh; min-height:380px; position:relative;
+            background:linear-gradient(rgba(10,20,32,0.78),rgba(26,38,51,0.6)),
+                url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display:flex; flex-direction:column; justify-content:center;
+            align-items:center; text-align:center; color:white; padding:0 2rem;
+            margin-top:67px; overflow:hidden;
+        }
+        .page-hero::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,rgba(212,175,55,0.1),transparent 60%); animation:shimmer 8s ease-in-out infinite; }
+        @keyframes shimmer { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+        .hero-badge { border:1px solid var(--gold-accent); color:var(--gold-accent); padding:6px 22px; border-radius:50px; font-size:0.72rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:18px; animation:fadeUp 0.8s ease both; position:relative; z-index:2; }
+        .page-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,6vw,5rem); font-weight:900; letter-spacing:2px; animation:fadeUp 0.8s ease 0.2s both; position:relative; z-index:2; }
+        .page-hero h1 span { color:var(--gold-accent); }
+        .hero-dest { font-size:1.1rem; opacity:0.85; font-weight:300; margin-top:10px; animation:fadeUp 0.8s ease 0.4s both; position:relative; z-index:2; }
+        .hero-dest strong { color:var(--gold-accent); font-weight:600; }
+        .breadcrumb { position:absolute; bottom:22px; left:50%; transform:translateX(-50%); display:flex; gap:8px; align-items:center; font-size:0.78rem; color:rgba(255,255,255,0.5); z-index:2; }
+        .breadcrumb a { color:var(--gold-accent); text-decoration:none; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(25px);} to{opacity:1;transform:translateY(0);} }
 
-<style>
+        /* ── PROGRESS STEPS ── */
+        .steps-wrap { background:white; border-bottom:1px solid rgba(212,175,55,0.12); padding:22px 30px; position:sticky; top:67px; z-index:900; }
+        .steps-inner { max-width:900px; margin:auto; display:flex; align-items:center; justify-content:center; gap:0; }
+        .step { display:flex; align-items:center; gap:12px; position:relative; }
+        .step-circle { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.88rem; font-weight:700; transition:all 0.4s ease; flex-shrink:0; border:2px solid #ddd; color:#bbb; background:white; }
+        .step.active .step-circle { background:var(--royal-navy); color:var(--gold-accent); border-color:var(--royal-navy); box-shadow:0 6px 18px var(--navy-shadow); }
+        .step.done .step-circle { background:var(--india-green); color:white; border-color:var(--india-green); }
+        .step-label { font-size:0.78rem; font-weight:600; color:#bbb; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap; }
+        .step.active .step-label { color:var(--royal-navy); }
+        .step.done .step-label { color:var(--india-green); }
+        .step-connector { width:60px; height:2px; background:#eee; margin:0 10px; flex-shrink:0; position:relative; overflow:hidden; }
+        .step-connector::after { content:''; position:absolute; top:0; left:0; height:100%; background:var(--gold-accent); width:0; transition:width 0.5s ease; }
+        .step-connector.filled::after { width:100%; }
 
-:root{
---royal-navy:#1a2633;
---gold-accent:#d4af37;
---marble-white:#f8f5f2;
---warm-cream:#f4f1e9;
-}
+        /* ── MAIN LAYOUT ── */
+        .main-wrap { max-width:1200px; margin:0 auto; padding:55px 30px 90px; display:grid; grid-template-columns:1fr 360px; gap:40px; align-items:start; }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        /* ── GLASS CARD ── */
+        .glass-card { background:white; border-radius:24px; box-shadow:0 16px 55px rgba(0,0,0,0.09); border:1px solid rgba(212,175,55,0.12); overflow:hidden; position:relative; }
+        .glass-card::before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--gold-accent),var(--gold-light),var(--gold-accent)); background-size:200% 100%; animation:goldShift 4s ease infinite; z-index:2; }
+        @keyframes goldShift { 0%,100%{background-position:0%50%;} 50%{background-position:100%50%;} }
 
-body{
-font-family:'Poppins',sans-serif;
-line-height:1.7;
-}
+        .card-header { background:linear-gradient(135deg,var(--royal-navy),#243447); padding:26px 32px; display:flex; align-items:center; gap:16px; position:relative; overflow:hidden; }
+        .card-header::after { content:'✈'; position:absolute; right:20px; bottom:-12px; font-size:7rem; opacity:0.04; pointer-events:none; }
+        .ch-icon { width:50px; height:50px; border-radius:14px; background:rgba(212,175,55,0.18); border:1px solid rgba(212,175,55,0.3); display:flex; align-items:center; justify-content:center; color:var(--gold-accent); font-size:1.1rem; flex-shrink:0; }
+        .card-header h2 { font-family:'Playfair Display',serif; color:white; font-size:1.45rem; }
+        .card-header p { color:rgba(255,255,255,0.55); font-size:0.78rem; margin-top:2px; }
 
-/* NAVBAR */
+        .card-body { padding:32px; }
 
-nav{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(26,38,51,0.95);
-padding:18px 0;
-z-index:1000;
-}
+        /* ── FORM ELEMENTS ── */
+        .form-section { margin-bottom:28px; }
+        .form-section-label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--gold-accent); margin-bottom:16px; display:flex; align-items:center; gap:8px; padding-bottom:10px; border-bottom:1px solid rgba(212,175,55,0.15); }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+        .form-row.triple { grid-template-columns:1fr 1fr 1fr; }
+        .form-row.single { grid-template-columns:1fr; }
+        .form-group { display:flex; flex-direction:column; gap:7px; }
+        .form-group label { font-size:0.73rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--royal-navy); }
+        .form-group label i { color:var(--gold-accent); margin-right:5px; font-size:0.7rem; }
+        .form-group input, .form-group select, .form-group textarea { padding:13px 16px; border:2px solid #eee; border-radius:12px; font-family:'Poppins',sans-serif; font-size:0.88rem; color:#333; background:#fafaf8; outline:none; transition:all 0.3s ease; appearance:none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--gold-accent); background:white; box-shadow:0 0 0 4px rgba(212,175,55,0.1); transform:translateY(-1px); }
+        .form-group textarea { resize:vertical; min-height:100px; }
+        .form-group input.error { border-color:#e05555; background:#fff8f8; }
 
-.nav-container{
-max-width:1200px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 20px;
-}
+        /* Traveller counter */
+        .trav-counter { display:flex; align-items:center; gap:0; border:2px solid #eee; border-radius:12px; overflow:hidden; background:#fafaf8; transition:border-color 0.3s; }
+        .trav-counter:focus-within { border-color:var(--gold-accent); }
+        .tc-btn { width:44px; height:46px; border:none; background:transparent; font-size:1.1rem; font-weight:700; cursor:pointer; color:var(--royal-navy); transition:background 0.2s; }
+        .tc-btn:hover { background:var(--warm-cream); }
+        .tc-val { flex:1; text-align:center; font-size:1rem; font-weight:700; color:var(--royal-navy); border:none; background:transparent; font-family:'Playfair Display',serif; padding:0; }
 
-.logo{
-font-family:'Playfair Display',serif;
-font-size:1.6rem;
-color:var(--gold-accent);
-}
+        /* Class selector */
+        .class-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+        .class-btn { padding:12px 8px; border:2px solid #eee; border-radius:12px; background:#fafaf8; cursor:pointer; text-align:center; transition:all 0.3s ease; font-family:'Poppins',sans-serif; }
+        .class-btn:hover { border-color:var(--gold-accent); }
+        .class-btn.selected { border-color:var(--gold-accent); background:rgba(212,175,55,0.06); }
+        .class-btn .cb-icon { font-size:1.3rem; display:block; margin-bottom:5px; }
+        .class-btn .cb-name { font-size:0.72rem; font-weight:700; color:var(--royal-navy); display:block; }
+        .class-btn .cb-price { font-size:0.65rem; color:#aaa; margin-top:2px; display:block; }
+        .class-btn.selected .cb-name { color:var(--gold-accent); }
 
-nav ul{
-display:flex;
-list-style:none;
-}
+        /* Add-ons */
+        .addons-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .addon-item { display:flex; align-items:center; gap:12px; padding:14px 16px; border:2px solid #eee; border-radius:12px; cursor:pointer; transition:all 0.3s ease; background:#fafaf8; }
+        .addon-item:hover { border-color:var(--gold-accent); background:white; }
+        .addon-item.selected { border-color:var(--gold-accent); background:rgba(212,175,55,0.05); }
+        .addon-check { width:22px; height:22px; border-radius:6px; border:2px solid #ddd; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.25s; color:transparent; font-size:0.7rem; }
+        .addon-item.selected .addon-check { background:var(--gold-accent); border-color:var(--gold-accent); color:var(--royal-navy); }
+        .addon-info h4 { font-size:0.82rem; font-weight:700; color:var(--royal-navy); margin-bottom:2px; }
+        .addon-info p { font-size:0.7rem; color:#aaa; line-height:1.4; }
+        .addon-price { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--gold-accent); font-weight:700; margin-left:auto; white-space:nowrap; }
 
-nav li{
-margin-left:25px;
-}
+        /* Payment */
+        .pay-methods { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+        .pay-method { display:flex; align-items:center; gap:8px; padding:12px 18px; border:2px solid #eee; border-radius:12px; cursor:pointer; transition:all 0.3s; background:#fafaf8; font-size:0.82rem; font-weight:600; color:#666; }
+        .pay-method:hover { border-color:var(--gold-accent); }
+        .pay-method.selected { border-color:var(--gold-accent); background:rgba(212,175,55,0.06); color:var(--royal-navy); }
+        .pay-method i { font-size:1rem; color:var(--gold-accent); }
+        .card-fields { display:none; }
+        .card-fields.show { display:block; }
 
-nav a{
-color:white;
-text-decoration:none;
-font-weight:500;
-}
+        /* Submit */
+        .submit-btn { width:100%; padding:17px; background:linear-gradient(135deg,var(--royal-navy),#243447); color:white; border:none; border-radius:14px; font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.35s ease; position:relative; overflow:hidden; margin-top:24px; letter-spacing:0.5px; }
+        .submit-btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); transition:left 0.55s; }
+        .submit-btn:hover::before { left:100%; }
+        .submit-btn:hover { background:linear-gradient(135deg,var(--gold-accent),var(--gold-light)); color:var(--royal-navy); transform:translateY(-3px); box-shadow:0 14px 35px rgba(212,175,55,0.35); }
 
-nav a:hover{
-color:var(--gold-accent);
-}
+        /* ── RIGHT SIDEBAR ── */
+        .sidebar { display:flex; flex-direction:column; gap:24px; position:sticky; top:130px; }
 
-/* HERO */
+        /* Booking summary */
+        .summary-card { background:white; border-radius:22px; box-shadow:0 14px 45px rgba(0,0,0,0.09); border:1px solid rgba(212,175,55,0.12); overflow:hidden; }
+        .summary-card::before { content:''; display:block; height:5px; background:linear-gradient(90deg,var(--gold-accent),var(--gold-light)); }
+        .summary-header { background:linear-gradient(135deg,var(--royal-navy),#243447); padding:22px 24px; }
+        .summary-header h3 { font-family:'Playfair Display',serif; color:white; font-size:1.2rem; }
+        .summary-header p { color:rgba(255,255,255,0.55); font-size:0.75rem; margin-top:3px; }
+        .summary-dest { padding:18px 22px; border-bottom:1px solid rgba(212,175,55,0.1); display:flex; align-items:center; gap:14px; }
+        .summary-dest img { width:62px; height:62px; border-radius:12px; object-fit:cover; }
+        .summary-dest .sd-name { font-family:'Playfair Display',serif; font-size:1rem; color:var(--royal-navy); font-weight:700; }
+        .summary-dest .sd-region { font-size:0.72rem; color:#bbb; }
+        .summary-lines { padding:16px 22px; }
+        .summary-line { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid #f5f2ec; font-size:0.84rem; }
+        .summary-line:last-child { border-bottom:none; }
+        .summary-line .sl-label { color:#888; }
+        .summary-line .sl-val { font-weight:600; color:var(--royal-navy); }
+        .summary-line .sl-val.gold { color:var(--gold-accent); }
+        .summary-total { padding:18px 22px; background:linear-gradient(135deg,rgba(26,38,51,0.04),transparent); border-top:2px solid rgba(212,175,55,0.15); display:flex; justify-content:space-between; align-items:center; }
+        .summary-total .st-label { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#888; }
+        .summary-total .st-amount { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--royal-navy); font-weight:700; }
 
-.hero{
-height:60vh;
-background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.5)),
-url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") center/cover;
+        /* Trust badges */
+        .trust-card { background:white; border-radius:18px; padding:20px 22px; box-shadow:0 8px 30px rgba(0,0,0,0.06); border:1px solid rgba(212,175,55,0.1); }
+        .trust-card h4 { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--royal-navy); margin-bottom:14px; }
+        .trust-item { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+        .trust-item:last-child { margin-bottom:0; }
+        .ti-icon { width:36px; height:36px; border-radius:10px; background:rgba(212,175,55,0.1); display:flex; align-items:center; justify-content:center; color:var(--gold-accent); font-size:0.9rem; flex-shrink:0; }
+        .ti-text h5 { font-size:0.8rem; font-weight:700; color:var(--royal-navy); margin-bottom:1px; }
+        .ti-text p { font-size:0.71rem; color:#bbb; line-height:1.4; }
 
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
-}
+        /* ── SUCCESS STATE ── */
+        .success-screen { display:none; padding:50px 32px; text-align:center; }
+        .success-screen.show { display:block; }
+        .success-icon { width:90px; height:90px; background:linear-gradient(135deg,#e8f5e9,#d0edd0); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:var(--india-green); margin:0 auto 22px; animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes popIn { from{transform:scale(0.3);opacity:0;} to{transform:scale(1);opacity:1;} }
+        .success-screen h2 { font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--royal-navy); margin-bottom:12px; }
+        .success-screen p { color:#777; font-size:0.9rem; line-height:1.8; margin-bottom:28px; max-width:420px; margin-left:auto; margin-right:auto; }
+        .booking-ref { background:var(--warm-cream); border:1px solid var(--glass-border); border-radius:14px; padding:18px 24px; margin-bottom:28px; }
+        .booking-ref .ref-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; color:#aaa; margin-bottom:6px; }
+        .booking-ref .ref-num { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--royal-navy); font-weight:700; letter-spacing:3px; }
+        .success-actions { display:flex; flex-direction:column; gap:12px; }
+        .btn-boarding { display:flex; align-items:center; justify-content:center; gap:10px; padding:16px 32px; background:linear-gradient(135deg,var(--gold-accent),var(--gold-light)); color:var(--royal-navy); text-decoration:none; border-radius:14px; font-weight:700; font-size:0.95rem; transition:all 0.35s ease; }
+        .btn-boarding:hover { transform:translateY(-4px); box-shadow:0 14px 35px rgba(212,175,55,0.4); }
+        .btn-outline { display:flex; align-items:center; justify-content:center; gap:10px; padding:14px 32px; border:2px solid var(--royal-navy); color:var(--royal-navy); text-decoration:none; border-radius:14px; font-weight:600; font-size:0.9rem; transition:all 0.35s ease; background:transparent; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .btn-outline:hover { background:var(--royal-navy); color:white; }
 
-.hero h1{
-font-family:'Playfair Display',serif;
-font-size:55px;
-}
+        /* ── CONFETTI CANVAS ── */
+        #confettiCanvas { position:fixed; inset:0; pointer-events:none; z-index:9999; display:none; }
 
-.selected-place{
-margin-bottom:15px;
-font-size:20px;
-color:var(--gold-accent);
-}
+        /* ── TIMELINE FLOW (between booking & boarding) ── */
+        .journey-flow { background:white; border-radius:24px; padding:32px; box-shadow:0 16px 55px rgba(0,0,0,0.09); border:1px solid rgba(212,175,55,0.12); margin-top:0; display:none; }
+        .journey-flow.show { display:block; }
+        .jf-title { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--royal-navy); margin-bottom:24px; text-align:center; }
+        .jf-title::after { content:''; display:block; width:50px; height:3px; background:linear-gradient(90deg,var(--gold-accent),var(--gold-light)); margin:12px auto 0; border-radius:2px; }
+        .jf-steps { display:flex; flex-direction:column; gap:0; position:relative; }
+        .jf-steps::before { content:''; position:absolute; left:26px; top:26px; bottom:26px; width:2px; background:linear-gradient(180deg,var(--gold-accent),rgba(212,175,55,0.2)); }
+        .jf-step { display:flex; gap:20px; align-items:flex-start; padding:16px 0; position:relative; }
+        .jf-step-icon { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1.1rem; z-index:1; transition:all 0.4s ease; }
+        .jf-step-icon.done { background:var(--india-green); color:white; }
+        .jf-step-icon.active { background:var(--gold-accent); color:var(--royal-navy); box-shadow:0 0 0 6px rgba(212,175,55,0.15); }
+        .jf-step-icon.pending { background:#f0ebe2; color:#bbb; }
+        .jf-step-body h4 { font-size:0.92rem; font-weight:700; color:var(--royal-navy); margin-bottom:4px; }
+        .jf-step-body p { font-size:0.78rem; color:#aaa; line-height:1.5; }
+        .jf-step-body .step-status { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+        .jf-step-body .step-status.done { color:var(--india-green); }
+        .jf-step-body .step-status.active { color:var(--gold-accent); }
+        .jf-step-body .step-status.pending { color:#bbb; }
 
-/* BOOKING SECTION */
+        /* ── FOOTER ── */
+        footer { background:var(--royal-navy); color:var(--marble-white); padding:55px 30px 28px; }
+        .footer-inner { max-width:1300px; margin:auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; }
+        .footer-logo { font-family:'Playfair Display',serif; font-size:1.6rem; background:linear-gradient(45deg,var(--gold-accent),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .footer-links { display:flex; gap:24px; }
+        .footer-links a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.85rem; transition:color 0.3s; }
+        .footer-links a:hover { color:var(--gold-accent); }
+        .footer-bottom { max-width:1300px; margin:16px auto 0; border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+        .footer-bottom p { font-size:0.79rem; opacity:0.5; }
 
-.booking-section{
-padding:100px 20px;
-background:var(--warm-cream);
-}
+        /* ── REVEAL ── */
+        .reveal { opacity:0; transform:translateY(28px); transition:all 0.6s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
 
-.container{
-max-width:900px;
-margin:auto;
-}
-
-.booking-card{
-background:white;
-padding:50px;
-border-radius:20px;
-box-shadow:0 20px 60px rgba(0,0,0,0.1);
-}
-
-.booking-title{
-text-align:center;
-font-size:32px;
-font-family:'Playfair Display',serif;
-margin-bottom:20px;
-}
-
-.booking-price{
-text-align:center;
-font-size:40px;
-color:var(--gold-accent);
-margin-bottom:30px;
-}
-
-/* FORM */
-
-.form-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:25px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-width:100%;
-padding:15px;
-border-radius:10px;
-border:1px solid #ddd;
-font-family:inherit;
-}
-
-.full-width{
-grid-column:1/3;
-}
-
-.submit-btn{
-margin-top:30px;
-width:100%;
-padding:18px;
-background:var(--royal-navy);
-color:white;
-border:none;
-border-radius:15px;
-font-size:18px;
-cursor:pointer;
-}
-
-.submit-btn:hover{
-background:var(--gold-accent);
-color:black;
-}
-
-/* SUMMARY */
-
-.summary-box{
-margin-top:40px;
-background:var(--royal-navy);
-color:white;
-padding:25px;
-border-radius:15px;
-text-align:center;
-display:none;
-}
-
-.total-price{
-font-size:30px;
-color:var(--gold-accent);
-margin-top:10px;
-}
-
-</style>
+        /* ── RESPONSIVE ── */
+        @media (max-width:1024px) { .main-wrap { grid-template-columns:1fr; } .sidebar { position:static; } }
+        @media (max-width:768px) {
+            .hamburger { display:flex; }
+            nav ul { position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(26,38,51,0.98); flex-direction:column; justify-content:center; align-items:center; gap:2rem; transform:translateX(100%); transition:transform 0.4s ease; }
+            nav ul.active { transform:translateX(0); }
+            nav li { margin:0; } nav a { font-size:1.15rem; }
+            .form-row, .form-row.triple { grid-template-columns:1fr; }
+            .class-grid { grid-template-columns:1fr 1fr; }
+            .addons-grid { grid-template-columns:1fr; }
+            .steps-inner { gap:5px; }
+            .step-label { display:none; }
+            .step-connector { width:30px; }
+        }
+    </style>
 </head>
-
 <body>
 
+<canvas id="confettiCanvas"></canvas>
+
 <!-- NAVBAR -->
-
-<nav>
-<div class="nav-container">
-
-<div class="logo">Wanderlust Royale</div>
-
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="destinations.html">Destinations</a></li>
-<li><a href="packages.html">Packages</a></li>
-<li><a href="trip info.html">Trip Info</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-
-</div>
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">Wanderlust Royale</a>
+        <ul id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">Destinations</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="trip info.html">Trip Info</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="boarding-pass.html" class="nav-cta"><i class="fas fa-ticket-alt"></i>&nbsp;Boarding Pass</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
 </nav>
 
-<!-- HERO -->
-
-<section class="hero">
-
-<div>
-
-<div class="selected-place" id="selectedPlace">
-Select a destination
-</div>
-
-<h1>Secure Your Journey</h1>
-
-</div>
-
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="hero-badge"><i class="fas fa-lock" style="margin-right:8px"></i> Secure Booking</div>
+    <h1>Secure Your <span>Journey</span></h1>
+    <div class="hero-dest" id="heroDestText">Loading your destination...</div>
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="destinations.html">Destinations</a>
+        <i class="fas fa-chevron-right"></i>
+        <span id="heroDestBreadcrumb">Booking</span>
+    </div>
 </section>
 
-<!-- BOOKING FORM -->
-
-<section class="booking-section">
-
-<div class="container">
-
-<div class="booking-card">
-
-<h2 class="booking-title" id="bookingTitle">
-Complete Your Booking
-</h2>
-
-<div class="booking-price" id="bookingPrice">
-₹1,35,000
+<!-- PROGRESS STEPS -->
+<div class="steps-wrap">
+    <div class="steps-inner">
+        <div class="step active" id="step1"><div class="step-circle">1</div><span class="step-label">Your Details</span></div>
+        <div class="step-connector" id="con1"></div>
+        <div class="step" id="step2"><div class="step-circle">2</div><span class="step-label">Trip Details</span></div>
+        <div class="step-connector" id="con2"></div>
+        <div class="step" id="step3"><div class="step-circle">3</div><span class="step-label">Add-ons</span></div>
+        <div class="step-connector" id="con3"></div>
+        <div class="step" id="step4"><div class="step-circle">4</div><span class="step-label">Payment</span></div>
+        <div class="step-connector" id="con4"></div>
+        <div class="step" id="step5"><div class="step-circle"><i class="fas fa-check"></i></div><span class="step-label">Confirmed</span></div>
+    </div>
 </div>
 
-<form id="bookingForm">
+<!-- MAIN -->
+<div class="main-wrap">
 
-<div class="form-grid">
+    <!-- BOOKING FORM -->
+    <div class="glass-card reveal" id="bookingCard">
 
-<div class="form-group">
-<input type="text" id="name" placeholder="Full Name" required>
+        <!-- STEP 1 — Your Details -->
+        <div id="formStep1">
+            <div class="card-header">
+                <div class="ch-icon"><i class="fas fa-user"></i></div>
+                <div><h2>Your Details</h2><p>Tell us about the lead traveller</p></div>
+            </div>
+            <div class="card-body">
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-user-circle"></i> Personal Information</div>
+                    <div class="form-row">
+                        <div class="form-group"><label><i class="fas fa-user"></i> First Name</label><input type="text" id="fname" placeholder="Ravi"></div>
+                        <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Kumar"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="email" placeholder="ravi@email.com"></div>
+                        <div class="form-group"><label><i class="fas fa-phone"></i> Phone Number</label><input type="tel" id="phone" placeholder="+91 98000 00000"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label><i class="fas fa-passport"></i> Passport Number</label><input type="text" id="passport" placeholder="A1234567"></div>
+                        <div class="form-group"><label><i class="fas fa-birthday-cake"></i> Date of Birth</label><input type="date" id="dob"></div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-users"></i> Number of Travellers</div>
+                    <div class="form-row" style="align-items:center;">
+                        <div class="form-group">
+                            <label>Adults (18+)</label>
+                            <div class="trav-counter">
+                                <button class="tc-btn" type="button" onclick="changeTrav('adults',-1)">−</button>
+                                <input class="tc-val" type="text" id="adults" value="2" readonly>
+                                <button class="tc-btn" type="button" onclick="changeTrav('adults',1)">+</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Children (2–17)</label>
+                            <div class="trav-counter">
+                                <button class="tc-btn" type="button" onclick="changeTrav('children',-1)">−</button>
+                                <input class="tc-val" type="text" id="children" value="0" readonly>
+                                <button class="tc-btn" type="button" onclick="changeTrav('children',1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="submit-btn" type="button" onclick="goStep(2)"><i class="fas fa-arrow-right"></i>&nbsp; Continue to Trip Details</button>
+            </div>
+        </div>
+
+        <!-- STEP 2 — Trip Details -->
+        <div id="formStep2" style="display:none;">
+            <div class="card-header">
+                <div class="ch-icon"><i class="fas fa-plane"></i></div>
+                <div><h2>Trip Details</h2><p>Choose your class and travel dates</p></div>
+            </div>
+            <div class="card-body">
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-chair"></i> Travel Class</div>
+                    <div class="class-grid" id="classGrid">
+                        <div class="class-btn selected" onclick="selectClass(this,'Economy',0)"><span class="cb-icon">🪑</span><span class="cb-name">Economy</span><span class="cb-price">Base price</span></div>
+                        <div class="class-btn" onclick="selectClass(this,'Business Class',0.6)"><span class="cb-icon">💺</span><span class="cb-name">Business</span><span class="cb-price">+60%</span></div>
+                        <div class="class-btn" onclick="selectClass(this,'First Class',1.2)"><span class="cb-icon">👑</span><span class="cb-name">First Class</span><span class="cb-price">+120%</span></div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-calendar-alt"></i> Travel Dates</div>
+                    <div class="form-row">
+                        <div class="form-group"><label><i class="fas fa-plane-departure"></i> Departure Date</label><input type="date" id="depDate"></div>
+                        <div class="form-group"><label><i class="fas fa-plane-arrival"></i> Return Date</label><input type="date" id="retDate"></div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-hotel"></i> Accommodation</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Hotel Category</label>
+                            <select id="hotelCat" onchange="updateSummary()">
+                                <option value="0">3 Star — Comfortable</option>
+                                <option value="0.2" selected>4 Star — Superior</option>
+                                <option value="0.4">5 Star — Luxury</option>
+                                <option value="0.7">5 Star — Ultra Luxury</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Room Type</label>
+                            <select id="roomType">
+                                <option>Deluxe Double Room</option>
+                                <option>Superior Twin Room</option>
+                                <option>Junior Suite</option>
+                                <option>Executive Suite</option>
+                                <option>Presidential Suite</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-utensils"></i> Meal Preference</div>
+                    <div class="form-row triple">
+                        <div class="form-group"><label>Meal Plan</label>
+                            <select id="mealPlan">
+                                <option>Breakfast Only</option>
+                                <option>Half Board</option>
+                                <option selected>Full Board</option>
+                                <option>All Inclusive</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Dietary</label>
+                            <select id="dietary">
+                                <option>No Restriction</option>
+                                <option>Vegetarian</option>
+                                <option>Vegan</option>
+                                <option>Halal</option>
+                                <option>Jain</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Checked Bags</label>
+                            <select id="bags">
+                                <option>1 Bag (23kg)</option>
+                                <option selected>2 Bags (23kg each)</option>
+                                <option>3 Bags</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;">
+                    <button class="btn-outline" type="button" onclick="goStep(1)" style="flex:0.4;margin-top:24px;"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+                    <button class="submit-btn" type="button" onclick="goStep(3)" style="flex:1;"><i class="fas fa-arrow-right"></i>&nbsp; Continue to Add-ons</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3 — Add-ons -->
+        <div id="formStep3" style="display:none;">
+            <div class="card-header">
+                <div class="ch-icon"><i class="fas fa-magic"></i></div>
+                <div><h2>Enhance Your Journey</h2><p>Optional luxury add-ons to make it unforgettable</p></div>
+            </div>
+            <div class="card-body">
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-plus-circle"></i> Premium Add-ons</div>
+                    <div class="addons-grid">
+                        <div class="addon-item" onclick="toggleAddon(this, 12000)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>🚁 Helicopter Transfer</h4><p>Private heli to/from your resort or hotel</p></div>
+                            <span class="addon-price">+₹12,000</span>
+                        </div>
+                        <div class="addon-item" onclick="toggleAddon(this, 8500)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>💆 Spa Package</h4><p>3 luxury spa sessions at your hotel</p></div>
+                            <span class="addon-price">+₹8,500</span>
+                        </div>
+                        <div class="addon-item" onclick="toggleAddon(this, 15000)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>🍽️ Private Dining</h4><p>Exclusive chef's table experience</p></div>
+                            <span class="addon-price">+₹15,000</span>
+                        </div>
+                        <div class="addon-item" onclick="toggleAddon(this, 9000)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>🚗 Chauffeur Service</h4><p>Premium car & driver for full duration</p></div>
+                            <span class="addon-price">+₹9,000</span>
+                        </div>
+                        <div class="addon-item" onclick="toggleAddon(this, 6500)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>📸 Professional Photo</h4><p>Local photographer for 1 full day</p></div>
+                            <span class="addon-price">+₹6,500</span>
+                        </div>
+                        <div class="addon-item" onclick="toggleAddon(this, 5000)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>🌐 International SIM</h4><p>Unlimited data SIM for entire trip</p></div>
+                            <span class="addon-price">+₹5,000</span>
+                        </div>
+                        <div class="addon-item" onclick="toggleAddon(this, 7500)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>🛡️ Premium Insurance</h4><p>Comprehensive international travel cover</p></div>
+                            <span class="addon-price">+₹7,500</span>
+                        </div>
+                        <div class="addon-item" onclick="toggleAddon(this, 18000)">
+                            <div class="addon-check"><i class="fas fa-check"></i></div>
+                            <div class="addon-info"><h4>🎭 VIP Experience</h4><p>Private sunset tour or exclusive event access</p></div>
+                            <span class="addon-price">+₹18,000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-comment-alt"></i> Special Requests</div>
+                    <div class="form-row single">
+                        <div class="form-group"><label>Any special requests, anniversary / honeymoon arrangements?</label><textarea id="specialReq" placeholder="e.g. Room decoration for anniversary, early check-in, room with sea view, birthday cake for child..."></textarea></div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;">
+                    <button class="btn-outline" type="button" onclick="goStep(2)" style="flex:0.4;margin-top:24px;"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+                    <button class="submit-btn" type="button" onclick="goStep(4)" style="flex:1;"><i class="fas fa-arrow-right"></i>&nbsp; Continue to Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 — Payment -->
+        <div id="formStep4" style="display:none;">
+            <div class="card-header">
+                <div class="ch-icon"><i class="fas fa-shield-alt"></i></div>
+                <div><h2>Secure Payment</h2><p>256-bit SSL encrypted — your data is completely safe</p></div>
+            </div>
+            <div class="card-body">
+                <div class="form-section">
+                    <div class="form-section-label"><i class="fas fa-credit-card"></i> Payment Method</div>
+                    <div class="pay-methods">
+                        <div class="pay-method selected" onclick="selectPay(this,'card')"><i class="fas fa-credit-card"></i> Credit / Debit Card</div>
+                        <div class="pay-method" onclick="selectPay(this,'upi')"><i class="fas fa-mobile-alt"></i> UPI / GPay / PhonePe</div>
+                        <div class="pay-method" onclick="selectPay(this,'netbanking')"><i class="fas fa-university"></i> Net Banking</div>
+                        <div class="pay-method" onclick="selectPay(this,'emi')"><i class="fas fa-calendar-check"></i> No Cost EMI</div>
+                    </div>
+                    <div class="card-fields show" id="cardFields">
+                        <div class="form-row single"><div class="form-group"><label><i class="fas fa-credit-card"></i> Card Number</label><input type="text" id="cardNum" placeholder="1234  5678  9012  3456" maxlength="19"></div></div>
+                        <div class="form-row triple">
+                            <div class="form-group"><label>Cardholder Name</label><input type="text" id="cardName" placeholder="RAVI KUMAR"></div>
+                            <div class="form-group"><label>Expiry Date</label><input type="text" id="cardExp" placeholder="MM / YY" maxlength="7"></div>
+                            <div class="form-group"><label>CVV</label><input type="password" id="cardCvv" placeholder="•••" maxlength="3"></div>
+                        </div>
+                    </div>
+                    <div class="card-fields" id="upiField">
+                        <div class="form-row single"><div class="form-group"><label><i class="fas fa-at"></i> UPI ID</label><input type="text" placeholder="yourname@upi"></div></div>
+                    </div>
+                    <div class="card-fields" id="netbankField">
+                        <div class="form-row single"><div class="form-group"><label>Select Bank</label><select><option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option><option>Axis Bank</option><option>Kotak Bank</option><option>Other</option></select></div></div>
+                    </div>
+                    <div class="card-fields" id="emiField">
+                        <div class="form-row single"><div class="form-group"><label>EMI Duration</label><select id="emiDuration"><option>3 months</option><option>6 months</option><option selected>9 months</option><option>12 months</option></select></div></div>
+                        <p id="emiText" style="font-size:0.82rem;color:var(--gold-accent);margin-top:10px;font-weight:600;"></p>
+                    </div>
+                </div>
+                <div style="margin-top:8px;padding:14px 18px;background:rgba(19,136,8,0.06);border:1px solid rgba(19,136,8,0.2);border-radius:12px;display:flex;align-items:center;gap:10px;">
+                    <i class="fas fa-lock" style="color:#138808;"></i>
+                    <p style="font-size:0.78rem;color:#138808;font-weight:500;">Your payment is protected by 256-bit SSL encryption. We never store card details.</p>
+                </div>
+                <div style="display:flex;gap:12px;">
+                    <button class="btn-outline" type="button" onclick="goStep(3)" style="flex:0.4;margin-top:24px;"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+                    <button class="submit-btn" type="button" onclick="confirmBooking()" style="flex:1;" id="confirmBtn"><i class="fas fa-lock"></i>&nbsp; Confirm & Pay — <span id="finalAmount">₹0</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUCCESS SCREEN -->
+        <div class="success-screen" id="successScreen">
+            <div class="success-icon"><i class="fas fa-check"></i></div>
+            <h2>Booking Confirmed! 🎉</h2>
+            <p>Your royal journey has been successfully booked. Our luxury travel concierge will contact you within 2 hours to finalise all details.</p>
+            <div class="booking-ref">
+                <div class="ref-label">Your Booking Reference</div>
+                <div class="ref-num" id="bookingRefNum">WR-000000</div>
+            </div>
+            <div class="success-actions">
+                <a href="ticket.html" class="btn-boarding" id="boardingPassLink"><i class="fas fa-ticket-alt"></i>&nbsp; Generate Your Boarding Pass</a>
+                <button class="btn-outline" onclick="downloadSummary()"><i class="fas fa-download"></i>&nbsp; Download Booking Summary</button>
+                <a href="destinations.html" class="btn-outline"><i class="fas fa-globe"></i>&nbsp; Explore More Destinations</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <!-- Booking Summary -->
+        <div class="summary-card reveal">
+            <div class="summary-header">
+                <h3>Booking Summary</h3>
+                <p>Live price updates as you choose</p>
+            </div>
+            <div class="summary-dest">
+                <img id="summaryImg" src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=200&q=80" alt="Destination">
+                <div>
+                    <div class="sd-name" id="summaryDestName">Paris, France</div>
+                    <div class="sd-region" id="summaryDestRegion">Europe · France</div>
+                </div>
+            </div>
+            <div class="summary-lines">
+                <div class="summary-line"><span class="sl-label">Base Price / person</span><span class="sl-val" id="summBasePrice">₹0</span></div>
+                <div class="summary-line"><span class="sl-label">Travellers</span><span class="sl-val" id="summTrav">2 adults</span></div>
+                <div class="summary-line"><span class="sl-label">Travel Class</span><span class="sl-val" id="summClass">Economy</span></div>
+                <div class="summary-line"><span class="sl-label">Hotel</span><span class="sl-val" id="summHotel">4 Star</span></div>
+                <div class="summary-line"><span class="sl-label">Add-ons</span><span class="sl-val gold" id="summAddons">₹0</span></div>
+                <div class="summary-line"><span class="sl-label">Taxes & Fees</span><span class="sl-val" id="summTax">₹0</span></div>
+            </div>
+            <div class="summary-total">
+                <span class="st-label">Total Amount</span>
+                <span class="st-amount" id="summTotal">₹0</span>
+            </div>
+        </div>
+
+        <!-- Journey Flow -->
+        <div class="journey-flow reveal" id="journeyFlow">
+            <h3 class="jf-title">Your Journey Flow</h3>
+            <div class="jf-steps">
+                <div class="jf-step">
+                    <div class="jf-step-icon done"><i class="fas fa-search"></i></div>
+                    <div class="jf-step-body"><h4>Destination Selected</h4><p>You've chosen your dream destination</p><span class="step-status done">✓ Complete</span></div>
+                </div>
+                <div class="jf-step">
+                    <div class="jf-step-icon active" id="jfBook"><i class="fas fa-calendar-check"></i></div>
+                    <div class="jf-step-body"><h4>Booking in Progress</h4><p>Fill in your details and confirm payment</p><span class="step-status active" id="jfBookStatus">⟳ In Progress</span></div>
+                </div>
+                <div class="jf-step">
+                    <div class="jf-step-icon pending" id="jfConfirm"><i class="fas fa-envelope"></i></div>
+                    <div class="jf-step-body"><h4>Confirmation Email</h4><p>Booking confirmation sent to your email</p><span class="step-status pending" id="jfConfirmStatus">Pending</span></div>
+                </div>
+                <div class="jf-step">
+                    <div class="jf-step-icon pending" id="jfVisa"><i class="fas fa-passport"></i></div>
+                    <div class="jf-step-body"><h4>Visa Assistance</h4><p>Our team initiates your visa process</p><span class="step-status pending" id="jfVisaStatus">Pending</span></div>
+                </div>
+                <div class="jf-step">
+                    <div class="jf-step-icon pending" id="jfBP"><i class="fas fa-ticket-alt"></i></div>
+                    <div class="jf-step-body"><h4>Boarding Pass</h4><p>Generate your Royal boarding pass</p><span class="step-status pending" id="jfBPStatus">Pending</span></div>
+                </div>
+                <div class="jf-step">
+                    <div class="jf-step-icon pending" id="jfDepart"><i class="fas fa-plane-departure"></i></div>
+                    <div class="jf-step-body"><h4>Departure Day</h4><p>Begin your royal journey!</p><span class="step-status pending" id="jfDepartStatus">Upcoming</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-card reveal">
+            <h4>Why Book With Us</h4>
+            <div class="trust-item"><div class="ti-icon"><i class="fas fa-shield-alt"></i></div><div class="ti-text"><h5>100% Secure Payment</h5><p>256-bit SSL · DGCA Licensed · IATA Accredited</p></div></div>
+            <div class="trust-item"><div class="ti-icon"><i class="fas fa-undo"></i></div><div class="ti-text"><h5>Free Cancellation</h5><p>Cancel up to 30 days before for full refund</p></div></div>
+            <div class="trust-item"><div class="ti-icon"><i class="fas fa-headset"></i></div><div class="ti-text"><h5>24/7 Concierge</h5><p>Dedicated support throughout your journey</p></div></div>
+            <div class="trust-item"><div class="ti-icon"><i class="fas fa-star"></i></div><div class="ti-text"><h5>4.9★ Rated</h5><p>8,000+ happy travellers trust Wanderlust Royale</p></div></div>
+        </div>
+
+    </div>
+
 </div>
 
-<div class="form-group">
-<input type="email" id="email" placeholder="Email Address" required>
-</div>
-
-<div class="form-group">
-<input type="tel" id="phone" placeholder="Phone Number">
-</div>
-
-<div class="form-group">
-<input type="date" id="date">
-</div>
-
-<div class="form-group">
-<select id="travellers">
-
-<option value="1">1 Traveller</option>
-<option value="2">2 Travellers</option>
-<option value="3">3 Travellers</option>
-<option value="4">4 Travellers</option>
-
-</select>
-</div>
-
-<div class="form-group full-width">
-<textarea rows="4" placeholder="Special Requirements"></textarea>
-</div>
-
-</div>
-
-<button type="submit" class="submit-btn">
-<i class="fas fa-lock"></i> Confirm Booking
-</button>
-
-<button type="submit" class="submit-btn">
-    <i><a href="ticket.html">Download the ticket</a></i>
-</button>
-
-</form>
-
-<div class="summary-box" id="summaryBox">
-
-<h3>Booking Summary</h3>
-
-<div class="total-price" id="totalPrice">
-₹1,35,000
-</div>
-
-<p id="summaryText"></p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">Wanderlust Royale</div>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="contact.html">Contact</a>
+            <a href="trip info.html">Trip Info</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Wanderlust Royale. All Rights Reserved.</p>
+        <p>DGCA Licensed · IATA Accredited · Made with ❤️ in Chennai 🇮🇳</p>
+    </div>
+</footer>
 
 <script>
+    // ── STATE ──
+    const params = new URLSearchParams(window.location.search);
+    let basePrice = parseInt(params.get('price') || '125000');
+    let placeName = params.get('place') || 'Paris';
+    let currentStep = 1;
+    let classMultiplier = 0;
+    let addonTotal = 0;
+    let selectedClass = 'Economy';
 
-/* DEFAULT PRICE */
-
-let basePrice = 0;
-
-/* GET URL PARAMETERS */
-
-const params = new URLSearchParams(window.location.search);
-
-const place = params.get("place");
-const price = params.get("price");
-
-if(place){
-document.getElementById("selectedPlace").textContent = place;
-document.getElementById("bookingTitle").textContent = place + " Luxury Experience";
-}
-
-if(price){
-basePrice = parseInt(price);
-}
-
-document.getElementById("bookingPrice").textContent =
-"₹" + basePrice.toLocaleString();
-
-/* PRICE CALCULATION */
-
-document.getElementById("travellers").addEventListener("change", updatePrice);
-
-function updatePrice(){
-
-let travellers = parseInt(document.getElementById("travellers").value);
-
-let total = basePrice * travellers;
-
-document.getElementById("summaryBox").style.display = "block";
-
-document.getElementById("totalPrice").textContent =
-"₹" + total.toLocaleString();
-
-document.getElementById("summaryText").innerHTML =
-travellers + " Traveller(s) × ₹" + basePrice.toLocaleString();
-
-}
-
-/* FORM SUBMIT */
-
-document.getElementById("bookingForm").addEventListener("submit",function(e){
-
-e.preventDefault();
-
-alert("🎉 Booking confirmed! Our team will contact you soon.");
-
-this.reset();
-
-document.getElementById("summaryBox").style.display="none";
-
-});
-
-</script>
-
-<!-- In booking.html form submit -->
-<script>
-// AFTER FORM SUBMIT - REDIRECT WITH TOTAL!
-document.getElementById("bookingForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    
-    const formData = {
-        place: document.getElementById("selectedPlace").textContent,
-        total: document.getElementById("totalPrice").textContent.replace(/[^0-9]/g, ''),
-        travellers: document.getElementById("travellers").value,
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        date: document.getElementById("date").value,
-        flight: "QR231" // Dynamic from destination
+    // Destination images map
+    const destImages = {
+        'Paris':       'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=200&q=80',
+        'Bangkok':     'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=200&q=80',
+        'Sydney':      'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=200&q=80',
+        'Dubai':       'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=200&q=80',
+        'Maldives':    'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=200&q=80',
+        'London':      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=200&q=80',
+        'Tokyo':       'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=200&q=80',
+        'Switzerland': 'https://images.unsplash.com/photo-1586348943529-beaae6c28db9?auto=format&fit=crop&w=200&q=80',
+        'NewYork':     'https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=200&q=80',
+        'Bali':        'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=200&q=80',
+        'Rome':        'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=200&q=80',
+        'CapeTown':    'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=200&q=80',
     };
-    
-    // MAGIC REDIRECT WITH FULL DATA!
-    const params = new URLSearchParams(formData);
-    window.location.href = `ticket.html?${params.toString()}`;
-});
+
+    // ── INIT ──
+    window.addEventListener('load', () => {
+        document.getElementById('heroDestText').innerHTML = 'You are booking: <strong>' + placeName + '</strong>';
+        document.getElementById('heroDestBreadcrumb').textContent = placeName;
+        document.getElementById('summaryDestName').textContent = placeName;
+        const img = destImages[placeName] || destImages['Paris'];
+        document.getElementById('summaryImg').src = img;
+        document.getElementById('summBasePrice').textContent = '₹' + basePrice.toLocaleString('en-IN');
+        // Set min departure date to tomorrow
+        const tomorrow = new Date(Date.now() + 86400000);
+        document.getElementById('depDate').min = tomorrow.toISOString().split('T')[0];
+        document.getElementById('depDate').value = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
+        document.getElementById('retDate').value = new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0];
+        document.getElementById('journeyFlow').classList.add('show');
+        updateSummary();
+        formatCardInputs();
+    });
+
+    // ── NAVBAR ──
+    window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('nav-menu').classList.toggle('active'));
+
+    // ── STEP NAVIGATION ──
+    function goStep(n) {
+        // Validate step 1
+        if (n > 1 && currentStep === 1) {
+            const fname = document.getElementById('fname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            if (!fname || !email || !phone) {
+                [fname ? null : 'fname', email ? null : 'email', phone ? null : 'phone'].filter(Boolean).forEach(id => {
+                    document.getElementById(id).classList.add('error');
+                    setTimeout(() => document.getElementById(id).classList.remove('error'), 3000);
+                });
+                return;
+            }
+        }
+        // Hide current step form
+        document.getElementById('formStep' + currentStep).style.display = 'none';
+        // Show new step form
+        document.getElementById('formStep' + n).style.display = 'block';
+        // Update step indicators
+        for (let i = 1; i <= 5; i++) {
+            const el = document.getElementById('step' + i);
+            if (!el) continue;
+            el.classList.remove('active','done');
+            if (i < n) el.classList.add('done');
+            else if (i === n) el.classList.add('active');
+        }
+        for (let i = 1; i <= 4; i++) {
+            const con = document.getElementById('con' + i);
+            if (con) con.classList.toggle('filled', i < n);
+        }
+        currentStep = n;
+        updateSummary();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── TRAVELLER COUNTER ──
+    function changeTrav(field, delta) {
+        const el = document.getElementById(field);
+        const val = Math.max(field === 'adults' ? 1 : 0, Math.min(10, parseInt(el.value) + delta));
+        el.value = val;
+        updateSummary();
+    }
+
+    // ── CLASS SELECTION ──
+    function selectClass(btn, name, mult) {
+        document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedClass = name;
+        classMultiplier = mult;
+        updateSummary();
+    }
+
+    // ── ADDON TOGGLE ──
+    function toggleAddon(item, price) {
+        item.classList.toggle('selected');
+        addonTotal = 0;
+        document.querySelectorAll('.addon-item.selected').forEach(a => {
+            addonTotal += parseInt(a.getAttribute('onclick').match(/\d+/)[0]);
+        });
+        updateSummary();
+    }
+
+    // ── PAYMENT METHOD ──
+    function selectPay(el, method) {
+        document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+        el.classList.add('selected');
+        ['cardFields','upiField','netbankField','emiField'].forEach(id => document.getElementById(id).classList.remove('show'));
+        const map = { card:'cardFields', upi:'upiField', netbanking:'netbankField', emi:'emiField' };
+        document.getElementById(map[method]).classList.add('show');
+        if (method === 'emi') updateEMI();
+    }
+    function updateEMI() {
+        const months = parseInt(document.getElementById('emiDuration').value);
+        const total = calcTotal();
+        const monthly = Math.round(total / months);
+        document.getElementById('emiText').textContent = `₹${monthly.toLocaleString('en-IN')} / month for ${months} months — No Cost EMI`;
+    }
+    document.addEventListener('change', e => { if (e.target.id === 'emiDuration') updateEMI(); });
+
+    // ── PRICE CALCULATION ──
+    function calcTotal() {
+        const adults = parseInt(document.getElementById('adults').value || 2);
+        const children = parseInt(document.getElementById('children').value || 0);
+        const hotelMult = parseFloat(document.getElementById('hotelCat')?.value || 0.2);
+        const basePP = basePrice * (1 + classMultiplier + hotelMult);
+        const travellerCost = (basePP * adults) + (basePP * 0.6 * children);
+        return Math.round(travellerCost + addonTotal);
+    }
+
+    function updateSummary() {
+        const adults = parseInt(document.getElementById('adults').value || 2);
+        const children = parseInt(document.getElementById('children').value || 0);
+        const travText = adults + ' adult' + (adults > 1 ? 's' : '') + (children > 0 ? ', ' + children + ' child' + (children > 1 ? 'ren' : '') : '');
+        const total = calcTotal();
+        const tax = Math.round(total * 0.05);
+        const grandTotal = total + tax;
+
+        document.getElementById('summTrav').textContent = travText;
+        document.getElementById('summClass').textContent = selectedClass;
+        const hotelEl = document.getElementById('hotelCat');
+        document.getElementById('summHotel').textContent = hotelEl ? hotelEl.options[hotelEl.selectedIndex].text.split('—')[0].trim() : '4 Star';
+        document.getElementById('summAddons').textContent = addonTotal > 0 ? '+₹' + addonTotal.toLocaleString('en-IN') : '₹0';
+        document.getElementById('summTax').textContent = '₹' + tax.toLocaleString('en-IN');
+        document.getElementById('summTotal').textContent = '₹' + grandTotal.toLocaleString('en-IN');
+        document.getElementById('finalAmount').textContent = '₹' + grandTotal.toLocaleString('en-IN');
+    }
+
+    // ── CONFIRM BOOKING ──
+    function confirmBooking() {
+        const btn = document.getElementById('confirmBtn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Processing Payment...';
+        btn.disabled = true;
+        setTimeout(() => {
+            // Generate booking reference
+            const ref = 'WR-' + Math.floor(Math.random() * 900000 + 100000);
+            document.getElementById('bookingRefNum').textContent = ref;
+            // Build boarding pass link
+            const name = (document.getElementById('fname').value + ' ' + document.getElementById('lname').value).trim().toUpperCase();
+            const bpParams = new URLSearchParams({
+                name, place: placeName,
+                flight: 'QR' + Math.floor(Math.random()*900+100),
+                tclass: selectedClass,
+                date: document.getElementById('depDate').value,
+                from: 'Chennai (MAA)',
+                to: placeName,
+                ref
+            });
+            document.getElementById('boardingPassLink').href = 'ticket.html?' + bpParams.toString();
+            // Hide form steps, show success
+            for (let i = 1; i <= 4; i++) document.getElementById('formStep' + i).style.display = 'none';
+            document.getElementById('successScreen').classList.add('show');
+            // Update step indicators
+            for (let i = 1; i <= 5; i++) {
+                const el = document.getElementById('step' + i);
+                if (el) { el.classList.remove('active'); el.classList.add('done'); }
+            }
+            for (let i = 1; i <= 4; i++) { const c = document.getElementById('con' + i); if (c) c.classList.add('filled'); }
+            // Update journey flow
+            ['jfBook','jfConfirm','jfVisa'].forEach(id => {
+                document.getElementById(id).className = 'jf-step-icon done';
+                document.getElementById(id).innerHTML = '<i class="fas fa-check"></i>';
+            });
+            ['jfBookStatus','jfConfirmStatus','jfVisaStatus'].forEach(id => {
+                document.getElementById(id).className = 'step-status done';
+                document.getElementById(id).textContent = '✓ Complete';
+            });
+            document.getElementById('jfBP').className = 'jf-step-icon active';
+            document.getElementById('jfBPStatus').className = 'step-status active';
+            document.getElementById('jfBPStatus').textContent = '→ Ready to Generate';
+            // Confetti
+            launchConfetti();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 2200);
+    }
+
+    // ── CONFETTI ──
+    function launchConfetti() {
+        const canvas = document.getElementById('confettiCanvas');
+        canvas.style.display = 'block';
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const pieces = Array.from({length:120}, () => ({
+            x: Math.random()*canvas.width, y: Math.random()*canvas.height - canvas.height,
+            w: Math.random()*12+4, h: Math.random()*18+6, r: Math.random()*Math.PI*2,
+            dr: (Math.random()-0.5)*0.2, vx: (Math.random()-0.5)*3, vy: Math.random()*4+2,
+            color: ['#d4af37','#f0d47a','#1a2633','#ff9933','#138808','#ffffff'][Math.floor(Math.random()*6)]
+        }));
+        let frame = 0;
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            pieces.forEach(p => {
+                ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+                ctx.fillStyle = p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+                ctx.restore();
+                p.x += p.vx; p.y += p.vy; p.r += p.dr;
+                if (p.y > canvas.height) { p.y = -20; p.x = Math.random()*canvas.width; }
+            });
+            frame++;
+            if (frame < 200) requestAnimationFrame(draw);
+            else { canvas.style.display = 'none'; }
+        }
+        draw();
+    }
+
+    // ── DOWNLOAD SUMMARY ──
+    function downloadSummary() {
+        const name = (document.getElementById('fname').value + ' ' + document.getElementById('lname').value).trim();
+        const ref = document.getElementById('bookingRefNum').textContent;
+        const total = document.getElementById('summTotal').textContent;
+        const content = `WANDERLUST ROYALE — BOOKING SUMMARY\n${'='.repeat(40)}\nBooking Reference: ${ref}\nPassenger: ${name}\nDestination: ${placeName}\nTravel Class: ${selectedClass}\nTotal Amount: ${total}\n\nThank you for booking with Wanderlust Royale!\n24/7 Concierge: +91 98400 00000\nhello@wanderlustroyale.com\n`;
+        const blob = new Blob([content], {type:'text/plain'});
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+        a.download = `Royale_Booking_${ref}.txt`; a.click();
+    }
+
+    // ── CARD INPUT FORMATTING ──
+    function formatCardInputs() {
+        const cardNum = document.getElementById('cardNum');
+        cardNum.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g,'').substring(0,16).replace(/(.{4})/g,'$1  ').trim();
+        });
+        const cardExp = document.getElementById('cardExp');
+        cardExp.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g,'').substring(0,4).replace(/^(\d{2})(\d)/, '$1 / $2');
+        });
+    }
+
+    // ── REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
-
 </body>
 </html>
