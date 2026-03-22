@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Payment – Wanderlust Royale</title>
+    <title>Secure Checkout – Wanderlust Royale</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
@@ -17,87 +17,82 @@
             --glass-border: rgba(212,175,55,0.3);
             --navy-shadow: rgba(26,38,51,0.3);
             --green: #27ae60;
+            --red: #e05555;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         html { scroll-behavior:smooth; }
         body { font-family:'Poppins',sans-serif; background:var(--cream); color:#333; min-height:100vh; overflow-x:hidden; }
 
         /* ── HEADER ── */
-        header {
-            position:sticky; top:0; width:100%;
-            background:rgba(26,38,51,0.97);
-            backdrop-filter:blur(25px); -webkit-backdrop-filter:blur(25px);
-            padding:16px 40px; z-index:1000;
-            border-bottom:1px solid var(--glass-border);
-            box-shadow:0 6px 28px var(--navy-shadow);
-        }
+        header { position:sticky; top:0; width:100%; background:rgba(26,38,51,0.97); backdrop-filter:blur(25px); padding:16px 40px; z-index:1000; border-bottom:1px solid var(--glass-border); box-shadow:0 6px 28px var(--navy-shadow); }
         .nav-container { max-width:1300px; margin:auto; display:flex; justify-content:space-between; align-items:center; }
-        .logo { font-family:'Playfair Display',serif; font-size:1.8rem; background:linear-gradient(45deg,var(--gold),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700; letter-spacing:1px; text-decoration:none; }
+        .logo { font-family:'Playfair Display',serif; font-size:1.8rem; background:linear-gradient(45deg,var(--gold),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700; text-decoration:none; }
         nav ul { list-style:none; display:flex; align-items:center; }
         nav li { margin:0 12px; }
         nav a { color:#f8f5f2; text-decoration:none; font-weight:500; font-size:0.9rem; position:relative; transition:all 0.3s; padding:8px 0; }
         nav a::after { content:''; position:absolute; bottom:0; left:50%; width:0; height:2px; background:var(--gold); transition:all 0.3s; transform:translateX(-50%); }
         nav a:hover::after { width:100%; }
         nav a:hover { color:var(--gold); }
-        .nav-secure { display:flex; align-items:center; gap:8px; background:rgba(39,174,96,0.15); border:1px solid rgba(39,174,96,0.3); color:#4cd07a; padding:8px 18px; border-radius:22px; font-size:0.8rem; font-weight:600; }
         .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
         .hamburger span { width:25px; height:3px; background:var(--gold); transition:0.3s; }
 
         /* ── PAGE STRIP ── */
-        .page-strip {
-            background:linear-gradient(135deg,var(--royal-navy),#243447);
-            padding:44px 40px; position:relative; overflow:hidden;
-        }
-        .page-strip::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 20% 50%,rgba(212,175,55,0.1),transparent 60%); }
-        .page-strip::after  { content:'🔒'; position:absolute; right:60px; top:50%; transform:translateY(-50%); font-size:8rem; opacity:0.04; pointer-events:none; }
+        .page-strip { background:linear-gradient(135deg,var(--royal-navy),#243447); padding:40px 40px 36px; position:relative; overflow:hidden; }
+        .page-strip::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 80% 50%,rgba(212,175,55,0.1),transparent 60%); }
+        .page-strip::after { content:'🔒'; position:absolute; right:80px; top:50%; transform:translateY(-50%); font-size:8rem; opacity:0.04; pointer-events:none; }
         .strip-inner { max-width:1300px; margin:auto; position:relative; z-index:1; }
-        .strip-inner .eyebrow { color:var(--gold); font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; font-weight:600; display:block; margin-bottom:8px; }
-        .strip-inner h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); color:white; font-weight:900; }
+        .strip-inner .eyebrow { color:var(--gold); font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; font-weight:600; margin-bottom:8px; display:block; }
+        .strip-inner h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); color:white; font-weight:900; margin-bottom:6px; }
         .strip-inner h1 span { color:var(--gold); }
-        .strip-inner p { color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:8px; }
+        .strip-inner p { color:rgba(255,255,255,0.6); font-size:0.88rem; }
         .breadcrumb { display:flex; gap:8px; align-items:center; margin-top:14px; }
         .breadcrumb a { color:var(--gold); text-decoration:none; font-size:0.78rem; }
-        .breadcrumb i { font-size:0.58rem; color:rgba(255,255,255,0.35); }
+        .breadcrumb i { font-size:0.58rem; color:rgba(255,255,255,0.3); }
         .breadcrumb span { font-size:0.78rem; color:rgba(255,255,255,0.45); }
 
         /* ── PROGRESS ── */
         .progress-wrap { background:white; padding:20px 40px; border-bottom:1px solid rgba(212,175,55,0.1); }
-        .progress-inner { max-width:700px; margin:auto; display:flex; align-items:center; justify-content:center; }
+        .progress-inner { max-width:720px; margin:auto; display:flex; align-items:center; justify-content:center; }
         .prog-step { display:flex; align-items:center; gap:10px; }
         .prog-circle { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.82rem; font-weight:700; border:2px solid #ddd; color:#bbb; background:white; transition:all 0.4s; flex-shrink:0; }
         .prog-step.done   .prog-circle { background:var(--green); border-color:var(--green); color:white; }
         .prog-step.active .prog-circle { background:var(--royal-navy); border-color:var(--royal-navy); color:var(--gold); box-shadow:0 4px 14px var(--navy-shadow); }
         .prog-label { font-size:0.75rem; font-weight:600; color:#bbb; text-transform:uppercase; letter-spacing:0.5px; }
-        .prog-step.done   .prog-label { color:var(--green); }
         .prog-step.active .prog-label { color:var(--royal-navy); }
-        .prog-connector { width:50px; height:2px; background:#eee; margin:0 8px; flex-shrink:0; overflow:hidden; position:relative; }
-        .prog-connector::after { content:''; position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width 0.5s; }
+        .prog-step.done   .prog-label { color:var(--green); }
+        .prog-connector { width:50px; height:2px; background:#eee; margin:0 8px; flex-shrink:0; position:relative; overflow:hidden; }
+        .prog-connector::after { content:''; position:absolute; top:0; left:0; height:100%; background:var(--gold); transition:width 0.5s ease; }
         .prog-connector.filled::after { width:100%; }
 
-        /* ── MAIN ── */
-        .main-wrap { max-width:1300px; margin:0 auto; padding:50px 40px 90px; display:grid; grid-template-columns:1fr 380px; gap:36px; align-items:start; }
+        /* ── MAIN LAYOUT ── */
+        .main-wrap { max-width:1300px; margin:0 auto; padding:50px 40px 90px; display:grid; grid-template-columns:1fr 400px; gap:36px; align-items:start; }
 
-        /* ── GLASS CARD ── */
-        .glass-card { background:white; border-radius:24px; box-shadow:0 14px 50px rgba(0,0,0,0.08); border:1px solid rgba(212,175,55,0.1); overflow:hidden; position:relative; }
-        .glass-card::before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold)); background-size:200% 100%; animation:goldShift 4s ease infinite; z-index:2; }
+        /* ── GLASS CARD BASE ── */
+        .g-card { background:white; border-radius:24px; box-shadow:0 14px 50px rgba(0,0,0,0.08); border:1px solid rgba(212,175,55,0.1); overflow:hidden; position:relative; }
+        .g-card::before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold)); background-size:200% 100%; animation:goldShift 4s ease infinite; z-index:2; }
         @keyframes goldShift { 0%,100%{background-position:0%50%;} 50%{background-position:100%50%;} }
 
-        /* ── PAYMENT TABS ── */
-        .pay-tabs { display:flex; padding:0 32px; border-bottom:2px solid rgba(212,175,55,0.12); background:rgba(26,38,51,0.02); }
-        .pay-tab { flex:1; padding:18px 10px; background:none; border:none; cursor:pointer; font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600; color:#bbb; border-bottom:3px solid transparent; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:-2px; }
-        .pay-tab i { font-size:1rem; }
-        .pay-tab:hover { color:var(--royal-navy); }
-        .pay-tab.active { color:var(--royal-navy); border-bottom-color:var(--gold); }
+        /* ── PAYMENT FORM CARD ── */
+        .pay-header { background:linear-gradient(135deg,var(--royal-navy),#243447); padding:24px 32px; position:relative; overflow:hidden; }
+        .pay-header::after { content:'💳'; position:absolute; right:20px; bottom:-12px; font-size:7rem; opacity:0.05; pointer-events:none; }
+        .pay-header h2 { font-family:'Playfair Display',serif; color:white; font-size:1.4rem; }
+        .pay-header p { color:rgba(255,255,255,0.5); font-size:0.78rem; margin-top:4px; }
+        .ssl-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(39,174,96,0.18); border:1px solid rgba(39,174,96,0.3); padding:4px 12px; border-radius:14px; color:#27ae60; font-size:0.7rem; font-weight:700; margin-top:10px; }
 
-        /* Tab body */
-        .tab-body { padding:32px; }
-        .tab-pane { display:none; animation:fadeIn 0.35s ease; }
-        .tab-pane.active { display:block; }
-        @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+        /* Tabs */
+        .pay-tabs { display:flex; border-bottom:2px solid rgba(212,175,55,0.12); background:var(--warm); }
+        .tab-btn { flex:1; padding:16px 10px; background:none; border:none; cursor:pointer; font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600; color:#888; border-bottom:3px solid transparent; margin-bottom:-2px; transition:all 0.3s; display:flex; align-items:center; justify-content:center; gap:7px; }
+        .tab-btn i { color:var(--gold); font-size:0.88rem; }
+        .tab-btn:hover { color:var(--royal-navy); }
+        .tab-btn.active { color:var(--royal-navy); border-bottom-color:var(--gold); background:white; }
 
-        /* ── FORM ELEMENTS ── */
-        .form-section { margin-bottom:24px; }
-        .form-section-label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--gold); margin-bottom:14px; display:flex; align-items:center; gap:8px; padding-bottom:8px; border-bottom:1px solid rgba(212,175,55,0.15); }
+        /* Tab content */
+        .tab-content { display:none; padding:28px 32px; }
+        .tab-content.active { display:block; animation:fadeIn 0.35s ease; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+
+        /* Form groups */
+        .form-section-lbl { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:8px; padding-bottom:10px; border-bottom:1px solid rgba(212,175,55,0.15); }
         .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
         .form-row.single { grid-template-columns:1fr; }
         .form-row.triple { grid-template-columns:1fr 1fr 1fr; }
@@ -107,181 +102,169 @@
         .form-group input, .form-group select {
             padding:13px 16px; border:2px solid #eee; border-radius:12px;
             font-family:'Poppins',sans-serif; font-size:0.88rem; color:#333;
-            background:#fafaf8; outline:none; transition:all 0.3s ease; appearance:none;
+            background:#fafaf8; outline:none; transition:all 0.3s; appearance:none;
         }
         .form-group input:focus, .form-group select:focus { border-color:var(--gold); background:white; box-shadow:0 0 0 4px rgba(212,175,55,0.1); transform:translateY(-1px); }
-        .form-group input.valid   { border-color:var(--green); }
-        .form-group input.invalid { border-color:#e05555; }
+        .form-group input.valid  { border-color:var(--green); }
+        .form-group input.invalid { border-color:var(--red); }
+        .field-icon-wrap { position:relative; }
+        .field-icon-wrap input { padding-right:44px; }
+        .field-icon { position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:0.9rem; color:#ccc; pointer-events:none; }
+        .field-icon.valid   { color:var(--green); }
+        .field-icon.invalid { color:var(--red); }
 
-        /* Card preview */
-        .card-preview {
-            background:linear-gradient(135deg,var(--royal-navy),#2d4a6e);
-            border-radius:18px; padding:26px 28px; margin-bottom:28px;
-            position:relative; overflow:hidden;
-            box-shadow:0 16px 45px var(--navy-shadow);
-            min-height:170px;
-        }
-        .card-preview::before { content:''; position:absolute; top:-30px; right:-30px; width:160px; height:160px; border-radius:50%; background:rgba(212,175,55,0.1); }
-        .card-preview::after  { content:''; position:absolute; bottom:-50px; left:-20px; width:120px; height:120px; border-radius:50%; background:rgba(212,175,55,0.06); }
-        .cp-chip { width:44px; height:34px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); border-radius:6px; margin-bottom:22px; display:flex; align-items:center; justify-content:center; }
-        .cp-chip::before { content:''; width:30px; height:22px; background:linear-gradient(135deg,#c19e2d,var(--gold)); border-radius:3px; }
-        .cp-number { color:white; font-size:1.2rem; letter-spacing:4px; font-family:'Playfair Display',serif; margin-bottom:18px; }
-        .cp-bottom { display:flex; justify-content:space-between; align-items:flex-end; }
-        .cp-name { color:rgba(255,255,255,0.8); font-size:0.82rem; text-transform:uppercase; letter-spacing:1px; }
-        .cp-expiry { color:rgba(255,255,255,0.8); font-size:0.75rem; }
-        .cp-expiry .ce-label { font-size:0.6rem; opacity:0.6; display:block; }
-        .cp-network { position:absolute; bottom:22px; right:22px; display:flex; gap:-8px; }
-        .cp-network i { font-size:2rem; opacity:0.7; color:var(--gold-light); }
-        .card-icons-row { display:flex; gap:10px; margin-top:12px; }
-        .card-icons-row i { font-size:1.8rem; color:#bbb; transition:all 0.3s; }
-        .card-icons-row i.active { color:var(--royal-navy); opacity:1; }
+        /* Card brand logos */
+        .card-brands { display:flex; gap:10px; margin-top:8px; }
+        .card-brands i { font-size:1.5rem; opacity:0.35; transition:opacity 0.3s; }
+        .card-brands i.active { opacity:1; }
 
         /* Bank grid */
-        .bank-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+        .bank-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
         .bank-btn {
-            padding:18px 10px; border:2px solid #eee; border-radius:14px;
-            background:#fafaf8; cursor:pointer; text-align:center; transition:all 0.3s;
-            font-family:'Poppins',sans-serif;
+            padding:18px 10px; border:2px solid #eee; border-radius:16px;
+            cursor:pointer; text-align:center; transition:all 0.35s;
+            background:#fafaf8; font-family:'Poppins',sans-serif;
         }
-        .bank-btn:hover { border-color:var(--gold); background:rgba(212,175,55,0.04); transform:translateY(-3px); }
-        .bank-btn.selected { border-color:var(--gold); background:rgba(212,175,55,0.07); box-shadow:0 6px 20px rgba(212,175,55,0.18); }
-        .bank-btn .b-logo { font-size:1.8rem; display:block; margin-bottom:6px; }
-        .bank-btn .b-name { font-size:0.72rem; font-weight:700; color:var(--royal-navy); }
-        .bank-redirect { margin-top:22px; text-align:center; display:none; padding:22px; background:var(--warm); border-radius:14px; }
-        .bank-redirect p { font-size:0.88rem; color:var(--royal-navy); margin-bottom:14px; font-weight:600; }
-        .spin-ring { width:44px; height:44px; border:4px solid rgba(212,175,55,0.2); border-top:4px solid var(--gold); border-radius:50%; animation:spin 1s linear infinite; margin:0 auto; }
-        @keyframes spin { to { transform:rotate(360deg); } }
+        .bank-btn:hover, .bank-btn.selected { border-color:var(--gold); background:rgba(212,175,55,0.06); transform:translateY(-3px); box-shadow:0 8px 22px rgba(212,175,55,0.15); }
+        .bank-btn.selected { border-color:var(--gold); }
+        .bank-logo { font-size:2rem; display:block; margin-bottom:7px; }
+        .bank-name { font-size:0.75rem; font-weight:600; color:var(--royal-navy); }
 
-        /* UPI / QR */
-        .qr-section { text-align:center; }
-        .qr-wrap { background:linear-gradient(135deg,rgba(26,38,51,0.04),rgba(26,38,51,0.02)); border-radius:22px; padding:30px; display:inline-block; margin-bottom:22px; border:1px solid rgba(212,175,55,0.12); }
-        #qrCanvas { border-radius:12px; display:block; box-shadow:0 8px 28px rgba(0,0,0,0.12); }
-        .qr-amount { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--royal-navy); font-weight:700; margin-bottom:6px; }
-        .qr-apps { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:16px 0; }
-        .qr-app { background:white; border:1px solid #eee; padding:8px 16px; border-radius:12px; font-size:0.78rem; font-weight:600; color:var(--royal-navy); display:flex; align-items:center; gap:6px; }
-        .upi-input-row { display:flex; gap:10px; margin-top:18px; }
-        .upi-input { flex:1; padding:13px 16px; border:2px solid #eee; border-radius:12px; font-family:'Poppins',sans-serif; font-size:0.88rem; outline:none; background:#fafaf8; transition:all 0.3s; }
-        .upi-input:focus { border-color:var(--gold); background:white; }
-        .upi-verify-btn { background:var(--royal-navy); color:var(--gold); border:none; padding:13px 22px; border-radius:12px; cursor:pointer; font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:700; transition:all 0.3s; white-space:nowrap; }
-        .upi-verify-btn:hover { background:var(--gold); color:var(--royal-navy); }
+        /* QR */
+        .qr-wrap { text-align:center; padding:10px; }
+        .qr-inner { display:inline-block; background:white; border-radius:20px; padding:24px; border:2px solid var(--glass-border); box-shadow:0 8px 28px rgba(212,175,55,0.1); }
+        #qrCanvas { border-radius:12px; display:block; }
+        .qr-amount { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--royal-navy); font-weight:700; margin:16px 0 6px; }
+        .qr-instruction { font-size:0.8rem; color:#888; line-height:1.7; }
+        .qr-apps { display:flex; justify-content:center; gap:14px; margin-top:16px; flex-wrap:wrap; }
+        .qr-app { background:var(--warm); padding:8px 16px; border-radius:20px; font-size:0.75rem; font-weight:600; color:#666; border:1px solid #eee; display:flex; align-items:center; gap:6px; }
 
-        /* EMI */
-        .emi-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:22px; }
-        .emi-btn { padding:16px; border:2px solid #eee; border-radius:14px; background:#fafaf8; cursor:pointer; text-align:center; transition:all 0.3s; font-family:'Poppins',sans-serif; }
-        .emi-btn:hover { border-color:var(--gold); }
-        .emi-btn.selected { border-color:var(--gold); background:rgba(212,175,55,0.06); }
-        .emi-btn .em-months { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--royal-navy); font-weight:700; display:block; }
-        .emi-btn .em-amount { font-size:0.78rem; color:var(--gold); font-weight:700; margin-top:4px; display:block; }
-        .emi-btn .em-label  { font-size:0.7rem; color:#aaa; }
+        /* UPI ID option */
+        .upi-divider { text-align:center; color:#bbb; font-size:0.78rem; margin:20px 0; position:relative; }
+        .upi-divider::before, .upi-divider::after { content:''; position:absolute; top:50%; width:42%; height:1px; background:#eee; }
+        .upi-divider::before { left:0; } .upi-divider::after { right:0; }
 
-        /* Pay button */
-        .pay-btn-wrap { padding:0 32px 32px; }
+        /* PAY BUTTON */
+        .pay-btn-wrap { padding:0 32px 28px; }
         .pay-btn {
-            width:100%; padding:18px; background:linear-gradient(135deg,var(--royal-navy),#243447);
-            color:white; border:none; border-radius:16px; font-family:'Poppins',sans-serif;
-            font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.35s ease;
-            position:relative; overflow:hidden; letter-spacing:0.4px;
-            display:flex; align-items:center; justify-content:center; gap:10px;
+            width:100%; padding:17px; background:linear-gradient(135deg,var(--green),#2ecc71);
+            color:white; border:none; border-radius:16px;
+            font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700;
+            cursor:pointer; transition:all 0.35s ease; position:relative; overflow:hidden;
+            display:flex; align-items:center; justify-content:center; gap:10px; letter-spacing:0.4px;
         }
-        .pay-btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); transition:left 0.55s; }
+        .pay-btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent); transition:left 0.55s; }
         .pay-btn:hover::before { left:100%; }
-        .pay-btn:hover:not(:disabled) { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--royal-navy); transform:translateY(-3px); box-shadow:0 14px 35px rgba(212,175,55,0.45); }
-        .pay-btn:disabled { background:#ccc; cursor:not-allowed; transform:none; }
-
-        /* Security note */
-        .security-note { display:flex; align-items:center; gap:8px; margin:12px 32px 0; padding:12px 16px; background:rgba(39,174,96,0.06); border:1px solid rgba(39,174,96,0.18); border-radius:12px; font-size:0.75rem; color:#27ae60; font-weight:500; }
+        .pay-btn:hover:not(:disabled) { transform:translateY(-3px); box-shadow:0 14px 36px rgba(39,174,96,0.4); }
+        .pay-btn:disabled { background:#ccc; cursor:not-allowed; }
+        .pay-btn.loading { background:linear-gradient(135deg,#555,#777); }
 
         /* ── ORDER SUMMARY SIDEBAR ── */
-        .summary-card { background:white; border-radius:24px; box-shadow:0 14px 50px rgba(0,0,0,0.08); border:1px solid rgba(212,175,55,0.1); overflow:hidden; position:sticky; top:90px; }
-        .summary-card::before { content:''; display:block; height:5px; background:linear-gradient(90deg,var(--gold),var(--gold-light)); }
-        .summary-head { background:linear-gradient(135deg,var(--royal-navy),#243447); padding:22px 26px; }
-        .summary-head h3 { font-family:'Playfair Display',serif; color:white; font-size:1.2rem; }
-        .summary-head p { color:rgba(255,255,255,0.5); font-size:0.75rem; margin-top:3px; }
-        .summary-items { padding:16px 22px; max-height:260px; overflow-y:auto; }
-        .summary-items::-webkit-scrollbar { width:3px; }
-        .summary-items::-webkit-scrollbar-thumb { background:rgba(212,175,55,0.3); border-radius:2px; }
-        .si-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #f5f2ec; align-items:center; }
-        .si-item:last-child { border-bottom:none; }
-        .si-item img { width:48px; height:48px; border-radius:10px; object-fit:cover; flex-shrink:0; }
-        .si-item .si-name  { font-size:0.8rem; font-weight:700; color:var(--royal-navy); margin-bottom:2px; }
-        .si-item .si-price { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--gold); }
-        .si-item .si-qty   { font-size:0.7rem; color:#bbb; }
-        .summary-lines { padding:14px 22px; }
-        .sum-line { display:flex; justify-content:space-between; font-size:0.85rem; padding:9px 0; border-bottom:1px solid #f5f2ec; }
-        .sum-line:last-child { border-bottom:none; }
-        .sum-line .sl-label { color:#888; }
-        .sum-line .sl-val { font-weight:600; color:var(--royal-navy); }
-        .sum-line .sl-val.green { color:var(--green); }
-        .sum-line .sl-val.gold  { color:var(--gold); }
-        .summary-total { padding:16px 22px; background:var(--warm); border-top:2px solid rgba(212,175,55,0.15); display:flex; justify-content:space-between; align-items:center; }
-        .summary-total .st-lbl { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#888; }
-        .summary-total .st-amt { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--royal-navy); font-weight:700; }
-        .summary-badges { padding:16px 22px; border-top:1px solid rgba(212,175,55,0.1); display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-        .sb { display:flex; align-items:center; gap:5px; font-size:0.7rem; color:#aaa; }
-        .sb i { color:var(--gold); }
+        .sidebar { display:flex; flex-direction:column; gap:24px; position:sticky; top:90px; }
+
+        .order-card { background:white; border-radius:24px; box-shadow:0 14px 50px rgba(0,0,0,0.08); border:1px solid rgba(212,175,55,0.1); overflow:hidden; }
+        .order-card::before { content:''; display:block; height:5px; background:linear-gradient(90deg,var(--gold),var(--gold-light)); }
+        .order-head { background:linear-gradient(135deg,var(--royal-navy),#243447); padding:22px 26px; }
+        .order-head h3 { font-family:'Playfair Display',serif; color:white; font-size:1.2rem; }
+        .order-head p { color:rgba(255,255,255,0.5); font-size:0.75rem; margin-top:3px; }
+
+        /* Cart items mini */
+        .order-items { padding:16px 22px; max-height:260px; overflow-y:auto; }
+        .order-items::-webkit-scrollbar { width:3px; }
+        .order-items::-webkit-scrollbar-thumb { background:rgba(212,175,55,0.3); border-radius:2px; }
+        .mini-item { display:flex; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid #f5f2ec; }
+        .mini-item:last-child { border-bottom:none; }
+        .mini-item img { width:48px; height:48px; border-radius:10px; object-fit:cover; flex-shrink:0; }
+        .mi-name { font-size:0.8rem; font-weight:700; color:var(--royal-navy); margin-bottom:2px; }
+        .mi-qty  { font-size:0.71rem; color:#bbb; }
+        .mi-price { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--gold); font-weight:700; margin-left:auto; white-space:nowrap; flex-shrink:0; }
+        .order-empty { text-align:center; padding:30px; }
+        .order-empty i { font-size:2.5rem; color:rgba(26,38,51,0.08); display:block; margin-bottom:10px; }
+        .order-empty p { color:#ccc; font-size:0.82rem; }
+
+        /* Summary lines */
+        .order-lines { padding:14px 22px; border-top:1px solid rgba(212,175,55,0.1); }
+        .ol { display:flex; justify-content:space-between; align-items:center; padding:8px 0; font-size:0.84rem; border-bottom:1px solid #f5f2ec; }
+        .ol:last-child { border-bottom:none; }
+        .ol .lbl { color:#888; }
+        .ol .val { font-weight:600; color:var(--royal-navy); }
+        .ol .val.green { color:var(--green); }
+        .ol .val.gold  { color:var(--gold); }
+
+        /* Grand total */
+        .order-total { padding:16px 22px; background:var(--warm); border-top:2px solid rgba(212,175,55,0.15); }
+        .ot-row { display:flex; justify-content:space-between; align-items:center; }
+        .ot-row .t-lbl { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#888; }
+        .ot-row .t-amt { font-family:'Playfair Display',serif; font-size:1.9rem; color:var(--royal-navy); font-weight:700; }
+
+        /* Delivery info */
+        .delivery-card { background:white; border-radius:20px; padding:20px 22px; box-shadow:0 8px 28px rgba(0,0,0,0.06); border:1px solid rgba(212,175,55,0.1); }
+        .delivery-card h4 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--royal-navy); margin-bottom:14px; }
+        .delivery-item { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+        .delivery-item:last-child { margin-bottom:0; }
+        .di-icon { width:36px; height:36px; border-radius:10px; background:rgba(212,175,55,0.1); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:0.85rem; flex-shrink:0; }
+        .di-text h5 { font-size:0.8rem; font-weight:700; color:var(--royal-navy); }
+        .di-text p  { font-size:0.72rem; color:#aaa; }
 
         /* ── SUCCESS MODAL ── */
-        .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(10,18,28,0.9); backdrop-filter:blur(12px); z-index:2000; align-items:center; justify-content:center; padding:20px; }
-        .modal-backdrop.open { display:flex; }
-        .success-box { background:var(--cream); border-radius:28px; padding:50px 44px; max-width:520px; width:100%; text-align:center; border:1px solid var(--glass-border); box-shadow:0 40px 100px var(--navy-shadow); animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1); }
-        @keyframes popIn { from{transform:scale(0.85);opacity:0;} to{transform:scale(1);opacity:1;} }
-        .success-icon { width:90px; height:90px; background:linear-gradient(135deg,#e8f5e9,#c8e6c9); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.5rem; margin:0 auto 24px; animation:iconPop 0.5s 0.2s cubic-bezier(0.34,1.56,0.64,1) both; }
-        @keyframes iconPop { from{transform:scale(0);} to{transform:scale(1);} }
-        .success-box h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--royal-navy); margin-bottom:10px; }
-        .success-box p { color:#777; font-size:0.9rem; line-height:1.8; margin-bottom:24px; }
-        .order-ref { background:white; border:1px solid var(--glass-border); border-radius:14px; padding:18px 24px; margin-bottom:26px; }
-        .order-ref .ref-label { font-size:0.68rem; text-transform:uppercase; letter-spacing:2px; color:#aaa; margin-bottom:6px; }
-        .order-ref .ref-num { font-family:'Playfair Display',serif; font-size:2rem; color:var(--royal-navy); font-weight:700; letter-spacing:3px; }
-        .success-actions { display:flex; flex-direction:column; gap:12px; }
-        .btn-track { display:flex; align-items:center; justify-content:center; gap:10px; padding:16px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--royal-navy); border:none; border-radius:14px; font-family:'Poppins',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.35s ease; }
+        .modal-bg { display:none; position:fixed; inset:0; background:rgba(10,18,28,0.88); backdrop-filter:blur(14px); z-index:3000; align-items:center; justify-content:center; padding:20px; }
+        .modal-bg.open { display:flex; }
+        .success-modal {
+            background:var(--cream); border-radius:30px; padding:56px 50px;
+            max-width:520px; width:100%; text-align:center;
+            box-shadow:0 40px 100px var(--navy-shadow); border:1px solid var(--glass-border);
+            animation:modalIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+            position:relative; overflow:hidden;
+        }
+        .success-modal::before { content:''; position:absolute; top:0; left:0; right:0; height:6px; background:linear-gradient(90deg,var(--green),#2ecc71,var(--green)); background-size:200% 100%; animation:goldShift 3s ease infinite; }
+        @keyframes modalIn { from{transform:scale(0.7);opacity:0;} to{transform:scale(1);opacity:1;} }
+        .success-icon-wrap { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,var(--green),#2ecc71); display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:white; margin:0 auto 22px; animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; }
+        @keyframes popIn { from{transform:scale(0.3);opacity:0;} to{transform:scale(1);opacity:1;} }
+        .success-modal h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--royal-navy); margin-bottom:12px; }
+        .success-modal p { color:#777; font-size:0.9rem; line-height:1.8; margin-bottom:10px; }
+        .order-ref { background:var(--warm); border:1px solid var(--glass-border); border-radius:14px; padding:16px 22px; margin:20px 0; }
+        .order-ref .ref-lbl { font-size:0.68rem; text-transform:uppercase; letter-spacing:2px; color:#bbb; margin-bottom:5px; }
+        .order-ref .ref-num { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--royal-navy); font-weight:700; letter-spacing:2px; }
+        .modal-actions { display:flex; flex-direction:column; gap:12px; margin-top:24px; }
+        .btn-track { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--royal-navy); border:none; padding:16px; border-radius:14px; font-family:'Poppins',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.35s; display:flex; align-items:center; justify-content:center; gap:10px; }
         .btn-track:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(212,175,55,0.4); }
-        .btn-continue { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px; border:2px solid var(--royal-navy); color:var(--royal-navy); background:transparent; border-radius:14px; font-family:'Poppins',sans-serif; font-size:0.9rem; font-weight:600; cursor:pointer; transition:all 0.3s; }
-        .btn-continue:hover { background:var(--royal-navy); color:white; }
-
-        /* ── CONFETTI ── */
-        #confettiCanvas { position:fixed; inset:0; pointer-events:none; z-index:9999; display:none; }
+        .btn-home  { background:transparent; border:2px solid var(--royal-navy); color:var(--royal-navy); padding:14px; border-radius:14px; font-family:'Poppins',sans-serif; font-size:0.9rem; font-weight:600; cursor:pointer; transition:all 0.35s; }
+        .btn-home:hover { background:var(--royal-navy); color:white; }
 
         /* ── TOAST ── */
-        .toast { position:fixed; bottom:32px; right:32px; background:var(--royal-navy); color:white; padding:14px 20px; border-radius:14px; font-size:0.83rem; font-weight:600; z-index:1500; transform:translateY(16px); opacity:0; transition:all 0.35s ease; border:1px solid var(--glass-border); display:flex; align-items:center; gap:10px; max-width:320px; }
+        .toast { position:fixed; bottom:32px; right:32px; background:var(--royal-navy); color:white; padding:14px 20px; border-radius:14px; font-size:0.83rem; font-weight:600; z-index:2000; transform:translateY(16px); opacity:0; transition:all 0.35s ease; border:1px solid var(--glass-border); display:flex; align-items:center; gap:10px; max-width:320px; }
         .toast.show { transform:translateY(0); opacity:1; }
         .toast i { color:var(--gold); }
 
         /* ── FOOTER ── */
         footer { background:var(--royal-navy); color:var(--cream); padding:40px 40px 24px; }
-        .footer-strip { max-width:1300px; margin:auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; padding-bottom:22px; border-bottom:1px solid rgba(255,255,255,0.08); }
-        .footer-logo-sm { font-family:'Playfair Display',serif; font-size:1.4rem; background:linear-gradient(45deg,var(--gold),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .footer-links-sm { display:flex; gap:20px; }
-        .footer-links-sm a { color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.82rem; transition:color 0.3s; }
-        .footer-links-sm a:hover { color:var(--gold); }
-        .footer-copy { max-width:1300px; margin:16px auto 0; font-size:0.78rem; opacity:0.45; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+        .footer-bottom-strip { max-width:1300px; margin:auto; border-top:1px solid rgba(255,255,255,0.08); padding-top:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+        .footer-bottom-strip p { font-size:0.79rem; opacity:0.5; }
+        .footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+        .footer-links a { color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.82rem; transition:color 0.3s; }
+        .footer-links a:hover { color:var(--gold); }
 
         /* ── RESPONSIVE ── */
-        @media (max-width:1050px) { .main-wrap { grid-template-columns:1fr; } .summary-card { position:static; } }
+        @media (max-width:1050px) { .main-wrap { grid-template-columns:1fr; } .sidebar { position:static; } }
         @media (max-width:768px) {
             header { padding:14px 20px; }
             .hamburger { display:flex; }
-            nav ul { position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(26,38,51,0.98); flex-direction:column; justify-content:center; align-items:center; gap:2rem; transform:translateX(100%); transition:transform 0.4s; z-index:950; }
+            nav ul { position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(26,38,51,0.98); flex-direction:column; justify-content:center; align-items:center; gap:2rem; transform:translateX(100%); transition:transform 0.4s ease; z-index:950; }
             nav ul.active { transform:translateX(0); }
             nav li { margin:0; } nav a { font-size:1.1rem; }
             .main-wrap { padding:30px 16px 60px; }
-            .page-strip { padding:32px 20px; }
+            .page-strip { padding:28px 20px; }
             .progress-wrap { padding:18px 16px; }
-            .tab-body { padding:22px 18px; }
+            .tab-content { padding:22px 18px; }
             .pay-btn-wrap { padding:0 18px 22px; }
-            .security-note { margin:10px 18px 0; }
-            .form-row { grid-template-columns:1fr; }
-            .form-row.triple { grid-template-columns:1fr 1fr; }
+            .form-row, .form-row.triple { grid-template-columns:1fr; }
             .bank-grid { grid-template-columns:repeat(2,1fr); }
-            .emi-grid { grid-template-columns:1fr; }
-            footer { padding:36px 20px 20px; }
-            .footer-strip { flex-direction:column; text-align:center; }
-            .footer-copy { flex-direction:column; text-align:center; }
+            footer { padding:30px 20px 18px; }
+            .footer-bottom-strip { flex-direction:column; text-align:center; }
         }
     </style>
 </head>
 <body>
-
-<canvas id="confettiCanvas"></canvas>
 
 <!-- HEADER -->
 <header>
@@ -292,27 +275,28 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Shop</a></li>
                 <li><a href="cart.html">Cart</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
-        <div style="display:flex;align-items:center;gap:12px;">
-            <div class="nav-secure"><i class="fas fa-lock"></i> SSL Secure</div>
-            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-        </div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     </div>
 </header>
 
 <!-- PAGE STRIP -->
 <div class="page-strip">
     <div class="strip-inner">
-        <span class="eyebrow"><i class="fas fa-lock" style="margin-right:6px"></i> Wanderlust Royale · Secure Payment</span>
+        <span class="eyebrow"><i class="fas fa-lock" style="margin-right:6px"></i> Secure Payment Gateway</span>
         <h1>Secure <span>Checkout</span></h1>
-        <p>Your payment is protected by 256-bit SSL encryption</p>
+        <p>Your payment is protected by 256-bit SSL encryption — the same security used by banks</p>
         <div class="breadcrumb">
-            <a href="index.html">Home</a><i class="fas fa-chevron-right"></i>
-            <a href="products.html">Shop</a><i class="fas fa-chevron-right"></i>
-            <a href="cart.html">Cart</a><i class="fas fa-chevron-right"></i>
-            <span>Payment</span>
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="products.html">Shop</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="cart.html">Cart</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Checkout</span>
         </div>
     </div>
 </div>
@@ -324,7 +308,7 @@
         <div class="prog-connector filled"></div>
         <div class="prog-step done"><div class="prog-circle"><i class="fas fa-check"></i></div><span class="prog-label">Cart</span></div>
         <div class="prog-connector filled"></div>
-        <div class="prog-step active"><div class="prog-circle">3</div><span class="prog-label">Payment</span></div>
+        <div class="prog-step active" id="ps3"><div class="prog-circle">3</div><span class="prog-label">Payment</span></div>
         <div class="prog-connector" id="pc4"></div>
         <div class="prog-step" id="ps4"><div class="prog-circle">4</div><span class="prog-label">Confirmed</span></div>
     </div>
@@ -333,184 +317,202 @@
 <!-- MAIN -->
 <div class="main-wrap">
 
-    <!-- PAYMENT FORM -->
-    <div class="glass-card">
-        <div class="pay-tabs" id="payTabs">
-            <button class="pay-tab active" onclick="switchTab('card',this)"><i class="fas fa-credit-card"></i> Card</button>
-            <button class="pay-tab" onclick="switchTab('netbanking',this)"><i class="fas fa-university"></i> Net Banking</button>
-            <button class="pay-tab" onclick="switchTab('upi',this)"><i class="fas fa-mobile-alt"></i> UPI / QR</button>
-            <button class="pay-tab" onclick="switchTab('emi',this)"><i class="fas fa-calendar-check"></i> No-Cost EMI</button>
+    <!-- LEFT — PAYMENT FORM -->
+    <div class="g-card">
+        <div class="pay-header">
+            <h2><i class="fas fa-shield-alt" style="color:var(--gold);margin-right:8px"></i> Secure Payment</h2>
+            <p>Complete your order using your preferred payment method</p>
+            <span class="ssl-badge"><i class="fas fa-lock"></i> 256-bit SSL · DGCA Licensed · PCI DSS Compliant</span>
         </div>
 
-        <div class="tab-body">
+        <!-- PAYMENT TABS -->
+        <div class="pay-tabs">
+            <button class="tab-btn active" id="tabCard" onclick="switchTab('card',event)"><i class="fas fa-credit-card"></i> Card</button>
+            <button class="tab-btn" id="tabNet" onclick="switchTab('net',event)"><i class="fas fa-university"></i> Net Banking</button>
+            <button class="tab-btn" id="tabUpi" onclick="switchTab('upi',event)"><i class="fas fa-mobile-alt"></i> UPI / QR</button>
+            <button class="tab-btn" id="tabEmi" onclick="switchTab('emi',event)"><i class="fas fa-calendar-check"></i> EMI</button>
+        </div>
 
-            <!-- CARD TAB -->
-            <div class="tab-pane active" id="tab-card">
-                <!-- Live card preview -->
-                <div class="card-preview" id="cardPreview">
-                    <div class="cp-chip"></div>
-                    <div class="cp-number" id="previewNum">•••• •••• •••• ••••</div>
-                    <div class="cp-bottom">
-                        <div>
-                            <div class="cp-expiry"><span class="ce-label">VALID THRU</span><span id="previewExp">MM/YY</span></div>
-                            <div class="cp-name" id="previewName">YOUR NAME</div>
-                        </div>
-                        <div class="cp-network"><i class="fab fa-cc-visa" id="previewNetwork"></i></div>
-                    </div>
-                </div>
-                <div class="card-icons-row">
-                    <i class="fab fa-cc-visa" id="icon-visa" title="Visa"></i>
-                    <i class="fab fa-cc-mastercard" id="icon-mc" title="Mastercard"></i>
-                    <i class="fab fa-cc-amex" id="icon-amex" title="Amex"></i>
-                    <i class="fab fa-cc-rupay" id="icon-rupay" title="RuPay"></i>
-                </div>
-
-                <div class="form-section" style="margin-top:22px;">
-                    <div class="form-section-label"><i class="fas fa-credit-card"></i> Card Details</div>
-                    <div class="form-row single">
-                        <div class="form-group">
-                            <label><i class="fas fa-hashtag"></i> Card Number</label>
-                            <input type="text" id="cardNumber" placeholder="1234  5678  9012  3456" maxlength="19" oninput="onCardNum(this)">
-                        </div>
-                    </div>
-                    <div class="form-row triple">
-                        <div class="form-group" style="grid-column:span 2;">
-                            <label><i class="fas fa-calendar-alt"></i> Cardholder Name</label>
-                            <input type="text" id="cardHolder" placeholder="RAVI KUMAR" oninput="document.getElementById('previewName').textContent=this.value.toUpperCase()||'YOUR NAME'">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fas fa-lock"></i> CVV</label>
-                            <input type="password" id="cardCvv" maxlength="4" placeholder="•••" oninput="validateCardForm()">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Expiry Date</label>
-                            <input type="text" id="cardExp" placeholder="MM / YY" maxlength="7" oninput="onExpiry(this)">
-                        </div>
-                        <div class="form-group">
-                            <label>Billing Name</label>
-                            <input type="text" id="billingName" placeholder="As on bank statement">
-                        </div>
+        <!-- CARD TAB -->
+        <div class="tab-content active" id="tabCardContent">
+            <div class="form-section-lbl"><i class="fas fa-credit-card"></i> Credit / Debit Card</div>
+            <div class="form-row single">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Cardholder Name</label>
+                    <div class="field-icon-wrap">
+                        <input type="text" id="cardName" placeholder="Name as on card" oninput="validateAll()">
+                        <i class="fas fa-user field-icon" id="iCardName"></i>
                     </div>
                 </div>
             </div>
-
-            <!-- NET BANKING TAB -->
-            <div class="tab-pane" id="tab-netbanking">
-                <p style="color:#888;font-size:0.85rem;margin-bottom:22px;">Select your bank for secure internet banking redirect</p>
-                <div class="bank-grid">
-                    <div class="bank-btn" onclick="selectBank(this,'SBI')"><span class="b-logo">🏦</span><span class="b-name">State Bank of India</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'HDFC')"><span class="b-logo">🔷</span><span class="b-name">HDFC Bank</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'ICICI')"><span class="b-logo">⭐</span><span class="b-name">ICICI Bank</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'AXIS')"><span class="b-logo">⚡</span><span class="b-name">Axis Bank</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'KOTAK')"><span class="b-logo">🔥</span><span class="b-name">Kotak Mahindra</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'PNB')"><span class="b-logo">🏛️</span><span class="b-name">Punjab National</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'BOB')"><span class="b-logo">💎</span><span class="b-name">Bank of Baroda</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'YES')"><span class="b-logo">✅</span><span class="b-name">Yes Bank</span></div>
-                    <div class="bank-btn" onclick="selectBank(this,'OTHER')"><span class="b-logo">🌐</span><span class="b-name">Other Banks</span></div>
-                </div>
-                <div class="bank-redirect" id="bankRedirect">
-                    <p>Redirecting to <strong id="selectedBankName"></strong> secure portal...</p>
-                    <div class="spin-ring"></div>
+            <div class="form-row single">
+                <div class="form-group">
+                    <label><i class="fas fa-credit-card"></i> Card Number</label>
+                    <div class="field-icon-wrap">
+                        <input type="text" id="cardNum" placeholder="1234  5678  9012  3456" maxlength="19" oninput="fmtCard(this);detectBrand();validateAll()">
+                        <i class="fas fa-credit-card field-icon" id="iCardNum"></i>
+                    </div>
+                    <div class="card-brands">
+                        <i class="fab fa-cc-visa" id="bVisa"></i>
+                        <i class="fab fa-cc-mastercard" id="bMC"></i>
+                        <i class="fab fa-cc-amex" id="bAmex"></i>
+                        <i class="fab fa-cc-rupay" id="bRupay"></i>
+                    </div>
                 </div>
             </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> Expiry Date</label>
+                    <input type="text" id="cardExp" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this);validateAll()">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> CVV</label>
+                    <div class="field-icon-wrap">
+                        <input type="password" id="cardCvv" placeholder="•••" maxlength="4" oninput="validateAll()">
+                        <i class="fas fa-question-circle field-icon" title="3 digits on back of card" style="cursor:help;color:#ccc;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row single">
+                <div class="form-group">
+                    <label>Billing Address (City / State)</label>
+                    <input type="text" id="billing" placeholder="Chennai, Tamil Nadu">
+                </div>
+            </div>
+        </div>
 
-            <!-- UPI / QR TAB -->
-            <div class="tab-pane" id="tab-upi">
-                <div class="qr-section">
-                    <div class="qr-amount" id="qrAmt">₹0</div>
-                    <p style="color:#aaa;font-size:0.8rem;margin-bottom:18px;">Scan the QR code below with any UPI app</p>
-                    <div class="qr-wrap"><canvas id="qrCanvas"></canvas></div>
+        <!-- NET BANKING TAB -->
+        <div class="tab-content" id="tabNetContent">
+            <div class="form-section-lbl"><i class="fas fa-university"></i> Select Your Bank</div>
+            <div class="bank-grid">
+                <div class="bank-btn" onclick="selectBank(this,'SBI')"><span class="bank-logo">🏦</span><span class="bank-name">State Bank</span></div>
+                <div class="bank-btn" onclick="selectBank(this,'HDFC')"><span class="bank-logo">💳</span><span class="bank-name">HDFC Bank</span></div>
+                <div class="bank-btn" onclick="selectBank(this,'ICICI')"><span class="bank-logo">⭐</span><span class="bank-name">ICICI Bank</span></div>
+                <div class="bank-btn" onclick="selectBank(this,'Axis')"><span class="bank-logo">⚡</span><span class="bank-name">Axis Bank</span></div>
+                <div class="bank-btn" onclick="selectBank(this,'Kotak')"><span class="bank-logo">🔥</span><span class="bank-name">Kotak Bank</span></div>
+                <div class="bank-btn" onclick="selectBank(this,'PNB')"><span class="bank-logo">🏛️</span><span class="bank-name">Punjab National</span></div>
+            </div>
+            <div id="bankRedirectMsg" style="display:none;margin-top:22px;text-align:center;padding:20px;background:var(--warm);border-radius:14px;">
+                <p style="font-size:0.85rem;color:var(--royal-navy);font-weight:600;margin-bottom:10px;">Redirecting to <span id="selectedBankName"></span>...</p>
+                <div style="width:40px;height:40px;border:3px solid #eee;border-top-color:var(--gold);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto;"></div>
+                @keyframes spin { to{transform:rotate(360deg);} }
+            </div>
+        </div>
+
+        <!-- UPI / QR TAB -->
+        <div class="tab-content" id="tabUpiContent">
+            <div class="form-section-lbl"><i class="fas fa-qrcode"></i> Scan QR Code</div>
+            <div class="qr-wrap">
+                <div class="qr-inner">
+                    <canvas id="qrCanvas"></canvas>
+                    <div class="qr-amount" id="qrAmountDisplay">₹0</div>
+                    <div class="qr-instruction">Scan with any UPI app to pay instantly</div>
                     <div class="qr-apps">
-                        <div class="qr-app">📱 PhonePe</div>
-                        <div class="qr-app">🔵 GPay</div>
-                        <div class="qr-app">💙 Paytm</div>
-                        <div class="qr-app">🟠 BHIM</div>
-                    </div>
-                    <p style="color:#888;font-size:0.82rem;margin:12px 0 6px;font-weight:600;">— OR enter UPI ID —</p>
-                    <div class="upi-input-row">
-                        <input type="text" class="upi-input" id="upiId" placeholder="yourname@upi">
-                        <button class="upi-verify-btn" onclick="verifyUPI()"><i class="fas fa-check"></i>&nbsp;Verify</button>
+                        <span class="qr-app">📱 PhonePe</span>
+                        <span class="qr-app">🟢 Google Pay</span>
+                        <span class="qr-app">💙 Paytm</span>
+                        <span class="qr-app">🇮🇳 BHIM</span>
                     </div>
                 </div>
             </div>
-
-            <!-- EMI TAB -->
-            <div class="tab-pane" id="tab-emi">
-                <p style="color:#888;font-size:0.85rem;margin-bottom:20px;">No-cost EMI — pay in easy monthly instalments with zero interest</p>
-                <div class="emi-grid" id="emiGrid"></div>
-                <div class="form-section">
-                    <div class="form-section-label"><i class="fas fa-credit-card"></i> Card for EMI</div>
-                    <div class="form-row single">
-                        <div class="form-group">
-                            <label>Card Number</label>
-                            <input type="text" id="emiCardNum" placeholder="1234  5678  9012  3456" maxlength="19">
-                        </div>
-                    </div>
-                    <div class="form-row triple">
-                        <div class="form-group" style="grid-column:span 2;">
-                            <label>Cardholder Name</label>
-                            <input type="text" id="emiCardName" placeholder="Name on card">
-                        </div>
-                        <div class="form-group">
-                            <label>CVV</label>
-                            <input type="password" id="emiCvv" maxlength="4" placeholder="•••">
-                        </div>
-                    </div>
+            <div class="upi-divider">or enter UPI ID</div>
+            <div class="form-row single">
+                <div class="form-group">
+                    <label><i class="fas fa-at"></i> Your UPI ID</label>
+                    <input type="text" id="upiId" placeholder="yourname@ybl / @okaxis / @oksbi">
                 </div>
             </div>
+        </div>
 
-        </div><!-- /tab-body -->
+        <!-- EMI TAB -->
+        <div class="tab-content" id="tabEmiContent">
+            <div class="form-section-lbl"><i class="fas fa-calendar-check"></i> No-Cost EMI</div>
+            <div style="margin-bottom:20px;">
+                <div class="form-group">
+                    <label>Select EMI Duration</label>
+                    <select id="emiDuration" onchange="updateEMI()">
+                        <option value="3">3 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="9" selected>9 Months</option>
+                        <option value="12">12 Months</option>
+                        <option value="18">18 Months</option>
+                        <option value="24">24 Months</option>
+                    </select>
+                </div>
+            </div>
+            <div id="emiBreakdown" style="background:var(--warm);border-radius:14px;padding:20px;border:1px solid rgba(212,175,55,0.2);">
+                <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-size:0.83rem;color:#888;">Monthly EMI</span><span style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);font-weight:700;" id="emiAmt">₹0</span></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-size:0.83rem;color:#888;">Duration</span><span style="font-size:0.88rem;font-weight:600;color:var(--royal-navy);" id="emiDurDisplay">9 months</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="font-size:0.83rem;color:#888;">Interest</span><span style="font-size:0.88rem;font-weight:700;color:var(--green);">0% — No Cost EMI</span></div>
+            </div>
+            <div class="form-row single" style="margin-top:18px;">
+                <div class="form-group">
+                    <label>Card Number (for EMI)</label>
+                    <input type="text" id="emiCard" placeholder="1234  5678  9012  3456" maxlength="19" oninput="fmtCard(this)">
+                </div>
+            </div>
+        </div>
 
-        <div class="security-note"><i class="fas fa-shield-alt"></i> Your payment is encrypted with 256-bit SSL. We never store your card details.</div>
-        <div class="pay-btn-wrap" style="margin-top:18px;">
+        <!-- PAY BUTTON -->
+        <div class="pay-btn-wrap">
             <button class="pay-btn" id="payBtn" onclick="processPayment()">
                 <i class="fas fa-lock"></i> Pay Securely — <span id="payBtnAmt">₹0</span>
             </button>
         </div>
     </div>
 
-    <!-- ORDER SUMMARY SIDEBAR -->
-    <div class="summary-card">
-        <div class="summary-head">
-            <h3><i class="fas fa-receipt" style="color:var(--gold);margin-right:8px"></i> Order Summary</h3>
-            <p>Review your order before payment</p>
+    <!-- RIGHT — SIDEBAR -->
+    <div class="sidebar">
+
+        <!-- Order Summary -->
+        <div class="order-card">
+            <div class="order-head">
+                <h3>Order Summary</h3>
+                <p id="cartItemsCount">0 items in your order</p>
+            </div>
+            <div class="order-items" id="orderItemsList">
+                <div class="order-empty"><i class="fas fa-shopping-bag"></i><p>No items found</p></div>
+            </div>
+            <div class="order-lines">
+                <div class="ol"><span class="lbl">Subtotal</span><span class="val" id="olSubtotal">₹0</span></div>
+                <div class="ol"><span class="lbl">GST (18%)</span><span class="val" id="olGst">₹0</span></div>
+                <div class="ol"><span class="lbl">Shipping</span><span class="val gold">FREE ✈️</span></div>
+                <div class="ol"><span class="lbl">Promo Discount</span><span class="val green" id="olDiscount">₹0</span></div>
+            </div>
+            <div class="order-total">
+                <div class="ot-row">
+                    <span class="t-lbl">Grand Total</span>
+                    <span class="t-amt" id="olGrand">₹0</span>
+                </div>
+            </div>
         </div>
-        <div class="summary-items" id="summaryItems"></div>
-        <div class="summary-lines">
-            <div class="sum-line"><span class="sl-label">Subtotal</span><span class="sl-val" id="summSubtotal">₹0</span></div>
-            <div class="sum-line"><span class="sl-label">Shipping</span><span class="sl-val gold">FREE ✈️</span></div>
-            <div class="sum-line"><span class="sl-label">GST (18%)</span><span class="sl-val" id="summGst">₹0</span></div>
-            <div class="sum-line"><span class="sl-label">You Save</span><span class="sl-val green" id="summSavings">₹0</span></div>
+
+        <!-- Delivery Info -->
+        <div class="delivery-card">
+            <h4><i class="fas fa-shipping-fast" style="color:var(--gold);margin-right:8px"></i> Delivery Details</h4>
+            <div class="delivery-item"><div class="di-icon"><i class="fas fa-shipping-fast"></i></div><div class="di-text"><h5>Express Delivery</h5><p>3–5 business days · Free shipping</p></div></div>
+            <div class="delivery-item"><div class="di-icon"><i class="fas fa-box"></i></div><div class="di-text"><h5>Premium Packaging</h5><p>Luxury gift box with certificate of authenticity</p></div></div>
+            <div class="delivery-item"><div class="di-icon"><i class="fas fa-undo"></i></div><div class="di-text"><h5>30-Day Returns</h5><p>Easy returns with prepaid label</p></div></div>
+            <div class="delivery-item"><div class="di-icon"><i class="fas fa-headset"></i></div><div class="di-text"><h5>24/7 Support</h5><p>+91 98400 00000 · hello@wanderlustroyale.com</p></div></div>
         </div>
-        <div class="summary-total">
-            <span class="st-lbl">Grand Total</span>
-            <span class="st-amt" id="summGrand">₹0</span>
-        </div>
-        <div class="summary-badges">
-            <div class="sb"><i class="fas fa-shield-alt"></i> SSL Secure</div>
-            <div class="sb"><i class="fas fa-undo"></i> Easy Returns</div>
-            <div class="sb"><i class="fas fa-shipping-fast"></i> Free Shipping</div>
-            <div class="sb"><i class="fas fa-star"></i> 4.9★ Rated</div>
-        </div>
+
     </div>
 
-</div><!-- /main-wrap -->
+</div>
 
 <!-- SUCCESS MODAL -->
-<div class="modal-backdrop" id="successModal">
-    <div class="success-box">
-        <div class="success-icon">✅</div>
-        <h2>Payment Confirmed! 🎉</h2>
-        <p>Your order has been placed successfully. Our team will process and dispatch it within 24–48 hours. A confirmation email is on its way!</p>
+<div class="modal-bg" id="successModal">
+    <div class="success-modal">
+        <div class="success-icon-wrap"><i class="fas fa-check"></i></div>
+        <h2>Payment Successful! 🎉</h2>
+        <p>Your order has been confirmed and is being prepared for dispatch.<br>A confirmation email has been sent to you.</p>
         <div class="order-ref">
-            <div class="ref-label">Your Order Reference</div>
+            <div class="ref-lbl">Order Reference</div>
             <div class="ref-num" id="orderRefNum">WR-000000</div>
         </div>
-        <div class="success-actions">
-            <button class="btn-track" onclick="trackOrder()"><i class="fas fa-truck"></i>&nbsp; Track My Order</button>
-            <button class="btn-continue" onclick="continueShopping()"><i class="fas fa-store"></i>&nbsp; Continue Shopping</button>
+        <div class="modal-actions">
+            <button class="btn-track" onclick="trackOrder()"><i class="fas fa-map-marker-alt"></i>&nbsp; Track My Order</button>
+            <button class="btn-home"  onclick="goHome()"><i class="fas fa-home"></i>&nbsp; Back to Home</button>
         </div>
     </div>
 </div>
@@ -520,218 +522,238 @@
 
 <!-- FOOTER -->
 <footer>
-    <div class="footer-strip">
-        <span class="footer-logo-sm">Wanderlust Royale</span>
-        <div class="footer-links-sm">
+    <div class="footer-bottom-strip">
+        <p>© 2026 Wanderlust Royale. All Rights Reserved.</p>
+        <div class="footer-links">
             <a href="index.html">Home</a>
             <a href="products.html">Shop</a>
             <a href="cart.html">Cart</a>
-            <a href="destinations.html">Destinations</a>
             <a href="contact.html">Contact</a>
         </div>
-    </div>
-    <div class="footer-copy">
-        <span>© 2026 Wanderlust Royale. All Rights Reserved.</span>
-        <span>Made with ❤️ in Chennai, India 🇮🇳 · DGCA Licensed</span>
+        <p>Made with ❤️ in Chennai 🇮🇳 · PCI DSS Compliant · SSL Secured</p>
     </div>
 </footer>
 
 <script>
     // ── STATE ──
     let cart = JSON.parse(localStorage.getItem('wr_cart') || '[]');
+    let activeTab = 'card';
+    let selectedBankName = '';
+    let orderTotal = 0;
+    let gstAmount  = 0;
     let grandTotal = 0;
-    let currentTab = 'card';
-    let selectedBank = '';
-    let selectedEmi = 3;
 
     // ── INIT ──
     window.addEventListener('load', () => {
-        loadOrderData();
-        buildEMIGrid();
+        loadOrder();
         generateQR();
+        updateEMI();
     });
 
-    function loadOrderData() {
-        const subtotal = cart.reduce((s,x) => s + x.price*(x.qty||1), 0);
-        const origTotal = cart.reduce((s,x) => s + (x.orig||x.price)*(x.qty||1), 0);
-        const savings  = origTotal - subtotal;
-        const gst      = Math.round(subtotal * 0.18);
-        grandTotal     = subtotal + gst;
+    function loadOrder() {
+        orderTotal = cart.reduce((s,x) => s + x.price*(x.qty||1), 0);
+        gstAmount  = Math.round(orderTotal * 0.18);
+        grandTotal = orderTotal + gstAmount;
 
-        // Summary items
-        const siEl = document.getElementById('summaryItems');
-        if (cart.length) {
-            siEl.innerHTML = cart.map(x => `
-                <div class="si-item">
-                    <img src="${x.img}" alt="${x.name}" loading="lazy">
-                    <div style="flex:1;min-width:0;">
-                        <div class="si-name">${x.name}</div>
-                        <div class="si-qty">Qty: ${x.qty||1}</div>
-                    </div>
-                    <div class="si-price">₹${(x.price*(x.qty||1)).toLocaleString('en-IN')}</div>
-                </div>`).join('');
-        } else {
-            siEl.innerHTML = '<p style="color:#bbb;font-size:0.82rem;padding:10px 0;">No items in cart.</p>';
-        }
+        const savedDiscount = parseInt(localStorage.getItem('wr_promo_discount') || '0');
+        grandTotal -= savedDiscount;
 
-        document.getElementById('summSubtotal').textContent = '₹'+subtotal.toLocaleString('en-IN');
-        document.getElementById('summGst').textContent      = '₹'+gst.toLocaleString('en-IN');
-        document.getElementById('summSavings').textContent  = savings > 0 ? '₹'+savings.toLocaleString('en-IN') : '₹0';
-        document.getElementById('summGrand').textContent    = '₹'+grandTotal.toLocaleString('en-IN');
-        document.getElementById('payBtnAmt').textContent    = '₹'+grandTotal.toLocaleString('en-IN');
-        document.getElementById('qrAmt').textContent        = '₹'+grandTotal.toLocaleString('en-IN');
+        document.getElementById('olSubtotal').textContent = '₹' + orderTotal.toLocaleString('en-IN');
+        document.getElementById('olGst').textContent      = '₹' + gstAmount.toLocaleString('en-IN');
+        document.getElementById('olDiscount').textContent = savedDiscount > 0 ? '−₹' + savedDiscount.toLocaleString('en-IN') : '₹0';
+        document.getElementById('olGrand').textContent    = '₹' + grandTotal.toLocaleString('en-IN');
+        document.getElementById('payBtnAmt').textContent  = '₹' + grandTotal.toLocaleString('en-IN');
+        document.getElementById('qrAmountDisplay').textContent = '₹' + grandTotal.toLocaleString('en-IN');
+        document.getElementById('cartItemsCount').textContent = cart.length + ' item' + (cart.length !== 1 ? 's' : '') + ' in your order';
+
+        // Mini items
+        const list = document.getElementById('orderItemsList');
+        if (!cart.length) { list.innerHTML = `<div class="order-empty"><i class="fas fa-shopping-bag"></i><p>No items found</p></div>`; return; }
+        list.innerHTML = cart.map(x => `
+            <div class="mini-item">
+                <img src="${x.img}" alt="${x.name}" loading="lazy">
+                <div><div class="mi-name">${x.name}</div><div class="mi-qty">Qty: ${x.qty||1}</div></div>
+                <span class="mi-price">₹${(x.price*(x.qty||1)).toLocaleString('en-IN')}</span>
+            </div>
+        `).join('');
+
+        updateEMI();
     }
 
-    // ── TABS ──
-    function switchTab(tab, btn) {
-        currentTab = tab;
-        document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('tab-'+tab).classList.add('active');
+    // ── TAB SWITCH ──
+    function switchTab(tab, e) {
+        if (e) e.stopPropagation();
+        activeTab = tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+        document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1) + 'Content').classList.add('active');
     }
 
-    // ── CARD PREVIEW ──
-    function onCardNum(input) {
-        let v = input.value.replace(/\D/g,'').substring(0,16);
-        input.value = v.replace(/(.{4})/g,'$1  ').trim();
-        document.getElementById('previewNum').textContent = v.padEnd(16,'•').replace(/(.{4})/g,'$1 ').trim() || '•••• •••• •••• ••••';
-        // Detect network
-        const ni = document.getElementById('previewNetwork');
-        if      (v.startsWith('4'))  { ni.className='fab fa-cc-visa'; }
-        else if (v.startsWith('5'))  { ni.className='fab fa-cc-mastercard'; }
-        else if (v.startsWith('3'))  { ni.className='fab fa-cc-amex'; }
-        else if (v.startsWith('6'))  { ni.className='fab fa-cc-rupay'; }
-        else                         { ni.className='fas fa-credit-card'; }
-        validateCardForm();
+    // ── CARD FORMATTING ──
+    function fmtCard(el) {
+        el.value = el.value.replace(/\D/g,'').substring(0,16).replace(/(.{4})/g,'$1  ').trim();
     }
-    function onExpiry(input) {
-        let v = input.value.replace(/\D/g,'').substring(0,4);
-        if (v.length >= 2) input.value = v.substring(0,2)+' / '+v.substring(2);
-        else input.value = v;
-        document.getElementById('previewExp').textContent = input.value || 'MM/YY';
-        validateCardForm();
+    function fmtExp(el) {
+        el.value = el.value.replace(/\D/g,'').substring(0,4).replace(/^(\d{2})(\d)/, '$1 / $2');
     }
-    function validateCardForm() {
-        const num  = document.getElementById('cardNumber').value.replace(/\s/g,'');
+    function detectBrand() {
+        const n = document.getElementById('cardNum').value.replace(/\s/g,'');
+        document.querySelectorAll('.card-brands i').forEach(i => i.classList.remove('active'));
+        if      (n.startsWith('4'))   document.getElementById('bVisa').classList.add('active');
+        else if (n.match(/^5[1-5]/))  document.getElementById('bMC').classList.add('active');
+        else if (n.startsWith('34') || n.startsWith('37')) document.getElementById('bAmex').classList.add('active');
+        else if (n.startsWith('6'))   document.getElementById('bRupay').classList.add('active');
+    }
+    function validateAll() {
+        const name = document.getElementById('cardName').value.trim();
+        const num  = document.getElementById('cardNum').value.replace(/\s/g,'');
         const exp  = document.getElementById('cardExp').value;
         const cvv  = document.getElementById('cardCvv').value;
-        const name = document.getElementById('cardHolder').value.trim();
-        const ok   = num.length===16 && exp.includes('/') && cvv.length>=3 && name.length>1;
-        document.getElementById('cardNumber').className = num.length===16 ? 'valid' : num.length>0 ? 'invalid' : '';
-        // Only disable if currently on card tab
-        if (currentTab === 'card') document.getElementById('payBtn').disabled = !ok;
+        setFieldState('cardNum', num.length === 16, 'iCardNum');
+        setFieldState('cardName', name.length > 2, 'iCardName');
+    }
+    function setFieldState(id, valid, iconId) {
+        const el = document.getElementById(id);
+        const ic = iconId ? document.getElementById(iconId) : null;
+        if (el.value) {
+            el.className = valid ? 'valid' : 'invalid';
+            if (ic) { ic.className = valid ? 'fas fa-check field-icon valid' : 'fas fa-times field-icon invalid'; }
+        } else {
+            el.className = '';
+            if (ic) ic.className = 'fas fa-credit-card field-icon';
+        }
     }
 
-    // ── BANK ──
+    // ── BANK SELECTION ──
     function selectBank(btn, name) {
         document.querySelectorAll('.bank-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
-        selectedBank = name;
-        document.getElementById('payBtn').disabled = false;
+        selectedBankName = name;
     }
 
-    // ── EMI ──
-    function buildEMIGrid() {
-        const amounts = [3,6,9,12];
-        document.getElementById('emiGrid').innerHTML = amounts.map(m => {
-            const monthly = grandTotal > 0 ? Math.ceil(grandTotal/m) : 0;
-            return `
-            <div class="emi-btn ${m===3?'selected':''}" onclick="selectEmi(this,${m})">
-                <span class="em-months">${m}</span>
-                <span class="em-label">months</span>
-                <span class="em-amount">₹${monthly.toLocaleString('en-IN')}/mo</span>
-            </div>`;
-        }).join('');
-    }
-    function selectEmi(btn, months) {
-        document.querySelectorAll('.emi-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedEmi = months;
-    }
-
-    // ── UPI ──
-    function verifyUPI() {
-        const id = document.getElementById('upiId').value.trim();
-        if (!id.includes('@')) { showToast('⚠️ Please enter a valid UPI ID (e.g. name@upi)'); return; }
-        showToast('✅ UPI ID verified — ' + id);
-        document.getElementById('payBtn').disabled = false;
-    }
-
-    // ── QR ──
+    // ── QR GENERATION ──
     function generateQR() {
-        const data = `upi://pay?pa=royale@ybl&pn=WanderlustRoyale&am=${grandTotal}&cu=INR&tn=GlobalStore`;
-        QRCode.toCanvas(document.getElementById('qrCanvas'), data, {
-            width:180, margin:2, color:{ dark:'#1a2633', light:'#f8f5f2' }
-        }, err => { if(err) console.log(err); });
+        const data = `upi://pay?pa=wanderlustroyale@ybl&pn=Wanderlust+Royale&am=${grandTotal}&cu=INR&tn=WanderLust+Order`;
+        if (typeof QRCode !== 'undefined') {
+            QRCode.toCanvas(document.getElementById('qrCanvas'), data, {
+                width: 200, margin: 2, color: { dark: '#1a2633', light: '#ffffff' }
+            });
+        }
+    }
+
+    // ── EMI CALC ──
+    function updateEMI() {
+        const months = parseInt(document.getElementById('emiDuration')?.value || 9);
+        const monthly = Math.round(grandTotal / months);
+        const el = document.getElementById('emiAmt');
+        const dl = document.getElementById('emiDurDisplay');
+        if (el) el.textContent = '₹' + monthly.toLocaleString('en-IN') + ' / mo';
+        if (dl) dl.textContent = months + ' months';
     }
 
     // ── PROCESS PAYMENT ──
     async function processPayment() {
         const btn = document.getElementById('payBtn');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Processing...';
+        btn.classList.add('loading');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Securely...';
         btn.disabled = true;
 
-        if (currentTab === 'netbanking' && !selectedBank) {
-            showToast('⚠️ Please select a bank first.'); btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely — ' + document.getElementById('payBtnAmt').textContent; btn.disabled = false; return;
+        // Validate card tab
+        if (activeTab === 'card') {
+            const name = document.getElementById('cardName').value.trim();
+            const num  = document.getElementById('cardNum').value.replace(/\s/g,'');
+            const exp  = document.getElementById('cardExp').value;
+            const cvv  = document.getElementById('cardCvv').value;
+            if (!name || num.length < 16 || !exp.includes('/') || cvv.length < 3) {
+                showToast('⚠️ Please fill all card details correctly.'); resetPayBtn(); return;
+            }
         }
-        if (currentTab === 'netbanking') {
-            document.getElementById('bankRedirect').style.display = 'block';
-            document.getElementById('selectedBankName').textContent = selectedBank;
+        if (activeTab === 'net' && !selectedBankName) {
+            showToast('⚠️ Please select a bank.'); resetPayBtn(); return;
         }
 
-        // Simulate processing
-        await new Promise(r => setTimeout(r, 2200));
+        // Bank redirect animation
+        if (activeTab === 'net') {
+            document.getElementById('bankRedirectMsg').style.display = 'block';
+            document.getElementById('selectedBankName').textContent = selectedBankName;
+        }
 
-        // Update progress
-        document.getElementById('pc4').classList.add('filled');
-        document.getElementById('ps4').classList.add('done');
-        document.getElementById('ps4').querySelector('.prog-circle').innerHTML = '<i class="fas fa-check"></i>';
+        await delay(2400);
 
-        // Show success
+        // 3DS simulation for card
+        if (activeTab === 'card') {
+            showToast('🔐 3D Secure verification in progress...');
+            await delay(900);
+        }
+
+        await delay(600);
+        confirmSuccess();
+    }
+
+    function resetPayBtn() {
+        const btn = document.getElementById('payBtn');
+        btn.classList.remove('loading');
+        btn.innerHTML = `<i class="fas fa-lock"></i> Pay Securely — <span id="payBtnAmt">₹${grandTotal.toLocaleString('en-IN')}</span>`;
+        btn.disabled = false;
+    }
+
+    function confirmSuccess() {
         const ref = 'WR-' + Math.floor(Math.random()*900000+100000);
         document.getElementById('orderRefNum').textContent = ref;
         localStorage.setItem('wr_latest_order', ref);
         localStorage.removeItem('wr_cart');
+        localStorage.removeItem('wr_promo_discount');
+        // Update progress
+        document.getElementById('ps3').classList.remove('active'); document.getElementById('ps3').classList.add('done');
+        document.getElementById('pc4').classList.add('filled');
+        document.getElementById('ps4').classList.add('active');
+        // Show modal
         document.getElementById('successModal').classList.add('open');
+        // Confetti
         launchConfetti();
     }
 
+    function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
     // ── CONFETTI ──
     function launchConfetti() {
-        const canvas = document.getElementById('confettiCanvas');
-        canvas.style.display = 'block';
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const canvas = document.createElement('canvas');
+        canvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;';
+        document.body.appendChild(canvas);
         const ctx = canvas.getContext('2d');
-        const pieces = Array.from({length:130}, () => ({
-            x:Math.random()*canvas.width, y:Math.random()*canvas.height-canvas.height,
-            w:Math.random()*12+4, h:Math.random()*18+6, r:Math.random()*Math.PI*2,
-            dr:(Math.random()-0.5)*0.18, vx:(Math.random()-0.5)*2.5, vy:Math.random()*4+2,
-            color:['#d4af37','#f0d47a','#1a2633','#27ae60','#ff9933','#ffffff'][Math.floor(Math.random()*6)]
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const pieces = Array.from({length:100}, () => ({
+            x: Math.random()*canvas.width, y: Math.random()*canvas.height - canvas.height,
+            w: Math.random()*12+4, h: Math.random()*18+6, r: Math.random()*Math.PI*2,
+            dr: (Math.random()-0.5)*0.18, vx: (Math.random()-0.5)*2.5, vy: Math.random()*4+2,
+            color: ['#d4af37','#f0d47a','#1a2633','#27ae60','#ffffff'][Math.floor(Math.random()*5)]
         }));
         let frame = 0;
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             pieces.forEach(p => {
                 ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
-                ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+                ctx.fillStyle = p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
                 ctx.restore();
-                p.x+=p.vx; p.y+=p.vy; p.r+=p.dr;
-                if (p.y>canvas.height) { p.y=-20; p.x=Math.random()*canvas.width; }
+                p.x += p.vx; p.y += p.vy; p.r += p.dr;
+                if (p.y > canvas.height) { p.y = -20; p.x = Math.random()*canvas.width; }
             });
             frame++;
-            if (frame<220) requestAnimationFrame(draw);
-            else canvas.style.display='none';
+            if (frame < 180) requestAnimationFrame(draw);
+            else canvas.remove();
         }
         draw();
     }
 
-    // ── POST-SUCCESS ──
+    // ── MODAL ACTIONS ──
     function trackOrder() {
-        const ref = localStorage.getItem('wr_latest_order') || 'WR-000000';
+        const ref = document.getElementById('orderRefNum').textContent;
         window.location.href = 'track-order.html?order=' + ref;
     }
-    function continueShopping() { window.location.href = 'products.html'; }
+    function goHome() {
+        window.location.href = 'products.html';
+    }
 
     // ── TOAST ──
     function showToast(msg) {
