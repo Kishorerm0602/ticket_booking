@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us – Wanderlust India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --royal-navy: #1a2633;
+            --gold-accent: #d4af37;
+            --saffron: #ff9933;
+            --india-green: #138808;
+            --marble-white: #f8f5f2;
+            --warm-cream: #f4f1e9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; color: #333; overflow-x: hidden; background: var(--marble-white); }
+
+        /* ── TRICOLOR BAR ── */
+        .tricolor-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            z-index: 1001;
+        }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed; top: 3px; width: 100%;
+            background: rgba(26,38,51,0.96); padding: 18px 0;
+            z-index: 1000; backdrop-filter: blur(20px); transition: all 0.4s ease;
+        }
+        nav.scrolled { box-shadow: 0 5px 30px rgba(0,0,0,0.3); padding: 13px 0; }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.7rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .logo span {
+            display: block; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase;
+            background: linear-gradient(45deg, var(--saffron), #ffcc00);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Poppins', sans-serif; font-weight: 600;
+        }
+        nav ul { list-style: none; display: flex; }
+        nav li { margin: 0 14px; }
+        nav a {
+            color: var(--marble-white); text-decoration: none;
+            font-weight: 600; font-size: 0.92rem; position: relative;
+            transition: all 0.3s ease; letter-spacing: 0.5px; padding: 8px 0;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            width: 0; height: 2px; background: var(--gold-accent);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: var(--gold-accent); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--gold-accent); transition: 0.3s; }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            height: 56vh; min-height: 400px; position: relative;
+            background: linear-gradient(rgba(10,20,32,0.75), rgba(10,18,28,0.55)),
+                url("https://images.unsplash.com/photo-1598977583486-9c1bd025ae15?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; color: white; padding: 0 2rem;
+            margin-top: 3px;
+        }
+        .page-hero .badge {
+            border: 1px solid var(--gold-accent); color: var(--gold-accent);
+            padding: 5px 20px; border-radius: 50px; font-size: 0.72rem;
+            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px;
+            animation: fadeDown 0.8s ease forwards;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem);
+            letter-spacing: 2px; text-shadow: 2px 2px 20px rgba(0,0,0,0.7);
+            animation: fadeUp 0.9s ease 0.2s both;
+        }
+        .page-hero h1 span { color: var(--gold-accent); }
+        .page-hero p {
+            margin-top: 14px; font-size: 1.05rem; opacity: 0.88;
+            font-weight: 300; animation: fadeUp 0.9s ease 0.4s both;
+        }
+        .breadcrumb {
+            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 8px; align-items: center;
+            font-size: 0.78rem; color: rgba(255,255,255,0.6);
+        }
+        .breadcrumb a { color: var(--gold-accent); text-decoration: none; }
+        .breadcrumb i { font-size: 0.6rem; }
+
+        /* ── QUICK CONTACT STRIP ── */
+        .quick-strip {
+            background: var(--royal-navy); padding: 0;
+        }
+        .quick-inner {
+            max-width: 1200px; margin: auto;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+        }
+        .quick-item {
+            display: flex; align-items: center; gap: 16px;
+            padding: 28px 30px; border-right: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s ease; cursor: default;
+        }
+        .quick-item:last-child { border-right: none; }
+        .quick-item:hover { background: rgba(255,255,255,0.04); }
+        .quick-icon {
+            width: 46px; height: 46px; border-radius: 12px;
+            background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold-accent); font-size: 1rem; flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .quick-item:hover .quick-icon { background: var(--gold-accent); color: var(--royal-navy); }
+        .quick-item h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.45); margin-bottom: 3px; }
+        .quick-item p  { font-size: 0.88rem; color: white; font-weight: 500; }
+        .quick-item a  { font-size: 0.88rem; color: white; font-weight: 500; text-decoration: none; transition: color 0.3s; }
+        .quick-item a:hover { color: var(--gold-accent); }
+
+        /* ── MAIN SECTION ── */
+        .main-wrap { max-width: 1200px; margin: 70px auto 90px; padding: 0 24px; }
+
+        /* ── TWO-COL LAYOUT ── */
+        .contact-layout {
+            display: grid; grid-template-columns: 1fr 1.55fr; gap: 55px; align-items: start;
+        }
+
+        /* ── LEFT PANEL ── */
+        .left-panel { display: flex; flex-direction: column; gap: 28px; }
+
+        .info-card {
+            background: white; border-radius: 22px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.07); overflow: hidden;
+        }
+        .info-card-header {
+            padding: 22px 28px; background: var(--royal-navy);
+            display: flex; align-items: center; gap: 14px;
+        }
+        .info-card-header i { color: var(--gold-accent); font-size: 1.1rem; }
+        .info-card-header h3 {
+            font-family: 'Playfair Display', serif; color: white; font-size: 1.2rem;
+        }
+        .info-card-body { padding: 24px 28px; }
+
+        .contact-row {
+            display: flex; gap: 18px; align-items: flex-start;
+            padding: 16px 0; border-bottom: 1px solid #f0ebe2;
+        }
+        .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .c-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: var(--warm-cream); display: flex; align-items: center;
+            justify-content: center; color: var(--gold-accent); font-size: 0.95rem; flex-shrink: 0;
+        }
+        .contact-row h4 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: #bbb; margin-bottom: 4px; }
+        .contact-row p, .contact-row a { font-size: 0.88rem; color: var(--royal-navy); font-weight: 500; text-decoration: none; }
+        .contact-row a:hover { color: var(--gold-accent); }
+
+        /* Hours table */
+        .hours-table { width: 100%; border-collapse: collapse; }
+        .hours-table tr td { padding: 9px 0; font-size: 0.85rem; border-bottom: 1px solid #f5f2ec; }
+        .hours-table tr:last-child td { border-bottom: none; }
+        .hours-table .day { color: #888; }
+        .hours-table .time { color: var(--royal-navy); font-weight: 600; text-align: right; }
+        .hours-table .open-badge {
+            display: inline-block; background: #e8f5e9; color: var(--india-green);
+            font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 8px;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-left: 6px;
+        }
+        .hours-table .closed { color: #e05555; }
+
+        /* Social cards */
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .social-btn {
+            display: flex; align-items: center; gap: 12px;
+            padding: 13px 16px; border-radius: 14px; text-decoration: none;
+            transition: all 0.3s ease; border: 2px solid transparent;
+        }
+        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .social-btn .s-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+        .social-btn span { font-size: 0.82rem; font-weight: 600; }
+        .social-btn .sub { font-size: 0.68rem; display: block; opacity: 0.65; margin-top: 1px; }
+
+        .social-btn.instagram { background: #fff0f5; border-color: #ffd6e7; }
+        .social-btn.instagram .s-icon { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: white; }
+        .social-btn.instagram span { color: #bc1888; }
+
+        .social-btn.facebook { background: #f0f4ff; border-color: #d6e0ff; }
+        .social-btn.facebook .s-icon { background: #1877f2; color: white; }
+        .social-btn.facebook span { color: #1877f2; }
+
+        .social-btn.youtube { background: #fff0f0; border-color: #ffd6d6; }
+        .social-btn.youtube .s-icon { background: #ff0000; color: white; }
+        .social-btn.youtube span { color: #cc0000; }
+
+        .social-btn.whatsapp { background: #f0fff4; border-color: #d6ffe0; }
+        .social-btn.whatsapp .s-icon { background: #25d366; color: white; }
+        .social-btn.whatsapp span { color: #128c3e; }
+
+        /* ── RIGHT — FORM ── */
+        .form-card {
+            background: white; border-radius: 22px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); overflow: hidden;
+            position: sticky; top: 90px;
+        }
+        .form-header {
+            background: linear-gradient(135deg, var(--royal-navy), #243447);
+            padding: 34px 38px; position: relative; overflow: hidden;
+        }
+        .form-header::after {
+            content: '✈'; position: absolute; right: 30px; bottom: -10px;
+            font-size: 7rem; opacity: 0.05; line-height: 1;
+        }
+        .form-header .eyebrow {
+            color: var(--saffron); font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase; font-weight: 600; margin-bottom: 8px;
+        }
+        .form-header h2 {
+            font-family: 'Playfair Display', serif; color: white; font-size: 1.9rem; margin-bottom: 8px;
+        }
+        .form-header h2 span { color: var(--gold-accent); }
+        .form-header p { color: rgba(255,255,255,0.65); font-size: 0.85rem; line-height: 1.7; }
+
+        /* Steps indicator */
+        .form-steps {
+            display: flex; gap: 0; padding: 0 38px;
+            background: var(--warm-cream); border-bottom: 1px solid #e8e2d8;
+        }
+        .step-tab {
+            flex: 1; padding: 16px 10px; text-align: center; cursor: pointer;
+            font-size: 0.75rem; font-weight: 600; color: #aaa;
+            border-bottom: 3px solid transparent; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .step-tab.active { color: var(--royal-navy); border-bottom-color: var(--gold-accent); }
+        .step-tab i { display: block; font-size: 1rem; margin-bottom: 4px; color: #ccc; }
+        .step-tab.active i { color: var(--gold-accent); }
+
+        /* Form body */
+        .form-body { padding: 36px 38px; }
+
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+
+        .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block; font-size: 0.75rem; font-weight: 700;
+            color: var(--royal-navy); margin-bottom: 8px;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 13px 16px;
+            border: 2px solid #eee; border-radius: 12px;
+            font-family: 'Poppins', sans-serif; font-size: 0.88rem;
+            color: #333; transition: all 0.3s ease; background: #fafaf8;
+            outline: none; appearance: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold-accent); background: white;
+            box-shadow: 0 0 0 4px rgba(212,175,55,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 110px; }
+
+        /* Trip type selector */
+        .trip-type-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+        .trip-type-btn {
+            padding: 12px 8px; border: 2px solid #eee; border-radius: 12px;
+            background: #fafaf8; cursor: pointer; text-align: center;
+            transition: all 0.3s ease; font-family: 'Poppins', sans-serif;
+        }
+        .trip-type-btn:hover { border-color: var(--gold-accent); }
+        .trip-type-btn.selected { border-color: var(--gold-accent); background: #fffdf4; }
+        .trip-type-btn .tt-icon { font-size: 1.4rem; display: block; margin-bottom: 5px; }
+        .trip-type-btn .tt-label { font-size: 0.72rem; font-weight: 600; color: var(--royal-navy); }
+
+        /* Budget slider */
+        .budget-display {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 10px;
+        }
+        .budget-display .b-label { font-size: 0.75rem; font-weight: 700; color: var(--royal-navy); text-transform: uppercase; letter-spacing: 0.5px; }
+        .budget-display .b-val {
+            font-family: 'Playfair Display', serif; font-size: 1.1rem;
+            color: var(--gold-accent); font-weight: 700;
+        }
+        input[type="range"] {
+            width: 100%; height: 6px; border-radius: 3px;
+            background: linear-gradient(to right, var(--gold-accent) 0%, #eee 0%);
+            outline: none; border: none; padding: 0; cursor: pointer;
+            -webkit-appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 20px; height: 20px;
+            border-radius: 50%; background: var(--royal-navy);
+            border: 3px solid var(--gold-accent); cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Travellers counter */
+        .traveller-counter {
+            display: flex; align-items: center; gap: 0;
+            border: 2px solid #eee; border-radius: 12px; overflow: hidden;
+            background: #fafaf8; width: fit-content;
+        }
+        .tc-btn {
+            width: 44px; height: 44px; border: none; background: transparent;
+            font-size: 1.1rem; cursor: pointer; color: var(--royal-navy);
+            transition: all 0.2s ease; font-weight: 700;
+        }
+        .tc-btn:hover { background: var(--warm-cream); }
+        .tc-val {
+            width: 60px; text-align: center; font-size: 1rem;
+            font-weight: 700; color: var(--royal-navy); border: none;
+            background: transparent; font-family: 'Playfair Display', serif;
+        }
+
+        /* Form nav buttons */
+        .form-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 10px; padding-top: 20px; border-top: 1px solid #f0ebe2;
+        }
+        .btn-prev {
+            padding: 12px 28px; border: 2px solid #ddd; border-radius: 25px;
+            background: transparent; cursor: pointer; font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem; font-weight: 600; color: #888; transition: all 0.3s ease;
+        }
+        .btn-prev:hover { border-color: var(--royal-navy); color: var(--royal-navy); }
+        .btn-next, .btn-submit {
+            padding: 13px 32px; border-radius: 25px; border: none;
+            background: var(--royal-navy); color: white; cursor: pointer;
+            font-family: 'Poppins', sans-serif; font-size: 0.88rem; font-weight: 600;
+            transition: all 0.3s ease; letter-spacing: 0.3px;
+        }
+        .btn-next:hover, .btn-submit:hover {
+            background: var(--gold-accent); color: var(--royal-navy);
+            transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,0.3);
+        }
+        .step-indicator {
+            font-size: 0.75rem; color: #bbb;
+        }
+        .step-indicator span { color: var(--royal-navy); font-weight: 700; }
+
+        /* Progress bar */
+        .form-progress {
+            height: 4px; background: #f0ebe2;
+        }
+        .form-progress-fill {
+            height: 100%; background: linear-gradient(90deg, var(--saffron), var(--gold-accent));
+            transition: width 0.4s ease; border-radius: 0 2px 2px 0;
+        }
+
+        /* Success screen */
+        .form-success {
+            display: none; text-align: center; padding: 50px 38px;
+        }
+        .success-icon {
+            width: 80px; height: 80px; background: #e8f5e9; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: var(--india-green); margin: 0 auto 20px;
+            animation: popIn 0.5s ease;
+        }
+        .form-success h3 {
+            font-family: 'Playfair Display', serif; font-size: 2rem;
+            color: var(--royal-navy); margin-bottom: 12px;
+        }
+        .form-success p { color: #888; font-size: 0.9rem; line-height: 1.8; margin-bottom: 28px; }
+        .btn-reset {
+            padding: 12px 30px; border-radius: 25px; border: 2px solid var(--royal-navy);
+            background: transparent; cursor: pointer; font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem; font-weight: 600; color: var(--royal-navy);
+            transition: all 0.3s ease;
+        }
+        .btn-reset:hover { background: var(--royal-navy); color: white; }
+
+        /* ── MAP SECTION ── */
+        .map-section { margin-top: 60px; }
+        .map-section h2 {
+            font-family: 'Playfair Display', serif; font-size: 2rem;
+            color: var(--royal-navy); margin-bottom: 6px;
+        }
+        .map-section p { color: #888; font-size: 0.88rem; margin-bottom: 24px; }
+        .map-wrap {
+            border-radius: 22px; overflow: hidden;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12); position: relative; height: 420px;
+            background: var(--warm-cream);
+        }
+        /* Illustrated map placeholder */
+        .map-placeholder {
+            width: 100%; height: 100%; background:
+                linear-gradient(rgba(244,241,233,0.6), rgba(244,241,233,0.6)),
+                url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1600&q=80") center/cover;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .map-pin-card {
+            background: white; border-radius: 20px; padding: 28px 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18); text-align: center; max-width: 320px;
+            position: relative;
+        }
+        .map-pin-card::after {
+            content: ''; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+            border-left: 14px solid transparent; border-right: 14px solid transparent;
+            border-top: 14px solid white;
+        }
+        .map-pin-icon {
+            width: 56px; height: 56px; background: var(--royal-navy);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--gold-accent); font-size: 1.3rem; margin: 0 auto 14px;
+        }
+        .map-pin-card h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.2rem;
+            color: var(--royal-navy); margin-bottom: 6px;
+        }
+        .map-pin-card p { font-size: 0.8rem; color: #888; line-height: 1.7; }
+        .map-pin-card .map-cta {
+            display: inline-block; margin-top: 14px; padding: 9px 22px;
+            background: var(--gold-accent); color: var(--royal-navy); text-decoration: none;
+            border-radius: 20px; font-size: 0.78rem; font-weight: 700; transition: all 0.3s ease;
+        }
+        .map-pin-card .map-cta:hover { background: var(--royal-navy); color: white; }
+
+        /* ── TRUST STRIP ── */
+        .trust-strip {
+            background: var(--royal-navy); border-radius: 22px;
+            padding: 40px 50px; margin-top: 60px;
+            display: grid; grid-template-columns: repeat(4,1fr); gap: 30px; text-align: center;
+        }
+        .trust-item .t-num {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem;
+            color: var(--gold-accent); display: block; margin-bottom: 4px;
+        }
+        .trust-item .t-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ── FOOTER ── */
+        footer { background: var(--royal-navy); color: var(--marble-white); padding: 55px 20px 28px; margin-top: 80px; }
+        .footer-top {
+            max-width: 1200px; margin: auto;
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 45px; margin-bottom: 38px;
+        }
+        .footer-brand .logo-ft {
+            font-family: 'Playfair Display', serif; font-size: 1.7rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: block; margin-bottom: 4px;
+        }
+        .footer-brand .tagline-ft {
+            font-size: 0.63rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--saffron); margin-bottom: 14px; display: block;
+        }
+        .footer-brand p { font-size: 0.84rem; opacity: 0.62; line-height: 1.8; }
+        .footer-col h4 { font-family: 'Playfair Display', serif; color: var(--gold-accent); margin-bottom: 17px; font-size: 1.05rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 9px; }
+        .footer-col a { color: rgba(255,255,255,0.62); text-decoration: none; font-size: 0.84rem; transition: all 0.3s ease; }
+        .footer-col a:hover { color: var(--gold-accent); padding-left: 5px; }
+        .footer-col p { font-size: 0.84rem; color: rgba(255,255,255,0.62); line-height: 1.8; }
+        .footer-bottom {
+            max-width: 1200px; margin: auto;
+            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+        .footer-bottom p { font-size: 0.79rem; opacity: 0.52; }
+        .tricolor-strip {
+            height: 4px; width: 100%;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            margin-bottom: 34px; border-radius: 2px;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeDown { from { opacity:0; transform:translateY(-18px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes popIn    { from { transform:scale(0.5); opacity:0; } to { transform:scale(1); opacity:1; } }
+        .reveal { opacity:0; transform:translateY(30px); transition: all 0.6s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .contact-layout { grid-template-columns: 1fr; }
+            .form-card { position: static; }
+            .quick-inner { grid-template-columns: 1fr 1fr; }
+            .quick-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+            .trust-strip { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav ul {
+                position: fixed; top:0; left:0; width:100%; height:100vh;
+                background: rgba(26,38,51,0.98); flex-direction:column;
+                justify-content:center; align-items:center; gap:2rem;
+                transform: translateX(100%); transition: transform 0.4s ease;
+            }
+            nav ul.active { transform: translateX(0); }
+            nav li { margin:0; }
+            nav a { font-size: 1.2rem; }
+            .quick-inner { grid-template-columns: 1fr; }
+            .form-row-2 { grid-template-columns: 1fr; }
+            .trip-type-grid { grid-template-columns: 1fr 1fr; }
+            .social-grid { grid-template-columns: 1fr; }
+            .form-header { padding: 26px 24px; }
+            .form-body { padding: 26px 24px; }
+            .form-steps { padding: 0 24px; }
+            .trust-strip { grid-template-columns: 1fr 1fr; padding: 30px 24px; gap: 20px; }
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+        }
+        @media (max-width: 480px) {
+            .trip-type-grid { grid-template-columns: 1fr 1fr 1fr; }
+            .trust-strip { grid-template-columns: 1fr 1fr; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .form-steps { gap: 0; }
+            .step-tab { padding: 12px 4px; font-size: 0.65rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="tricolor-bar"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index2.html" class="logo">
+            Wanderlust India
+            <span>Domestic Travel</span>
+        </a>
+        <ul id="nav-menu">
+            <li><a href="index2.html">Home</a></li>
+            <li><a href="destinations2.html">Destinations</a></li>
+            <li><a href="packages2.html">Packages</a></li>
+            <li><a href="trip-info2.html">Trip Info</a></li>
+            <li><a href="contact2.html" class="active">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="badge"><i class="fas fa-envelope-open-text" style="margin-right:8px"></i> Reach Out</div>
+    <h1>Let's Plan Your <span>Journey</span></h1>
+    <p>Our travel experts are just a message away — tell us your dream and we'll make it real</p>
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Contact</span>
+    </div>
+</section>
+
+<!-- QUICK CONTACT STRIP -->
+<div class="quick-strip">
+    <div class="quick-inner">
+        <div class="quick-item">
+            <div class="quick-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+                <h4>Call Us</h4>
+                <a href="tel:+919840000000" class="p">+91 98400 00000</a>
+            </div>
+        </div>
+        <div class="quick-item">
+            <div class="quick-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+                <h4>Email Us</h4>
+                <a href="mailto:hello@wanderlustindia.in">hello@wanderlustindia.in</a>
+            </div>
+        </div>
+        <div class="quick-item">
+            <div class="quick-icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+                <h4>WhatsApp</h4>
+                <a href="https://wa.me/919840000000" target="_blank">Chat with us instantly</a>
+            </div>
+        </div>
+        <div class="quick-item">
+            <div class="quick-icon"><i class="fas fa-clock"></i></div>
+            <div>
+                <h4>Working Hours</h4>
+                <p>Mon–Sat · 9AM – 7PM IST</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+    <div class="contact-layout">
+
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+
+            <!-- Office Info -->
+            <div class="info-card reveal">
+                <div class="info-card-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Our Chennai Office</h3>
+                </div>
+                <div class="info-card-body">
+                    <div class="contact-row">
+                        <div class="c-icon"><i class="fas fa-building"></i></div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018 🇮🇳</p>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="c-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <h4>Phone</h4>
+                            <a href="tel:+919840000000">+91 98400 00000</a><br>
+                            <a href="tel:+914400000000" style="font-size:0.8rem;color:#aaa;">+91 44 0000 0000 (Landline)</a>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="c-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:hello@wanderlustindia.in">hello@wanderlustindia.in</a><br>
+                            <a href="mailto:bookings@wanderlustindia.in" style="font-size:0.8rem;color:#aaa;">bookings@wanderlustindia.in</a>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="c-icon"><i class="fas fa-subway"></i></div>
+                        <div>
+                            <h4>Nearest Metro</h4>
+                            <p>Teynampet Station · 5 min walk<br><span style="font-size:0.78rem;color:#aaa;">Green Line · Chennai Metro</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Office Hours -->
+            <div class="info-card reveal">
+                <div class="info-card-header">
+                    <i class="fas fa-clock"></i>
+                    <h3>Office Hours</h3>
+                </div>
+                <div class="info-card-body">
+                    <table class="hours-table">
+                        <tr>
+                            <td class="day">Monday</td>
+                            <td class="time">9:00 AM – 7:00 PM <span class="open-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                            <td class="day">Tuesday</td>
+                            <td class="time">9:00 AM – 7:00 PM <span class="open-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                            <td class="day">Wednesday</td>
+                            <td class="time">9:00 AM – 7:00 PM <span class="open-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                            <td class="day">Thursday</td>
+                            <td class="time">9:00 AM – 7:00 PM <span class="open-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                            <td class="day">Friday</td>
+                            <td class="time">9:00 AM – 7:00 PM <span class="open-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                            <td class="day">Saturday</td>
+                            <td class="time">10:00 AM – 4:00 PM <span class="open-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                            <td class="day">Sunday</td>
+                            <td class="time closed">Closed</td>
+                        </tr>
+                    </table>
+                    <p style="font-size:0.75rem;color:#bbb;margin-top:16px;line-height:1.6;">
+                        <i class="fas fa-info-circle" style="color:var(--gold-accent);margin-right:5px"></i>
+                        Our 24/7 helpline (+91 98400 00000) is always available for guests currently on a trip.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Social -->
+            <div class="info-card reveal">
+                <div class="info-card-header">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Find Us Online</h3>
+                </div>
+                <div class="info-card-body">
+                    <div class="social-grid">
+                        <a href="#" class="social-btn instagram">
+                            <div class="s-icon"><i class="fab fa-instagram"></i></div>
+                            <div>
+                                <span>Instagram <span class="sub">@wanderlustindia</span></span>
+                            </div>
+                        </a>
+                        <a href="#" class="social-btn facebook">
+                            <div class="s-icon"><i class="fab fa-facebook-f"></i></div>
+                            <div>
+                                <span>Facebook <span class="sub">Wanderlust India</span></span>
+                            </div>
+                        </a>
+                        <a href="#" class="social-btn youtube">
+                            <div class="s-icon"><i class="fab fa-youtube"></i></div>
+                            <div>
+                                <span>YouTube <span class="sub">Travel Videos</span></span>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/919840000000" class="social-btn whatsapp">
+                            <div class="s-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div>
+                                <span>WhatsApp <span class="sub">Instant chat</span></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /left-panel -->
+
+        <!-- RIGHT — MULTI-STEP FORM -->
+        <div class="form-card reveal">
+            <div class="form-header">
+                <p class="eyebrow">Plan with us</p>
+                <h2>Book Your <span>Dream Trip</span></h2>
+                <p>Fill in a few quick details and our travel expert will call you back within 24 hours with a personalised itinerary.</p>
+            </div>
+
+            <div class="form-progress">
+                <div class="form-progress-fill" id="progressFill" style="width:33%"></div>
+            </div>
+
+            <div class="form-steps">
+                <div class="step-tab active" data-step="1">
+                    <i class="fas fa-user"></i> Your Details
+                </div>
+                <div class="step-tab" data-step="2">
+                    <i class="fas fa-map-marked-alt"></i> Trip Details
+                </div>
+                <div class="step-tab" data-step="3">
+                    <i class="fas fa-paper-plane"></i> Confirm
+                </div>
+            </div>
+
+            <div class="form-body" id="formBody">
+
+                <!-- STEP 1 -->
+                <div class="form-step active" id="step1">
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label><i class="fas fa-user" style="color:var(--gold-accent);margin-right:5px"></i> First Name</label>
+                            <input type="text" id="fname" placeholder="Ravi">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="lname" placeholder="Kumar">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope" style="color:var(--gold-accent);margin-right:5px"></i> Email Address</label>
+                        <input type="email" id="email" placeholder="ravi@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone" style="color:var(--gold-accent);margin-right:5px"></i> Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+91 98000 00000">
+                    </div>
+                    <div class="form-group">
+                        <label>City you're travelling from</label>
+                        <select id="city">
+                            <option value="">Select your city</option>
+                            <option selected>Chennai</option>
+                            <option>Coimbatore</option>
+                            <option>Madurai</option>
+                            <option>Bangalore</option>
+                            <option>Hyderabad</option>
+                            <option>Mumbai</option>
+                            <option>Delhi</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-nav">
+                        <span class="step-indicator">Step <span>1</span> of 3</span>
+                        <button class="btn-next" onclick="nextStep(2)">Next &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="form-step" id="step2">
+                    <div class="form-group">
+                        <label>Type of Trip</label>
+                        <div class="trip-type-grid">
+                            <div class="trip-type-btn selected" onclick="selectTripType(this)">
+                                <span class="tt-icon">👨‍👩‍👧‍👦</span>
+                                <span class="tt-label">Family</span>
+                            </div>
+                            <div class="trip-type-btn" onclick="selectTripType(this)">
+                                <span class="tt-icon">💑</span>
+                                <span class="tt-label">Couple</span>
+                            </div>
+                            <div class="trip-type-btn" onclick="selectTripType(this)">
+                                <span class="tt-icon">🧑‍🤝‍🧑</span>
+                                <span class="tt-label">Friends</span>
+                            </div>
+                            <div class="trip-type-btn" onclick="selectTripType(this)">
+                                <span class="tt-icon">🧳</span>
+                                <span class="tt-label">Solo</span>
+                            </div>
+                            <div class="trip-type-btn" onclick="selectTripType(this)">
+                                <span class="tt-icon">🏢</span>
+                                <span class="tt-label">Corporate</span>
+                            </div>
+                            <div class="trip-type-btn" onclick="selectTripType(this)">
+                                <span class="tt-icon">🎓</span>
+                                <span class="tt-label">School / College</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <select id="dest">
+                                <option value="">Select destination</option>
+                                <option>Rajasthan</option>
+                                <option>Kerala</option>
+                                <option>Leh & Ladakh</option>
+                                <option>Himachal Pradesh</option>
+                                <option>Goa</option>
+                                <option>Andaman & Nicobar</option>
+                                <option>Meghalaya / Northeast</option>
+                                <option>Sikkim</option>
+                                <option>Rann of Kutch</option>
+                                <option>Ooty / Kodaikanal</option>
+                                <option>Coorg & Mysore</option>
+                                <option>Not sure — help me decide</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Travel Month</label>
+                            <select id="month">
+                                <option value="">Select month</option>
+                                <option>January</option><option>February</option>
+                                <option>March</option><option>April</option>
+                                <option>May</option><option>June</option>
+                                <option>July</option><option>August</option>
+                                <option>September</option><option>October</option>
+                                <option>November</option><option>December</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Travellers</label>
+                        <div class="traveller-counter">
+                            <button class="tc-btn" onclick="changeTravellers(-1)">−</button>
+                            <input type="text" class="tc-val" id="travellers" value="2" readonly>
+                            <button class="tc-btn" onclick="changeTravellers(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="budget-display">
+                            <span class="b-label">Budget per person</span>
+                            <span class="b-val" id="budgetDisplay">₹25,000</span>
+                        </div>
+                        <input type="range" id="budgetSlider" min="5000" max="100000" step="5000" value="25000" oninput="updateBudget(this.value)">
+                        <div style="display:flex;justify-content:space-between;margin-top:6px;">
+                            <span style="font-size:0.68rem;color:#bbb">₹5,000</span>
+                            <span style="font-size:0.68rem;color:#bbb">₹1,00,000+</span>
+                        </div>
+                    </div>
+                    <div class="form-nav">
+                        <button class="btn-prev" onclick="nextStep(1)">&larr; Back</button>
+                        <span class="step-indicator">Step <span>2</span> of 3</span>
+                        <button class="btn-next" onclick="nextStep(3)">Next &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="form-step" id="step3">
+                    <div class="form-group">
+                        <label>Accommodation Preference</label>
+                        <select id="accom">
+                            <option value="">Select preference</option>
+                            <option>Budget (₹1,500–₹3,000/night)</option>
+                            <option>Standard (₹3,000–₹6,000/night)</option>
+                            <option selected>Comfort (₹6,000–₹12,000/night)</option>
+                            <option>Luxury (₹12,000+/night)</option>
+                            <option>Heritage / Boutique stays</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Any special requirements?</label>
+                        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
+                            <label style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#555;text-transform:none;letter-spacing:0;font-weight:400;cursor:pointer;">
+                                <input type="checkbox" style="width:16px;height:16px;accent-color:var(--gold-accent)"> Vegetarian meals
+                            </label>
+                            <label style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#555;text-transform:none;letter-spacing:0;font-weight:400;cursor:pointer;">
+                                <input type="checkbox" style="width:16px;height:16px;accent-color:var(--gold-accent)"> Wheelchair access
+                            </label>
+                            <label style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#555;text-transform:none;letter-spacing:0;font-weight:400;cursor:pointer;">
+                                <input type="checkbox" style="width:16px;height:16px;accent-color:var(--gold-accent)"> Flight booking
+                            </label>
+                            <label style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:#555;text-transform:none;letter-spacing:0;font-weight:400;cursor:pointer;">
+                                <input type="checkbox" style="width:16px;height:16px;accent-color:var(--gold-accent)"> Travel insurance
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tell us more about your dream trip</label>
+                        <textarea id="message" placeholder="Anything specific you'd love to experience — a camel safari, a houseboat night, a particular festival, travelling with elderly parents or young kids... we'd love to know!"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>How did you hear about us?</label>
+                        <select id="source">
+                            <option value="">Select one</option>
+                            <option>Google Search</option>
+                            <option>Instagram</option>
+                            <option>Facebook</option>
+                            <option>Friend / Family referral</option>
+                            <option>Previous customer</option>
+                            <option>YouTube</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-nav">
+                        <button class="btn-prev" onclick="nextStep(2)">&larr; Back</button>
+                        <span class="step-indicator">Step <span>3</span> of 3</span>
+                        <button class="btn-submit" onclick="submitForm()">
+                            <i class="fas fa-paper-plane"></i>&nbsp; Send Enquiry
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- /form-body -->
+
+            <!-- SUCCESS STATE -->
+            <div class="form-success" id="formSuccess">
+                <div class="success-icon"><i class="fas fa-check"></i></div>
+                <h3>Enquiry Sent! 🎉</h3>
+                <p>Thank you for reaching out to Wanderlust India.<br>One of our travel experts will call you within <strong>24 hours</strong> to discuss your perfect trip.</p>
+                <p style="font-size:0.8rem;margin-top:8px;">In the meantime, explore our <a href="destinations.html" style="color:var(--gold-accent);font-weight:600;">destinations</a> or browse our <a href="packages.html" style="color:var(--gold-accent);font-weight:600;">packages</a>.</p>
+                <button class="btn-reset" onclick="resetForm()" style="margin-top:20px">Submit Another Enquiry</button>
+            </div>
+
+        </div><!-- /form-card -->
+
+    </div><!-- /contact-layout -->
+
+    <!-- MAP SECTION -->
+    <div class="map-section reveal">
+        <h2>Find Us in Chennai</h2>
+        <p>Drop by our office on Anna Salai — we'd love to meet you in person over a cup of filter coffee.</p>
+        <div class="map-wrap">
+            <div class="map-placeholder">
+                <div class="map-pin-card">
+                    <div class="map-pin-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Wanderlust India</h3>
+                    <p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018<br><br>
+                    <strong style="color:var(--royal-navy)">Mon–Fri:</strong> 9AM–7PM &nbsp;|&nbsp; <strong style="color:var(--royal-navy)">Sat:</strong> 10AM–4PM</p>
+                    <a href="https://maps.google.com" target="_blank" class="map-cta">
+                        <i class="fas fa-directions"></i>&nbsp; Get Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRUST STRIP -->
+    <div class="trust-strip reveal">
+        <div class="trust-item">
+            <span class="t-num">5000+</span>
+            <span class="t-label">Happy Travellers</span>
+        </div>
+        <div class="trust-item">
+            <span class="t-num">8+</span>
+            <span class="t-label">Years of Excellence</span>
+        </div>
+        <div class="trust-item">
+            <span class="t-num">28+</span>
+            <span class="t-label">States Covered</span>
+        </div>
+        <div class="trust-item">
+            <span class="t-num">4.9★</span>
+            <span class="t-label">Average Rating</span>
+        </div>
+    </div>
+
+</div><!-- /main-wrap -->
+
+<!-- FOOTER -->
+<footer>
+    <div style="max-width:1200px;margin:auto;">
+        <div class="tricolor-strip"></div>
+    </div>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <span class="logo-ft">Wanderlust India</span>
+            <span class="tagline-ft">Domestic Travel · Est. 2017</span>
+            <p>Premium seasonal domestic travel from Chennai. We believe every Indian deserves to experience the magic within their own borders.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index2.html">Home</a></li>
+                <li><a href="destinations2.html">Destinations</a></li>
+                <li><a href="packages2.html">Packages</a></li>
+                <li><a href="trip-info2.html">Trip Info</a></li>
+                <li><a href="contact2.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Top Destinations</h4>
+            <ul>
+                <li><a href="#">Rajasthan</a></li>
+                <li><a href="#">Kerala</a></li>
+                <li><a href="#">Leh & Ladakh</a></li>
+                <li><a href="#">Andaman Islands</a></li>
+                <li><a href="#">Meghalaya</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Chennai HQ</h4>
+            <p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018<br>India 🇮🇳<br><br>+91 98400 00000<br>hello@wanderlustindia.in</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Wanderlust India. All Rights Reserved.</p>
+        <p>Made with ❤️ in Chennai, India 🇮🇳</p>
+    </div>
+</footer>
+
+<script>
+    // Navbar
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    document.getElementById('hamburger').addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.toggle('active');
+    });
+    document.querySelectorAll('nav a').forEach(a =>
+        a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('active'))
+    );
+
+    // Reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Multi-step form
+    let currentStep = 1;
+
+    function nextStep(step) {
+        // Simple validation for step 1
+        if (step === 2 && currentStep === 1) {
+            const name  = document.getElementById('fname').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            if (!name || !email || !phone) {
+                alert('Please fill in your name, email, and phone number.');
+                return;
+            }
+        }
+        document.getElementById('step' + currentStep).classList.remove('active');
+        document.getElementById('step' + step).classList.add('active');
+        currentStep = step;
+
+        // Update tabs
+        document.querySelectorAll('.step-tab').forEach(t => {
+            t.classList.toggle('active', parseInt(t.dataset.step) === step);
+        });
+
+        // Update progress bar
+        const pct = step === 1 ? 33 : step === 2 ? 66 : 100;
+        document.getElementById('progressFill').style.width = pct + '%';
+    }
+
+    function submitForm() {
+        const dest = document.getElementById('dest').value;
+        const month = document.getElementById('month').value;
+        if (!dest || !month) {
+            alert('Please select your destination and travel month.');
+            return;
+        }
+        document.getElementById('formBody').style.display = 'none';
+        document.querySelector('.form-steps').style.display = 'none';
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('formSuccess').style.display = 'block';
+    }
+
+    function resetForm() {
+        currentStep = 1;
+        document.getElementById('formBody').style.display = 'block';
+        document.querySelector('.form-steps').style.display = 'flex';
+        document.getElementById('formSuccess').style.display = 'none';
+        document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step1').classList.add('active');
+        document.querySelectorAll('.step-tab').forEach((t,i) => t.classList.toggle('active', i === 0));
+        document.getElementById('progressFill').style.width = '33%';
+        ['fname','lname','email','phone','message'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    // Trip type selector
+    function selectTripType(el) {
+        document.querySelectorAll('.trip-type-btn').forEach(b => b.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    // Travellers counter
+    function changeTravellers(delta) {
+        const input = document.getElementById('travellers');
+        const val = Math.max(1, Math.min(50, parseInt(input.value) + delta));
+        input.value = val;
+    }
+
+    // Budget slider
+    function updateBudget(val) {
+        const formatted = '₹' + parseInt(val).toLocaleString('en-IN');
+        document.getElementById('budgetDisplay').textContent = val >= 100000 ? '₹1,00,000+' : formatted;
+        const pct = ((val - 5000) / (100000 - 5000)) * 100;
+        document.getElementById('budgetSlider').style.background =
+            `linear-gradient(to right, var(--gold-accent) ${pct}%, #eee ${pct}%)`;
+    }
+
+    // Highlight today in hours table
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const today = days[new Date().getDay()];
+    document.querySelectorAll('.hours-table tr').forEach(row => {
+        const dayCell = row.querySelector('.day');
+        if (dayCell && dayCell.textContent === today) {
+            row.style.background = '#fffdf4';
+            row.style.borderRadius = '8px';
+            dayCell.style.fontWeight = '700';
+            dayCell.style.color = 'var(--royal-navy)';
+        }
+    });
+</script>
+</body>
+</html>

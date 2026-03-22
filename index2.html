@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust India - Explore India Royally</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --royal-navy: #1a2633;
+            --gold-accent: #d4af37;
+            --saffron: #ff9933;
+            --india-green: #138808;
+            --marble-white: #f8f5f2;
+            --warm-cream: #f4f1e9;
+            --deep-charcoal: #2c3e50;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.7; color: #333; overflow-x: hidden; }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(26, 38, 51, 0.95);
+            padding: 20px 0; z-index: 1000;
+            backdrop-filter: blur(20px); transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(26, 38, 51, 0.98);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            padding: 15px 0;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .logo span {
+            display: block; font-size: 0.6rem; letter-spacing: 4px;
+            background: linear-gradient(45deg, var(--saffron), #ffcc00);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase;
+        }
+        nav ul { list-style: none; display: flex; gap: 0; }
+        nav li { margin: 0 15px; }
+        nav a {
+            color: var(--marble-white); text-decoration: none;
+            font-weight: 600; font-size: 0.95rem;
+            position: relative; transition: all 0.3s ease;
+            letter-spacing: 0.5px; padding: 10px 0;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            width: 0; height: 2px; background: var(--gold-accent);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: var(--gold-accent); }
+
+        /* Tricolor accent bar under nav */
+        .tricolor-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            z-index: 1001;
+        }
+
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--gold-accent); transition: 0.3s; }
+
+        /* ── HERO ── */
+        .hero {
+            height: 100vh; position: relative;
+            background: linear-gradient(rgba(26,38,51,0.65), rgba(0,0,0,0.45)),
+            url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; color: white; padding: 0 2rem;
+        }
+        .hero-badge {
+            display: inline-block;
+            border: 1px solid var(--gold-accent); color: var(--gold-accent);
+            padding: 6px 20px; border-radius: 50px; font-size: 0.8rem;
+            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;
+            animation: fadeDown 0.8s ease forwards;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 8vw, 6.5rem);
+            margin-bottom: 10px; letter-spacing: 2px;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8);
+            animation: fadeUp 1s ease 0.2s both;
+        }
+        .hero-content h1 span { color: var(--gold-accent); }
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.3rem); max-width: 600px;
+            margin: 0 auto 15px; font-weight: 300; opacity: 0.95;
+            animation: fadeUp 1s ease 0.4s both;
+        }
+        .hero-sub {
+            font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--saffron); margin-bottom: 40px;
+            animation: fadeUp 1s ease 0.5s both;
+        }
+        .hero-ctas {
+            display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+            animation: fadeUp 1s ease 0.6s both;
+        }
+        .cta-royal {
+            background: var(--gold-accent); color: var(--royal-navy);
+            padding: 16px 45px; border-radius: 50px; text-decoration: none;
+            font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+            letter-spacing: 1px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+        }
+        .cta-royal:hover {
+            transform: translateY(-5px); box-shadow: 0 20px 40px rgba(212,175,55,0.6);
+            background: white;
+        }
+        .cta-outline {
+            background: transparent; color: white;
+            padding: 16px 45px; border-radius: 50px; text-decoration: none;
+            font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+            letter-spacing: 1px; border: 2px solid rgba(255,255,255,0.6);
+            transition: all 0.4s ease;
+        }
+        .cta-outline:hover {
+            border-color: var(--gold-accent); color: var(--gold-accent);
+            transform: translateY(-5px);
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.6); font-size: 0.75rem; letter-spacing: 2px;
+            text-transform: uppercase; animation: bounce 2s infinite;
+        }
+        .scroll-hint i { display: block; text-align: center; margin-top: 5px; font-size: 1rem; }
+
+        /* ── STATS STRIP ── */
+        .stats-strip {
+            background: var(--royal-navy);
+            padding: 30px 20px;
+        }
+        .stats-grid {
+            max-width: 1000px; margin: auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+            text-align: center;
+        }
+        .stat-item { color: white; }
+        .stat-item .num {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem;
+            color: var(--gold-accent); display: block;
+        }
+        .stat-item .label { font-size: 0.8rem; letter-spacing: 1px; opacity: 0.7; text-transform: uppercase; }
+
+        /* ── SECTIONS ── */
+        .section { padding: 110px 20px; }
+        .section-alt { background: var(--warm-cream); }
+        .container { max-width: 1200px; margin: auto; }
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem);
+            text-align: center; margin-bottom: 15px; color: var(--royal-navy);
+            position: relative;
+        }
+        .section-subtitle {
+            text-align: center; color: #888; font-size: 1rem; margin-bottom: 70px;
+            font-weight: 300;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 70px; height: 3px;
+            background: linear-gradient(90deg, var(--saffron), var(--gold-accent));
+            margin: 18px auto 0;
+        }
+
+        /* ── DESTINATIONS ── */
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 25px;
+        }
+        .dest-card {
+            position: relative; border-radius: 18px; overflow: hidden;
+            cursor: pointer; transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .dest-card.large { grid-row: span 2; min-height: 520px; }
+        .dest-card:not(.large) { height: 240px; }
+        .dest-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .dest-card:hover img { transform: scale(1.08); }
+        .dest-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(10,20,30,0.85) 100%);
+            transition: all 0.4s ease;
+        }
+        .dest-card:hover .dest-overlay {
+            background: linear-gradient(180deg, transparent 20%, rgba(10,20,30,0.9) 100%);
+        }
+        .dest-info {
+            position: absolute; bottom: 25px; left: 25px; right: 25px; color: white;
+        }
+        .dest-info .region {
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--gold-accent); margin-bottom: 5px;
+        }
+        .dest-info h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 5px;
+        }
+        .dest-card.large .dest-info h3 { font-size: 2.2rem; }
+        .dest-info .price { font-size: 0.85rem; opacity: 0.85; }
+        .dest-info .price span { color: var(--gold-accent); font-weight: 600; font-size: 1rem; }
+        .dest-tag {
+            position: absolute; top: 18px; right: 18px;
+            background: var(--gold-accent); color: var(--royal-navy);
+            padding: 5px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* ── PACKAGES ── */
+        .packages-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px;
+        }
+        .pkg-card {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1); transition: all 0.4s ease;
+            position: relative;
+        }
+        .pkg-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--saffron), var(--gold-accent), var(--india-green));
+        }
+        .pkg-card:hover { transform: translateY(-12px); box-shadow: 0 30px 80px rgba(0,0,0,0.18); }
+        .pkg-img { height: 220px; overflow: hidden; position: relative; }
+        .pkg-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .pkg-card:hover .pkg-img img { transform: scale(1.06); }
+        .pkg-season {
+            position: absolute; top: 15px; left: 15px;
+            background: rgba(26,38,51,0.85); color: var(--gold-accent);
+            padding: 5px 15px; border-radius: 20px; font-size: 0.75rem;
+            font-weight: 600; letter-spacing: 1px; backdrop-filter: blur(5px);
+        }
+        .pkg-body { padding: 28px; }
+        .pkg-body h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.5rem;
+            color: var(--royal-navy); margin-bottom: 10px;
+        }
+        .pkg-body p { color: #777; font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; }
+        .pkg-meta { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+        .pkg-meta span { font-size: 0.8rem; color: #666; }
+        .pkg-meta span i { color: var(--gold-accent); margin-right: 5px; }
+        .pkg-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 28px; background: var(--warm-cream); border-top: 1px solid #eee;
+        }
+        .pkg-price { font-family: 'Playfair Display', serif; }
+        .pkg-price .from { font-size: 0.7rem; color: #999; text-transform: uppercase; display: block; }
+        .pkg-price .amount { font-size: 1.5rem; color: var(--royal-navy); font-weight: 700; }
+        .pkg-price .per { font-size: 0.75rem; color: #999; }
+        .pkg-btn {
+            background: var(--royal-navy); color: white; padding: 10px 25px;
+            border-radius: 25px; text-decoration: none; font-size: 0.85rem;
+            font-weight: 600; transition: all 0.3s ease;
+        }
+        .pkg-btn:hover { background: var(--gold-accent); color: var(--royal-navy); transform: translateY(-2px); }
+
+        /* ── ABOUT ── */
+        .about-wrap {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        }
+        .about-img-wrap { position: relative; }
+        .about-img-main {
+            width: 100%; border-radius: 20px; height: 500px; object-fit: cover;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+        }
+        .about-img-accent {
+            position: absolute; bottom: -30px; right: -30px;
+            width: 220px; height: 220px; object-fit: cover;
+            border-radius: 15px; border: 5px solid white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        .about-years {
+            position: absolute; top: 30px; left: -20px;
+            background: var(--gold-accent); color: var(--royal-navy);
+            padding: 18px 22px; border-radius: 15px; text-align: center;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+        }
+        .about-years .num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; display: block; }
+        .about-years .txt { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .about-text .eyebrow {
+            color: var(--saffron); font-size: 0.8rem; letter-spacing: 3px;
+            text-transform: uppercase; font-weight: 600; margin-bottom: 15px;
+        }
+        .about-text h2 {
+            font-family: 'Playfair Display', serif; font-size: 2.8rem;
+            color: var(--royal-navy); line-height: 1.2; margin-bottom: 25px;
+        }
+        .about-text p { color: #666; margin-bottom: 20px; line-height: 1.9; }
+        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 30px 0; }
+        .about-feat {
+            display: flex; align-items: flex-start; gap: 12px;
+        }
+        .about-feat i { color: var(--gold-accent); font-size: 1.1rem; margin-top: 3px; }
+        .about-feat div h4 { font-size: 0.9rem; color: var(--royal-navy); margin-bottom: 3px; font-weight: 600; }
+        .about-feat div p { font-size: 0.8rem; color: #999; margin: 0; }
+
+        /* ── CONTACT ── */
+        .contact-wrap {
+            display: grid; grid-template-columns: 1fr 1.6fr; gap: 60px; align-items: start;
+        }
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif; font-size: 2rem;
+            color: var(--royal-navy); margin-bottom: 20px;
+        }
+        .contact-info p { color: #777; margin-bottom: 35px; line-height: 1.8; }
+        .contact-detail {
+            display: flex; align-items: flex-start; gap: 18px; margin-bottom: 25px;
+        }
+        .contact-icon {
+            width: 48px; height: 48px; background: var(--gold-accent);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            color: var(--royal-navy); font-size: 1rem; flex-shrink: 0;
+        }
+        .contact-detail h4 { font-size: 0.85rem; font-weight: 700; color: var(--royal-navy); margin-bottom: 3px; }
+        .contact-detail p { font-size: 0.85rem; color: #777; margin: 0; }
+
+        .contact-form { background: white; border-radius: 20px; padding: 45px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem;
+            color: var(--royal-navy); margin-bottom: 30px;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block; font-size: 0.8rem; font-weight: 600;
+            color: var(--royal-navy); margin-bottom: 8px; letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px 18px; border: 2px solid #eee;
+            border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+            color: #333; transition: all 0.3s ease; background: #fafafa;
+            outline: none;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--gold-accent); background: white;
+            box-shadow: 0 0 0 4px rgba(212,175,55,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-submit {
+            width: 100%; padding: 16px; background: var(--royal-navy);
+            color: white; border: none; border-radius: 10px; font-family: 'Poppins', sans-serif;
+            font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        .form-submit:hover { background: var(--gold-accent); color: var(--royal-navy); transform: translateY(-2px); }
+        .form-success {
+            display: none; text-align: center; padding: 20px;
+            background: #f0fdf4; border-radius: 10px; color: var(--india-green);
+            font-weight: 600; margin-top: 15px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--royal-navy); color: var(--marble-white);
+            padding: 70px 20px 30px;
+        }
+        .footer-top {
+            max-width: 1200px; margin: auto;
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px;
+            margin-bottom: 50px;
+        }
+        .footer-brand .logo-ft {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: block; margin-bottom: 5px;
+        }
+        .footer-brand .tagline-ft {
+            font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--saffron); margin-bottom: 18px; display: block;
+        }
+        .footer-brand p { font-size: 0.88rem; opacity: 0.7; line-height: 1.8; margin-bottom: 22px; }
+        .social-links { display: flex; gap: 12px; }
+        .social-links a {
+            width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .social-links a:hover { background: var(--gold-accent); border-color: var(--gold-accent); color: var(--royal-navy); }
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif; color: var(--gold-accent);
+            margin-bottom: 20px; font-size: 1.1rem;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a {
+            color: rgba(255,255,255,0.7); text-decoration: none;
+            font-size: 0.88rem; transition: all 0.3s ease;
+        }
+        .footer-col a:hover { color: var(--gold-accent); padding-left: 5px; }
+        .footer-col p { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.8; }
+        .footer-bottom {
+            max-width: 1200px; margin: auto;
+            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 15px;
+        }
+        .footer-bottom p { font-size: 0.82rem; opacity: 0.6; }
+        .footer-flag { font-size: 0.82rem; opacity: 0.6; }
+        .tricolor-strip {
+            height: 4px; width: 100%;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            margin-bottom: 40px; border-radius: 2px;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 992px) {
+            .dest-grid { grid-template-columns: 1fr 1fr; }
+            .dest-card.large { grid-column: span 2; min-height: 380px; }
+            .about-wrap { grid-template-columns: 1fr; gap: 50px; }
+            .about-img-accent { display: none; }
+            .contact-wrap { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav ul {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+                background: rgba(26,38,51,0.98); flex-direction: column;
+                justify-content: center; align-items: center; gap: 2rem;
+                transform: translateX(100%); transition: transform 0.4s ease;
+            }
+            nav ul.active { transform: translateX(0); }
+            nav li { margin: 0; }
+            nav a { font-size: 1.2rem; }
+            .dest-grid { grid-template-columns: 1fr; }
+            .dest-card.large { grid-column: span 1; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; gap: 30px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .hero-ctas { flex-direction: column; align-items: center; }
+            .about-features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tricolor-bar"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index2.html" class="logo">
+                Wanderlust India
+                <span>Domestic Travel</span>
+            </a>
+            <ul id="nav-menu">
+                <li><a href="index2.html" class="active">Home</a></li>
+                <li><a href="destinations2.html">Destinations</a></li>
+                <li><a href="packages2.html">Packages</a></li>
+                <li><a href="trip-info2.html">Trip Info</a></li>
+                <li><a href="contact2.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fas fa-om" style="margin-right:8px"></i> Proudly Indian</div>
+            <h1>Wander <span>India</span> Royally</h1>
+            <p class="hero-tagline">Premium seasonal journeys across the incredible landscapes of Bharat</p>
+            <p class="hero-sub">From the Himalayas to the Backwaters · Rajasthan to the Northeast</p>
+            <div class="hero-ctas">
+                <a href="destinations2.html" class="cta-royal"><i class="fas fa-map-marked-alt"></i> &nbsp;Explore Destinations</a>
+                <a href="packages2.html" class="cta-outline"><i class="fas fa-suitcase-rolling"></i> &nbsp;View Packages</a>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            Discover India
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="num">28+</span>
+                <span class="label">States Covered</span>
+            </div>
+            <div class="stat-item">
+                <span class="num">150+</span>
+                <span class="label">Curated Routes</span>
+            </div>
+            <div class="stat-item">
+                <span class="num">5000+</span>
+                <span class="label">Happy Travellers</span>
+            </div>
+            <div class="stat-item">
+                <span class="num">8+</span>
+                <span class="label">Years of Excellence</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPULAR DESTINATIONS -->
+    <section class="section" id="destinations">
+        <div class="container">
+            <h2 class="section-title reveal">Popular Destinations</h2>
+            <p class="section-subtitle reveal">Handpicked jewels from every corner of India</p>
+            <div class="dest-grid reveal">
+                <!-- Large Card -->
+                <div class="dest-card large">
+                    <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=80" alt="Rajasthan">
+                    <div class="dest-overlay"></div>
+                    <div class="dest-tag">Most Popular</div>
+                    <div class="dest-info">
+                        <p class="region">North India</p>
+                        <h3>Rajasthan</h3>
+                        <p class="price">From <span>₹18,999</span> per person</p>
+                    </div>
+                </div>
+                <!-- Small Cards -->
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80" alt="Kerala">
+                    <div class="dest-overlay"></div>
+                    <div class="dest-info">
+                        <p class="region">South India</p>
+                        <h3>Kerala</h3>
+                        <p class="price">From <span>₹14,999</span></p>
+                    </div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80" alt="Himachal Pradesh">
+                    <div class="dest-overlay"></div>
+                    <div class="dest-info">
+                        <p class="region">North India</p>
+                        <h3>Himachal</h3>
+                        <p class="price">From <span>₹16,499</span></p>
+                    </div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1571536802807-30451e3955d8?auto=format&fit=crop&w=800&q=80" alt="Goa">
+                    <div class="dest-overlay"></div>
+                    <div class="dest-tag" style="background:var(--saffron)">Trending</div>
+                    <div class="dest-info">
+                        <p class="region">West India</p>
+                        <h3>Goa</h3>
+                        <p class="price">From <span>₹11,999</span></p>
+                    </div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=800&q=80" alt="Northeast India">
+                    <div class="dest-overlay"></div>
+                    <div class="dest-info">
+                        <p class="region">Northeast India</p>
+                        <h3>Meghalaya</h3>
+                        <p class="price">From <span>₹19,999</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section class="section section-alt" id="packages">
+        <div class="container">
+            <h2 class="section-title reveal">Seasonal Packages</h2>
+            <p class="section-subtitle reveal">Perfectly timed journeys for every season of India</p>
+            <div class="packages-grid">
+
+                <div class="pkg-card reveal">
+                    <div class="pkg-img">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" alt="Monsoon Magic">
+                        <span class="pkg-season"><i class="fas fa-cloud-rain"></i> &nbsp;Monsoon</span>
+                    </div>
+                    <div class="pkg-body">
+                        <h3>Monsoon Magic – Kerala</h3>
+                        <p>Glide through mist-covered backwaters, witness roaring waterfalls, and rejuvenate with authentic Ayurveda treatments deep in God's Own Country.</p>
+                        <div class="pkg-meta">
+                            <span><i class="fas fa-clock"></i> 6 Nights / 7 Days</span>
+                            <span><i class="fas fa-users"></i> Max 12 guests</span>
+                            <span><i class="fas fa-map-pin"></i> Munnar · Alleppey</span>
+                        </div>
+                    </div>
+                    <div class="pkg-footer">
+                        <div class="pkg-price">
+                            <span class="from">Starting from</span>
+                            <span class="amount">₹22,499 <span class="per">/ person</span></span>
+                        </div>
+                        <a href="booking.html" class="pkg-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <div class="pkg-card reveal">
+                    <div class="pkg-img">
+                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80" alt="Royal Rajasthan">
+                        <span class="pkg-season"><i class="fas fa-sun"></i> &nbsp;Winter</span>
+                    </div>
+                    <div class="pkg-body">
+                        <h3>Royal Rajasthan Circuit</h3>
+                        <p>Ride through golden deserts by camel, dine in heritage havelis, and witness the vibrant culture of Jaipur, Jodhpur, and Jaisalmer under the winter sky.</p>
+                        <div class="pkg-meta">
+                            <span><i class="fas fa-clock"></i> 7 Nights / 8 Days</span>
+                            <span><i class="fas fa-users"></i> Max 15 guests</span>
+                            <span><i class="fas fa-map-pin"></i> Jaipur · Jodhpur · Jaisalmer</span>
+                        </div>
+                    </div>
+                    <div class="pkg-footer">
+                        <div class="pkg-price">
+                            <span class="from">Starting from</span>
+                            <span class="amount">₹27,999 <span class="per">/ person</span></span>
+                        </div>
+                        <a href="booking.html" class="pkg-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <div class="pkg-card reveal">
+                    <div class="pkg-img">
+                        <img src="https://images.unsplash.com/photo-1585016495481-91613f766e58?auto=format&fit=crop&w=800&q=80" alt="Himalayan Summer">
+                        <span class="pkg-season"><i class="fas fa-snowflake"></i> &nbsp;Summer</span>
+                    </div>
+                    <div class="pkg-body">
+                        <h3>Himalayan Summer Escape</h3>
+                        <p>Trek through blooming meadows of Himachal, camp under a million stars in Spiti Valley, and breathe the purest air in the world while escaping the summer heat.</p>
+                        <div class="pkg-meta">
+                            <span><i class="fas fa-clock"></i> 8 Nights / 9 Days</span>
+                            <span><i class="fas fa-users"></i> Max 10 guests</span>
+                            <span><i class="fas fa-map-pin"></i> Manali · Spiti · Kaza</span>
+                        </div>
+                    </div>
+                    <div class="pkg-footer">
+                        <div class="pkg-price">
+                            <span class="from">Starting from</span>
+                            <span class="amount">₹31,499 <span class="per">/ person</span></span>
+                        </div>
+                        <a href="booking.html" class="pkg-btn">Book Now</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-wrap">
+                <div class="about-img-wrap reveal">
+                    <div class="about-years">
+                        <span class="num">8+</span>
+                        <span class="txt">Years<br>of Travel</span>
+                    </div>
+                    <img class="about-img-main" src="https://images.unsplash.com/photo-1598977583486-9c1bd025ae15?auto=format&fit=crop&w=800&q=80" alt="About Wanderlust India">
+                    <img class="about-img-accent" src="https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=400&q=80" alt="India Travel">
+                </div>
+                <div class="about-text reveal">
+                    <p class="eyebrow">Our Story</p>
+                    <h2>Born in Chennai, Rooted in India</h2>
+                    <p>We are a passionate team of travel lovers based in Chennai, dedicated to helping Indians discover the breathtaking beauty of their own land. From the snow-capped Himalayas to the sun-kissed beaches of the Andamans, we craft every journey with care.</p>
+                    <p>Our mission is simple — make every domestic trip simple, memorable, and truly royal. We handle every detail so you can focus on the moments that matter.</p>
+                    <div class="about-features">
+                        <div class="about-feat">
+                            <i class="fas fa-shield-alt"></i>
+                            <div><h4>100% Safe Travel</h4><p>Verified partners only</p></div>
+                        </div>
+                        <div class="about-feat">
+                            <i class="fas fa-headset"></i>
+                            <div><h4>24/7 Support</h4><p>We're always with you</p></div>
+                        </div>
+                        <div class="about-feat">
+                            <i class="fas fa-rupee-sign"></i>
+                            <div><h4>Best Price Promise</h4><p>No hidden charges</p></div>
+                        </div>
+                        <div class="about-feat">
+                            <i class="fas fa-star"></i>
+                            <div><h4>Premium Experience</h4><p>Luxury at every step</p></div>
+                        </div>
+                    </div>
+                    <a href="about2.html" class="cta-royal" style="display:inline-block; margin-top:10px;">Learn More About Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section-alt" id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Plan Your Journey</h2>
+            <p class="section-subtitle reveal">Our travel experts are ready to craft your perfect Indian adventure</p>
+            <div class="contact-wrap">
+                <div class="reveal">
+                    <h3>Get in Touch</h3>
+                    <p>Whether you have a destination in mind or need inspiration, we're here to help you explore India like never before.</p>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Our Office</h4>
+                            <p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>+91 98400 00000</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>hello@wanderlustindia.in</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <h4>Working Hours</h4>
+                            <p>Mon – Sat: 9:00 AM – 7:00 PM IST</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form reveal">
+                    <h3>Send Us a Message</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" placeholder="Ravi Kumar" id="f-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="+91 98000 00000" id="f-phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="ravi@email.com" id="f-email">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <select id="f-dest">
+                                <option value="">Select Destination</option>
+                                <option>Rajasthan</option>
+                                <option>Kerala</option>
+                                <option>Himachal Pradesh</option>
+                                <option>Goa</option>
+                                <option>Northeast India</option>
+                                <option>Andaman & Nicobar</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Travel Month</label>
+                            <select id="f-month">
+                                <option value="">Select Month</option>
+                                <option>January</option><option>February</option>
+                                <option>March</option><option>April</option>
+                                <option>May</option><option>June</option>
+                                <option>July</option><option>August</option>
+                                <option>September</option><option>October</option>
+                                <option>November</option><option>December</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Tell us about your dream trip — group size, budget, preferences..." id="f-msg"></textarea>
+                    </div>
+                    <button class="form-submit" onclick="handleSubmit()">
+                        <i class="fas fa-paper-plane"></i> &nbsp;Send My Enquiry
+                    </button>
+                    <div class="form-success" id="form-success">
+                        <i class="fas fa-check-circle" style="font-size:1.5rem;display:block;margin-bottom:8px;"></i>
+                        Thank you! We'll get back to you within 24 hours. 🙏
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div style="max-width:1200px;margin:auto;">
+            <div class="tricolor-strip"></div>
+        </div>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="logo-ft">Wanderlust India</span>
+                <span class="tagline-ft">Domestic Travel · Est. 2017</span>
+                <p>Premium seasonal domestic travel from Chennai. We believe every Indian deserves to experience the magic within their own borders.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="destinations2.html">Destinations</a></li>
+                    <li><a href="packages2.html">Packages</a></li>
+                    <li><a href="trip-info2.html">Trip Info</a></li>
+                    <li><a href="about2.html">About Us</a></li>
+                    <li><a href="contact2.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Top Destinations</h4>
+                <ul>
+                    <li><a href="#">Rajasthan</a></li>
+                    <li><a href="#">Kerala</a></li>
+                    <li><a href="#">Himachal Pradesh</a></li>
+                    <li><a href="#">Goa</a></li>
+                    <li><a href="#">Northeast India</a></li>
+                    <li><a href="#">Andaman Islands</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Chennai HQ</h4>
+                <p>45 Anna Salai<br>Teynampet<br>Chennai, Tamil Nadu 600018<br>India 🇮🇳<br><br>+91 98400 00000<br>hello@wanderlustindia.in</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Wanderlust India. All Rights Reserved.</p>
+            <p class="footer-flag">Made with ❤️ in Chennai, India 🇮🇳</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu toggle
+        document.getElementById('hamburger').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Contact form
+        function handleSubmit() {
+            const name = document.getElementById('f-name').value;
+            const email = document.getElementById('f-email').value;
+            if (!name || !email) { alert('Please fill in your name and email.'); return; }
+            document.getElementById('form-success').style.display = 'block';
+            document.querySelector('.form-submit').style.display = 'none';
+        }
+
+        // Counter animation
+        function animateCounters() {
+            document.querySelectorAll('.stat-item .num').forEach(el => {
+                const target = parseInt(el.textContent);
+                let count = 0;
+                const step = Math.ceil(target / 60);
+                const suffix = el.textContent.replace(/[0-9]/g, '');
+                const timer = setInterval(() => {
+                    count += step;
+                    if (count >= target) { count = target; clearInterval(timer); }
+                    el.textContent = count + suffix;
+                }, 30);
+            });
+        }
+        const statsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) { animateCounters(); statsObserver.disconnect(); }
+        }, { threshold: 0.5 });
+        statsObserver.observe(document.querySelector('.stats-strip'));
+    </script>
+</body>
+</html>

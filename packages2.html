@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages – Wanderlust India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --royal-navy: #1a2633;
+            --gold-accent: #d4af37;
+            --saffron: #ff9933;
+            --india-green: #138808;
+            --marble-white: #f8f5f2;
+            --warm-cream: #f4f1e9;
+            --card-shadow: 0 16px 50px rgba(0,0,0,0.10);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; color: #333; overflow-x: hidden; background: var(--marble-white); }
+
+        /* ── TRICOLOR BAR ── */
+        .tricolor-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            z-index: 1001;
+        }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed; top: 3px; width: 100%;
+            background: rgba(26,38,51,0.96); padding: 18px 0;
+            z-index: 1000; backdrop-filter: blur(20px); transition: all 0.4s ease;
+        }
+        nav.scrolled { box-shadow: 0 5px 30px rgba(0,0,0,0.3); padding: 13px 0; }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.7rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .logo span {
+            display: block; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase;
+            background: linear-gradient(45deg, var(--saffron), #ffcc00);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Poppins', sans-serif; font-weight: 600;
+        }
+        nav ul { list-style: none; display: flex; }
+        nav li { margin: 0 14px; }
+        nav a {
+            color: var(--marble-white); text-decoration: none;
+            font-weight: 600; font-size: 0.92rem; position: relative;
+            transition: all 0.3s ease; letter-spacing: 0.5px; padding: 8px 0;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            width: 0; height: 2px; background: var(--gold-accent);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: var(--gold-accent); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--gold-accent); transition: 0.3s; }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            height: 56vh; min-height: 400px; position: relative;
+            background: linear-gradient(rgba(10,20,32,0.74), rgba(10,18,28,0.55)),
+                url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; color: white; padding: 0 2rem;
+            margin-top: 3px;
+        }
+        .page-hero .badge {
+            border: 1px solid var(--gold-accent); color: var(--gold-accent);
+            padding: 5px 20px; border-radius: 50px; font-size: 0.72rem;
+            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px;
+            animation: fadeDown 0.8s ease forwards;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem);
+            letter-spacing: 2px; text-shadow: 2px 2px 20px rgba(0,0,0,0.7);
+            animation: fadeUp 0.9s ease 0.2s both;
+        }
+        .page-hero h1 span { color: var(--gold-accent); }
+        .page-hero p {
+            margin-top: 14px; font-size: 1.05rem; opacity: 0.88;
+            font-weight: 300; animation: fadeUp 0.9s ease 0.4s both;
+        }
+        .breadcrumb {
+            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 8px; align-items: center;
+            font-size: 0.78rem; color: rgba(255,255,255,0.6);
+        }
+        .breadcrumb a { color: var(--gold-accent); text-decoration: none; }
+        .breadcrumb i { font-size: 0.6rem; }
+
+        /* ── FILTER / SORT BAR ── */
+        .filter-wrap {
+            background: white; padding: 22px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            position: sticky; top: 66px; z-index: 900;
+            border-bottom: 1px solid #eee;
+        }
+        .filter-inner {
+            max-width: 1200px; margin: auto;
+            display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between;
+        }
+        .filter-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .filter-label { font-size: 0.76rem; font-weight: 700; color: var(--royal-navy); text-transform: uppercase; letter-spacing: 1px; }
+        .filter-btn {
+            padding: 7px 18px; border-radius: 22px; border: 2px solid #ddd;
+            background: transparent; font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; color: #666;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--royal-navy); color: white; border-color: var(--royal-navy);
+            box-shadow: 0 4px 12px rgba(26,38,51,0.22);
+        }
+        .sort-select {
+            padding: 8px 16px; border: 2px solid #ddd; border-radius: 22px;
+            font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 600;
+            color: var(--royal-navy); background: white; cursor: pointer; outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .sort-select:focus { border-color: var(--gold-accent); }
+
+        /* ── MAIN LAYOUT ── */
+        .main-wrap { max-width: 1200px; margin: 0 auto; padding: 55px 24px 90px; }
+
+        /* Results count */
+        .results-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 36px;
+        }
+        .results-bar p { font-size: 0.88rem; color: #888; }
+        .results-bar span { color: var(--royal-navy); font-weight: 700; }
+
+        /* ── PACKAGES GRID ── */
+        .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+        /* ── PACKAGE CARD ── */
+        .pkg-card {
+            background: white; border-radius: 22px; overflow: hidden;
+            box-shadow: var(--card-shadow); transition: all 0.42s ease;
+            position: relative; display: flex; flex-direction: column;
+        }
+        .pkg-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--saffron), var(--gold-accent), var(--india-green));
+            z-index: 2;
+        }
+        .pkg-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.17);
+        }
+
+        /* Image area */
+        .pkg-img { position: relative; height: 230px; overflow: hidden; flex-shrink: 0; }
+        .pkg-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; }
+        .pkg-card:hover .pkg-img img { transform: scale(1.07); }
+        .pkg-img-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(10,20,30,0.72) 100%);
+        }
+
+        /* Badges on image */
+        .pkg-season {
+            position: absolute; top: 14px; left: 14px;
+            background: rgba(26,38,51,0.85); color: var(--gold-accent);
+            padding: 5px 13px; border-radius: 18px; font-size: 0.7rem;
+            font-weight: 600; letter-spacing: 0.5px; backdrop-filter: blur(6px);
+        }
+        .pkg-tag {
+            position: absolute; top: 14px; right: 14px;
+            padding: 5px 13px; border-radius: 18px; font-size: 0.68rem;
+            font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .pkg-tag.bestseller { background: var(--gold-accent); color: var(--royal-navy); }
+        .pkg-tag.trending   { background: var(--saffron);     color: white; }
+        .pkg-tag.new        { background: var(--india-green);  color: white; }
+
+        /* Rating on image bottom */
+        .pkg-rating {
+            position: absolute; bottom: 12px; right: 14px;
+            display: flex; align-items: center; gap: 4px;
+            color: white; font-size: 0.78rem; font-weight: 600;
+        }
+        .pkg-rating i { color: var(--gold-accent); font-size: 0.75rem; }
+
+        /* Body */
+        .pkg-body { padding: 24px 24px 16px; flex: 1; }
+        .pkg-region {
+            font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase;
+            color: var(--saffron); font-weight: 600; margin-bottom: 7px;
+        }
+        .pkg-body h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.35rem;
+            color: var(--royal-navy); margin-bottom: 10px; line-height: 1.3;
+        }
+        .pkg-body p { color: #777; font-size: 0.83rem; line-height: 1.78; margin-bottom: 16px; }
+
+        /* Quick facts */
+        .pkg-facts { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+        .pkg-fact {
+            display: flex; align-items: center; gap: 5px;
+            font-size: 0.75rem; color: #888;
+        }
+        .pkg-fact i { color: var(--gold-accent); font-size: 0.75rem; }
+
+        /* Inclusions chips */
+        .pkg-inclusions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+        .inclusion-chip {
+            background: var(--warm-cream); color: #666;
+            padding: 3px 10px; border-radius: 12px; font-size: 0.68rem; font-weight: 500;
+        }
+        .inclusion-chip i { color: var(--india-green); margin-right: 3px; font-size: 0.65rem; }
+
+        /* Footer */
+        .pkg-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 24px 20px; border-top: 1px solid #f0ebe2; margin-top: auto;
+        }
+        .pkg-price .from-txt { font-size: 0.65rem; color: #bbb; text-transform: uppercase; letter-spacing: 1px; display: block; }
+        .pkg-price .amount { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: var(--royal-navy); font-weight: 700; line-height: 1.1; }
+        .pkg-price .per-txt { font-size: 0.7rem; color: #aaa; }
+        .pkg-cta {
+            background: var(--royal-navy); color: white;
+            padding: 10px 22px; border-radius: 22px; text-decoration: none;
+            font-size: 0.82rem; font-weight: 600; letter-spacing: 0.3px;
+            transition: all 0.3s ease; white-space: nowrap;
+        }
+        .pkg-cta:hover { background: var(--gold-accent); color: var(--royal-navy); transform: translateY(-2px); }
+
+        /* ── FEATURED WIDE CARD ── */
+        .pkg-card.featured {
+            grid-column: span 3;
+            flex-direction: row; height: 320px;
+        }
+        .pkg-card.featured .pkg-img { width: 45%; height: 100%; flex-shrink: 0; }
+        .pkg-card.featured .pkg-img img { height: 100%; }
+        .pkg-card.featured .pkg-body { padding: 34px 32px 20px; }
+        .pkg-card.featured .pkg-body h3 { font-size: 1.9rem; margin-bottom: 12px; }
+        .pkg-card.featured .pkg-body p { font-size: 0.88rem; }
+        .pkg-card.featured .pkg-footer { padding: 0 32px 30px; border-top: none; }
+
+        /* ── NO RESULTS ── */
+        .no-results {
+            grid-column: 1/-1; text-align: center; padding: 80px 20px;
+            display: none;
+        }
+        .no-results i { font-size: 3rem; color: #ddd; margin-bottom: 16px; display: block; }
+        .no-results p { color: #aaa; font-size: 1rem; }
+
+        /* ── PROMO BANNER ── */
+        .promo-banner {
+            background: linear-gradient(135deg, var(--royal-navy) 0%, #2c4a6e 100%);
+            border-radius: 22px; padding: 50px 55px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 60px; gap: 30px; flex-wrap: wrap;
+            position: relative; overflow: hidden;
+        }
+        .promo-banner::before {
+            content: ''; position: absolute; right: -60px; top: -60px;
+            width: 280px; height: 280px; border-radius: 50%;
+            background: rgba(212,175,55,0.08); pointer-events: none;
+        }
+        .promo-banner::after {
+            content: ''; position: absolute; right: 80px; bottom: -80px;
+            width: 200px; height: 200px; border-radius: 50%;
+            background: rgba(255,153,51,0.07); pointer-events: none;
+        }
+        .promo-text h3 {
+            font-family: 'Playfair Display', serif; font-size: 2rem;
+            color: white; margin-bottom: 10px;
+        }
+        .promo-text h3 span { color: var(--gold-accent); }
+        .promo-text p { color: rgba(255,255,255,0.72); font-size: 0.9rem; max-width: 420px; }
+        .promo-cta {
+            background: var(--gold-accent); color: var(--royal-navy);
+            padding: 16px 38px; border-radius: 35px; text-decoration: none;
+            font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+            transition: all 0.3s ease; white-space: nowrap; flex-shrink: 0;
+            box-shadow: 0 8px 25px rgba(212,175,55,0.35);
+        }
+        .promo-cta:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(212,175,55,0.5); background: white; }
+
+        /* ── FOOTER ── */
+        footer { background: var(--royal-navy); color: var(--marble-white); padding: 55px 20px 28px; }
+        .footer-top {
+            max-width: 1200px; margin: auto;
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 45px; margin-bottom: 38px;
+        }
+        .footer-brand .logo-ft {
+            font-family: 'Playfair Display', serif; font-size: 1.7rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: block; margin-bottom: 4px;
+        }
+        .footer-brand .tagline-ft {
+            font-size: 0.63rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--saffron); margin-bottom: 14px; display: block;
+        }
+        .footer-brand p { font-size: 0.84rem; opacity: 0.62; line-height: 1.8; }
+        .footer-col h4 { font-family: 'Playfair Display', serif; color: var(--gold-accent); margin-bottom: 17px; font-size: 1.05rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 9px; }
+        .footer-col a { color: rgba(255,255,255,0.62); text-decoration: none; font-size: 0.84rem; transition: all 0.3s ease; }
+        .footer-col a:hover { color: var(--gold-accent); padding-left: 5px; }
+        .footer-col p { font-size: 0.84rem; color: rgba(255,255,255,0.62); line-height: 1.8; }
+        .footer-bottom {
+            max-width: 1200px; margin: auto;
+            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+        .footer-bottom p { font-size: 0.79rem; opacity: 0.52; }
+        .tricolor-strip {
+            height: 4px; width: 100%;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            margin-bottom: 34px; border-radius: 2px;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeDown { from { opacity:0; transform:translateY(-18px); } to { opacity:1; transform:translateY(0); } }
+        .reveal { opacity:0; transform:translateY(35px); transition: all 0.65s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .pkg-card.hidden { display: none !important; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .pkg-grid { grid-template-columns: repeat(2,1fr); }
+            .pkg-card.featured { grid-column: span 2; }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav ul {
+                position: fixed; top:0; left:0; width:100%; height:100vh;
+                background: rgba(26,38,51,0.98); flex-direction:column;
+                justify-content:center; align-items:center; gap:2rem;
+                transform: translateX(100%); transition: transform 0.4s ease;
+            }
+            nav ul.active { transform: translateX(0); }
+            nav li { margin:0; }
+            nav a { font-size: 1.2rem; }
+            .pkg-grid { grid-template-columns: 1fr; }
+            .pkg-card.featured { grid-column: span 1; flex-direction: column; height: auto; }
+            .pkg-card.featured .pkg-img { width: 100%; height: 220px; }
+            .promo-banner { flex-direction: column; text-align: center; padding: 38px 28px; }
+            .promo-text p { margin: auto; }
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+            .filter-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+        }
+        @media (max-width: 480px) {
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="tricolor-bar"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            Wanderlust India
+            <span>Domestic Travel</span>
+        </a>
+        <ul id="nav-menu">
+            <li><a href="index2.html">Home</a></li>
+            <li><a href="destinations2.html">Destinations</a></li>
+            <li><a href="packages2.html" class="active">Packages</a></li>
+            <li><a href="trip-info2.html">Trip Info</a></li>
+            <li><a href="contact2.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="badge"><i class="fas fa-suitcase-rolling" style="margin-right:8px"></i> All Packages</div>
+    <h1>Travel <span>Packages</span></h1>
+    <p>Seasonal journeys crafted for every corner of incredible India</p>
+    <div class="breadcrumb">
+        <a href="index2.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Packages</span>
+    </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-wrap">
+    <div class="filter-inner">
+        <div class="filter-group">
+            <span class="filter-label"><i class="fas fa-filter"></i>&nbsp; Season</span>
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="summer">Summer</button>
+            <button class="filter-btn" data-filter="monsoon">Monsoon</button>
+            <button class="filter-btn" data-filter="winter">Winter</button>
+            <button class="filter-btn" data-filter="yearround">Year-round</button>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label"><i class="fas fa-sort"></i>&nbsp; Sort</span>
+            <select class="sort-select" id="sortSelect">
+                <option value="default">Featured</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+                <option value="duration">Duration</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+    <div class="results-bar reveal">
+        <p>Showing <span id="resultCount">12</span> packages</p>
+        <p style="font-size:0.8rem;color:#aaa;">All prices per person · Taxes included</p>
+    </div>
+
+    <div class="pkg-grid" id="pkgGrid">
+
+        <!-- FEATURED WIDE -->
+        <div class="pkg-card featured reveal" data-season="winter" data-price="27999" data-days="8">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1000&q=80" alt="Royal Rajasthan">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-snowflake"></i>&nbsp; Winter · Oct – Mar</span>
+                <span class="pkg-tag bestseller">⭐ Best Seller</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.9 &nbsp;(312 reviews)</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;">
+                <div class="pkg-body">
+                    <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; North India · Rajasthan</p>
+                    <h3>Royal Rajasthan Grand Circuit</h3>
+                    <p>Our most-loved package — ride camels across Jaisalmer's golden dunes, dine inside a heritage haveli in Jodhpur, and watch the Jaipur sunrise paint Amber Fort in gold. An experience fit for royalty.</p>
+                    <div class="pkg-facts">
+                        <span class="pkg-fact"><i class="fas fa-clock"></i> 7 Nights / 8 Days</span>
+                        <span class="pkg-fact"><i class="fas fa-users"></i> Max 15 guests</span>
+                        <span class="pkg-fact"><i class="fas fa-map-pin"></i> Jaipur · Jodhpur · Jaisalmer</span>
+                        <span class="pkg-fact"><i class="fas fa-hotel"></i> Heritage hotels</span>
+                    </div>
+                    <div class="pkg-inclusions">
+                        <span class="inclusion-chip"><i class="fas fa-check"></i> Flights</span>
+                        <span class="inclusion-chip"><i class="fas fa-check"></i> Hotels</span>
+                        <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                        <span class="inclusion-chip"><i class="fas fa-check"></i> Guide</span>
+                        <span class="inclusion-chip"><i class="fas fa-check"></i> Camel Safari</span>
+                    </div>
+                </div>
+                <div class="pkg-footer">
+                    <div class="pkg-price">
+                        <span class="from-txt">Starting from</span>
+                        <span class="amount">₹27,999 <span class="per-txt">/ person</span></span>
+                    </div>
+                    <a href="contact.html" class="pkg-cta">Book Now &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 1 -->
+        <div class="pkg-card reveal" data-season="monsoon" data-price="22499" data-days="7">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80" alt="Kerala">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-cloud-rain"></i>&nbsp; Monsoon · Jun – Sep</span>
+                <span class="pkg-tag trending">🔥 Trending</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.8 &nbsp;(198)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; South India · Kerala</p>
+                <h3>Monsoon Magic — Kerala</h3>
+                <p>Glide through mist-draped backwaters on a houseboat, witness roaring waterfalls, and rejuvenate with authentic Ayurveda amid lush monsoon greenery.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 6N / 7D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 12</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Munnar · Alleppey</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Hotels</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Houseboat</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Ayurveda</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹22,499 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="pkg-card reveal" data-season="summer" data-price="31499" data-days="9">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1535568756678-b7c2cae7e3b2?auto=format&fit=crop&w=800&q=80" alt="Ladakh">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-sun"></i>&nbsp; Summer · Jun – Sep</span>
+                <span class="pkg-tag bestseller">⭐ Top Rated</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.9 &nbsp;(241)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; North India · J&K</p>
+                <h3>Leh & Ladakh Explorer</h3>
+                <p>Turquoise lakes, ancient monasteries, and the world's highest motorable roads. Ladakh is the journey of a lifetime — raw, dramatic, and unforgettable.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 8N / 9D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 10</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Leh · Pangong · Nubra</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Flights</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Hotels</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Permit</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹34,999 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="pkg-card reveal" data-season="summer" data-price="24999" data-days="9">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80" alt="Himachal">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-mountain"></i>&nbsp; Summer · Apr – Jul</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.7 &nbsp;(155)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; North India · Himachal</p>
+                <h3>Himalayan Summer Escape</h3>
+                <p>Camp under a million stars in Spiti Valley, trek through meadows of wildflowers in Manali, and breathe the purest mountain air while escaping the summer heat.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 8N / 9D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 12</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Manali · Spiti · Kaza</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Hotels</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Camping</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Trekking</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹24,999 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="pkg-card reveal" data-season="winter" data-price="28999" data-days="8">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=800&q=80" alt="Andaman">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-umbrella-beach"></i>&nbsp; Winter · Nov – May</span>
+                <span class="pkg-tag new">✦ New</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.8 &nbsp;(87)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; Islands · Andaman</p>
+                <h3>Andaman Island Escape</h3>
+                <p>Snorkel among coral reefs, relax on powder-white Radhanagar beach, and sleep under stars at a private beach resort. India's tropical paradise is closer than you think.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 7N / 8D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 16</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Port Blair · Havelock · Neil</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Flights</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Resort</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Snorkelling</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹28,999 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="pkg-card reveal" data-season="winter" data-price="17499" data-days="5">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?auto=format&fit=crop&w=800&q=80" alt="Rann of Kutch">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-moon"></i>&nbsp; Winter · Nov – Feb</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.7 &nbsp;(119)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; West India · Gujarat</p>
+                <h3>Rann of Kutch Utsav</h3>
+                <p>Witness the surreal white salt desert glow under a full moon. The Rann Utsav festival transforms this moonscape into a vibrant celebration of music, craft, and culture.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 4N / 5D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 20</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Bhuj · Dhordo · Mandvi</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Tent stay</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Safari</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Festival pass</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹17,499 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="pkg-card reveal" data-season="monsoon" data-price="22999" data-days="8">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=800&q=80" alt="Meghalaya">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-leaf"></i>&nbsp; Monsoon · Jun – Sep</span>
+                <span class="pkg-tag new">✦ New</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.9 &nbsp;(64)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; Northeast · Meghalaya</p>
+                <h3>Meghalaya — Abode of Clouds</h3>
+                <p>Living root bridges, Asia's cleanest village Mawlynnong, the world's wettest place Cherrapunji, and caves that go on forever. Northeast India's crown jewel.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 7N / 8D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 10</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Shillong · Cherrapunji</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Hotels</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Trekking</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Guide</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹22,999 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 7 -->
+        <div class="pkg-card reveal" data-season="yearround" data-price="10999" data-days="5">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80" alt="Ooty">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-train"></i>&nbsp; Year-round</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.5 &nbsp;(207)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; South India · Tamil Nadu</p>
+                <h3>Ooty & Kodaikanal Hills</h3>
+                <p>Ride the iconic Nilgiri Mountain Railway through emerald tea gardens, breathe the cool hill air, and wander through eucalyptus forests with your loved ones.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 4N / 5D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 20</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Ooty · Kodaikanal</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Hotels</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Toy train</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹10,999 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 8 -->
+        <div class="pkg-card reveal" data-season="winter" data-price="12999" data-days="6">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1571536802807-30451e3955d8?auto=format&fit=crop&w=800&q=80" alt="Goa">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-umbrella-beach"></i>&nbsp; Winter · Nov – Feb</span>
+                <span class="pkg-tag trending">🔥 Trending</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.6 &nbsp;(334)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; West India · Goa</p>
+                <h3>Goa Beach Royale</h3>
+                <p>Sun-kissed beaches, vibrant shacks, Portuguese heritage quarters, and the freshest catch of the day. Goa's laid-back magic is the perfect year-end getaway.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 5N / 6D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 20</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> North Goa · South Goa</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Resort</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Breakfast</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Water sports</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹12,999 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 9 -->
+        <div class="pkg-card reveal" data-season="summer" data-price="21499" data-days="7">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="Sikkim">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-sun"></i>&nbsp; Summer · Mar – Jun</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.8 &nbsp;(93)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; Northeast · Sikkim</p>
+                <h3>Sikkim Serenity</h3>
+                <p>Prayer flags, rhododendron forests, and front-row views of mighty Kanchenjunga. Sikkim's gentle monasteries and misty valleys restore the soul like nowhere else.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 6N / 7D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 12</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Gangtok · Pelling · Namchi</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Hotels</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Monastery trail</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹21,499 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <!-- CARD 10 -->
+        <div class="pkg-card reveal" data-season="yearround" data-price="14999" data-days="6">
+            <div class="pkg-img">
+                <img src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80" alt="Coorg">
+                <div class="pkg-img-overlay"></div>
+                <span class="pkg-season"><i class="fas fa-leaf"></i>&nbsp; Year-round</span>
+                <div class="pkg-rating"><i class="fas fa-star"></i> 4.6 &nbsp;(178)</div>
+            </div>
+            <div class="pkg-body">
+                <p class="pkg-region"><i class="fas fa-map-pin"></i>&nbsp; South India · Karnataka</p>
+                <h3>Coorg & Mysore Royal</h3>
+                <p>Wake up in a coffee estate bungalow, trek to Abbey Falls, and stand in awe inside the golden Mysore Palace. Karnataka's cultural and natural riches in one beautiful package.</p>
+                <div class="pkg-facts">
+                    <span class="pkg-fact"><i class="fas fa-clock"></i> 5N / 6D</span>
+                    <span class="pkg-fact"><i class="fas fa-users"></i> Max 16</span>
+                    <span class="pkg-fact"><i class="fas fa-map-pin"></i> Coorg · Mysore · Kabini</span>
+                </div>
+                <div class="pkg-inclusions">
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Estate stay</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Meals</span>
+                    <span class="inclusion-chip"><i class="fas fa-check"></i> Safari</span>
+                </div>
+            </div>
+            <div class="pkg-footer">
+                <div class="pkg-price">
+                    <span class="from-txt">From</span>
+                    <span class="amount">₹14,999 <span class="per-txt">/ person</span></span>
+                </div>
+                <a href="contact.html" class="pkg-cta">Book Now</a>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <i class="fas fa-map-marked-alt"></i>
+            <p>No packages found for this season.<br>Try a different filter!</p>
+        </div>
+
+    </div><!-- /pkg-grid -->
+
+    <!-- PROMO BANNER -->
+    <div class="promo-banner reveal">
+        <div class="promo-text">
+            <h3>Can't find your <span>perfect trip?</span></h3>
+            <p>Our travel experts will build a fully custom domestic itinerary just for you — any destination, any budget, any season. Tell us your dream and we'll make it happen.</p>
+        </div>
+        <a href="contact.html" class="promo-cta"><i class="fas fa-paper-plane"></i>&nbsp; Request Custom Package</a>
+    </div>
+
+</div><!-- /main-wrap -->
+
+<!-- FOOTER -->
+<footer>
+    <div style="max-width:1200px;margin:auto;">
+        <div class="tricolor-strip"></div>
+    </div>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <span class="logo-ft">Wanderlust India</span>
+            <span class="tagline-ft">Domestic Travel · Est. 2017</span>
+            <p>Premium seasonal domestic travel from Chennai. We believe every Indian deserves to experience the magic within their own borders.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="trip-info.html">Trip Info</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Popular Packages</h4>
+            <ul>
+                <li><a href="#">Royal Rajasthan</a></li>
+                <li><a href="#">Kerala Monsoon</a></li>
+                <li><a href="#">Leh & Ladakh</a></li>
+                <li><a href="#">Andaman Escape</a></li>
+                <li><a href="#">Meghalaya Trails</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Chennai HQ</h4>
+            <p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018<br>India 🇮🇳<br><br>+91 98400 00000<br>hello@wanderlustindia.in</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Wanderlust India. All Rights Reserved.</p>
+        <p>Made with ❤️ in Chennai, India 🇮🇳</p>
+    </div>
+</footer>
+
+<script>
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu
+    document.getElementById('hamburger').addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.toggle('active');
+    });
+    document.querySelectorAll('nav a').forEach(a => {
+        a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('active'));
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Filter
+    const cards = () => [...document.querySelectorAll('.pkg-card')];
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            let visible = 0;
+            cards().forEach(card => {
+                const match = filter === 'all' || card.dataset.season === filter;
+                card.classList.toggle('hidden', !match);
+                if (match) visible++;
+            });
+            document.getElementById('resultCount').textContent = visible;
+            document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+        });
+    });
+
+    // Sort
+    document.getElementById('sortSelect').addEventListener('change', function() {
+        const grid = document.getElementById('pkgGrid');
+        const allCards = cards().filter(c => !c.classList.contains('hidden') && !c.classList.contains('featured'));
+        const featured = document.querySelector('.pkg-card.featured');
+
+        allCards.sort((a, b) => {
+            if (this.value === 'low')      return +a.dataset.price - +b.dataset.price;
+            if (this.value === 'high')     return +b.dataset.price - +a.dataset.price;
+            if (this.value === 'duration') return +a.dataset.days  - +b.dataset.days;
+            return 0;
+        });
+
+        // Re-append: featured first, then sorted cards, then no-results
+        const noRes = document.getElementById('noResults');
+        if (featured) grid.appendChild(featured);
+        allCards.forEach(c => grid.appendChild(c));
+        grid.appendChild(noRes);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations – Wanderlust India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --royal-navy: #1a2633;
+            --gold-accent: #d4af37;
+            --saffron: #ff9933;
+            --india-green: #138808;
+            --marble-white: #f8f5f2;
+            --warm-cream: #f4f1e9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.7; color: #333; overflow-x: hidden; background: var(--marble-white); }
+
+        /* ── TRICOLOR BAR ── */
+        .tricolor-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            z-index: 1001;
+        }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed; top: 3px; width: 100%;
+            background: rgba(26, 38, 51, 0.95);
+            padding: 18px 0; z-index: 1000;
+            backdrop-filter: blur(20px); transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(26, 38, 51, 0.99);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            padding: 13px 0;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.7rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .logo span {
+            display: block; font-size: 0.55rem; letter-spacing: 4px;
+            background: linear-gradient(45deg, var(--saffron), #ffcc00);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase;
+        }
+        nav ul { list-style: none; display: flex; }
+        nav li { margin: 0 14px; }
+        nav a {
+            color: var(--marble-white); text-decoration: none;
+            font-weight: 600; font-size: 0.92rem;
+            position: relative; transition: all 0.3s ease;
+            letter-spacing: 0.5px; padding: 8px 0;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            width: 0; height: 2px; background: var(--gold-accent);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: var(--gold-accent); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--gold-accent); transition: 0.3s; }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            height: 55vh; min-height: 400px; position: relative;
+            background: linear-gradient(rgba(15,25,35,0.72), rgba(10,18,26,0.55)),
+                url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; color: white; padding: 0 2rem;
+            margin-top: 3px;
+        }
+        .page-hero .badge {
+            border: 1px solid var(--gold-accent); color: var(--gold-accent);
+            padding: 5px 18px; border-radius: 50px; font-size: 0.72rem;
+            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px;
+            animation: fadeDown 0.8s ease forwards;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem);
+            letter-spacing: 2px; text-shadow: 2px 2px 20px rgba(0,0,0,0.7);
+            animation: fadeUp 0.9s ease 0.2s both;
+        }
+        .page-hero h1 span { color: var(--gold-accent); }
+        .page-hero p {
+            margin-top: 14px; font-size: 1.05rem; opacity: 0.88; font-weight: 300;
+            animation: fadeUp 0.9s ease 0.4s both;
+        }
+        .breadcrumb {
+            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 8px; align-items: center;
+            font-size: 0.78rem; color: rgba(255,255,255,0.6);
+        }
+        .breadcrumb a { color: var(--gold-accent); text-decoration: none; }
+        .breadcrumb i { font-size: 0.6rem; }
+
+        /* ── FILTER BAR ── */
+        .filter-wrap {
+            background: white; padding: 25px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07); position: sticky; top: 67px; z-index: 900;
+        }
+        .filter-inner {
+            max-width: 1200px; margin: auto;
+            display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+        }
+        .filter-label { font-size: 0.78rem; font-weight: 700; color: var(--royal-navy); text-transform: uppercase; letter-spacing: 1px; margin-right: 5px; }
+        .filter-btn {
+            padding: 8px 20px; border-radius: 25px; border: 2px solid #ddd;
+            background: transparent; font-family: 'Poppins', sans-serif;
+            font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; color: #666;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--royal-navy); color: white; border-color: var(--royal-navy);
+        }
+        .filter-btn.active { box-shadow: 0 5px 15px rgba(26,38,51,0.25); }
+
+        /* ── MAIN CONTENT ── */
+        .main-content { max-width: 1200px; margin: 60px auto; padding: 0 20px 80px; }
+
+        /* ── FEATURED DESTINATION ── */
+        .featured-label {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 25px;
+        }
+        .featured-label h2 {
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--royal-navy);
+        }
+        .featured-label::after {
+            content: ''; flex: 1; height: 1px; background: #e0dbd0;
+        }
+
+        .featured-card {
+            position: relative; border-radius: 24px; overflow: hidden;
+            height: 500px; margin-bottom: 60px; cursor: pointer;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+        }
+        .featured-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .featured-card:hover img { transform: scale(1.04); }
+        .featured-card .overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(10,20,30,0.88) 40%, transparent 100%);
+        }
+        .featured-card .content {
+            position: absolute; top: 50%; left: 60px; transform: translateY(-50%);
+            color: white; max-width: 480px;
+        }
+        .featured-card .region-tag {
+            font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--saffron); margin-bottom: 10px; font-weight: 600;
+        }
+        .featured-card h2 {
+            font-family: 'Playfair Display', serif; font-size: 3.5rem; line-height: 1.1;
+            margin-bottom: 15px;
+        }
+        .featured-card p { font-size: 0.95rem; opacity: 0.85; font-weight: 300; line-height: 1.8; margin-bottom: 28px; }
+        .featured-tag {
+            position: absolute; top: 28px; right: 28px;
+            background: var(--gold-accent); color: var(--royal-navy);
+            padding: 8px 22px; border-radius: 25px; font-size: 0.75rem;
+            font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .featured-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+        .info-badge {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+            padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; color: white;
+        }
+        .info-badge i { color: var(--gold-accent); margin-right: 5px; }
+        .btn-gold {
+            display: inline-block; background: var(--gold-accent); color: var(--royal-navy);
+            padding: 14px 36px; border-radius: 35px; font-weight: 700;
+            font-family: 'Playfair Display', serif; font-size: 1rem;
+            text-decoration: none; letter-spacing: 0.5px;
+            transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(212,175,55,0.4);
+        }
+        .btn-gold:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(212,175,55,0.55); background: white; }
+
+        /* ── DESTINATION GRID ── */
+        .dest-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+        }
+        .dest-card {
+            border-radius: 20px; overflow: hidden; background: white;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.09); transition: all 0.4s ease;
+            cursor: pointer; position: relative;
+        }
+        .dest-card:hover { transform: translateY(-10px); box-shadow: 0 25px 70px rgba(0,0,0,0.16); }
+        .dest-img { height: 240px; overflow: hidden; position: relative; }
+        .dest-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; }
+        .dest-card:hover .dest-img img { transform: scale(1.08); }
+        .dest-img-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 55%, rgba(10,20,30,0.75) 100%);
+        }
+        .dest-region {
+            position: absolute; bottom: 14px; left: 16px;
+            font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--gold-accent); font-weight: 600;
+        }
+        .dest-season-badge {
+            position: absolute; top: 14px; right: 14px;
+            background: rgba(26,38,51,0.82); color: white;
+            padding: 4px 12px; border-radius: 15px; font-size: 0.68rem;
+            font-weight: 600; backdrop-filter: blur(5px);
+        }
+        .dest-body { padding: 22px 24px; }
+        .dest-body h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.4rem;
+            color: var(--royal-navy); margin-bottom: 8px;
+        }
+        .dest-body p { color: #777; font-size: 0.85rem; line-height: 1.75; margin-bottom: 18px; }
+        .dest-meta { display: flex; gap: 16px; margin-bottom: 18px; }
+        .dest-meta span { font-size: 0.75rem; color: #999; }
+        .dest-meta span i { color: var(--gold-accent); margin-right: 4px; }
+        .dest-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 24px; background: var(--warm-cream);
+            border-top: 1px solid #eee;
+        }
+        .dest-price .from { font-size: 0.68rem; color: #aaa; text-transform: uppercase; display: block; }
+        .dest-price .amount {
+            font-family: 'Playfair Display', serif; font-size: 1.25rem;
+            color: var(--royal-navy); font-weight: 700;
+        }
+        .dest-link {
+            background: var(--royal-navy); color: white; padding: 9px 20px;
+            border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .dest-link:hover { background: var(--gold-accent); color: var(--royal-navy); }
+
+        /* Hidden for filtering */
+        .dest-card.hidden { display: none; }
+
+        /* ── REGION DIVIDER ── */
+        .region-divider {
+            display: flex; align-items: center; gap: 16px;
+            margin: 55px 0 30px;
+        }
+        .region-divider h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--royal-navy);
+            white-space: nowrap;
+        }
+        .region-divider .line { flex: 1; height: 1px; background: #ddd; }
+        .region-divider .dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--gold-accent); flex-shrink: 0;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--royal-navy); color: var(--marble-white);
+            padding: 50px 20px 28px;
+        }
+        .footer-top {
+            max-width: 1200px; margin: auto;
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 45px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .logo-ft {
+            font-family: 'Playfair Display', serif; font-size: 1.7rem;
+            background: linear-gradient(45deg, var(--gold-accent), #f4d03f);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: block; margin-bottom: 4px;
+        }
+        .footer-brand .tagline-ft {
+            font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--saffron); margin-bottom: 15px; display: block;
+        }
+        .footer-brand p { font-size: 0.85rem; opacity: 0.65; line-height: 1.8; }
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif; color: var(--gold-accent);
+            margin-bottom: 18px; font-size: 1.05rem;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 9px; }
+        .footer-col a {
+            color: rgba(255,255,255,0.65); text-decoration: none;
+            font-size: 0.85rem; transition: all 0.3s ease;
+        }
+        .footer-col a:hover { color: var(--gold-accent); padding-left: 5px; }
+        .footer-col p { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.8; }
+        .footer-bottom {
+            max-width: 1200px; margin: auto;
+            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+        .footer-bottom p { font-size: 0.8rem; opacity: 0.55; }
+        .tricolor-strip {
+            height: 4px; width: 100%;
+            background: linear-gradient(90deg, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--india-green) 66.6%);
+            margin-bottom: 35px; border-radius: 2px;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeDown { from { opacity: 0; transform: translateY(-18px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(35px); transition: all 0.65s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .dest-grid { grid-template-columns: repeat(2, 1fr); }
+            .featured-card .content { left: 40px; }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav ul {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+                background: rgba(26,38,51,0.98); flex-direction: column;
+                justify-content: center; align-items: center; gap: 2rem;
+                transform: translateX(100%); transition: transform 0.4s ease;
+            }
+            nav ul.active { transform: translateX(0); }
+            nav li { margin: 0; }
+            nav a { font-size: 1.2rem; }
+            .dest-grid { grid-template-columns: 1fr; }
+            .featured-card { height: auto; }
+            .featured-card img { height: 380px; }
+            .featured-card .overlay { background: linear-gradient(180deg, transparent 30%, rgba(10,20,30,0.92) 100%); }
+            .featured-card .content { left: 24px; right: 24px; top: auto; bottom: 30px; transform: none; max-width: 100%; }
+            .featured-card h2 { font-size: 2.4rem; }
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 30px; }
+            .filter-inner { gap: 8px; }
+        }
+        @media (max-width: 480px) {
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tricolor-bar"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index2.html" class="logo">
+                Wanderlust India
+                <span>Domestic Travel</span>
+            </a>
+            <ul id="nav-menu">
+                <li><a href="index2.html">Home</a></li>
+                <li><a href="destinations2.html" class="active">Destinations</a></li>
+                <li><a href="packages2.html">Packages</a></li>
+                <li><a href="trip-info2.html">Trip Info</a></li>
+                <li><a href="contact2.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="badge"><i class="fas fa-map-marked-alt" style="margin-right:8px"></i> Explore India</div>
+        <h1>Our <span>Destinations</span></h1>
+        <p>Discover the incredible diversity of Bharat — from mountains to beaches, deserts to rainforests</p>
+        <div class="breadcrumb">
+            <a href="index2.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Destinations</span>
+        </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filter-wrap">
+        <div class="filter-inner">
+            <span class="filter-label"><i class="fas fa-filter"></i> &nbsp;Filter:</span>
+            <button class="filter-btn active" data-filter="all">All India</button>
+            <button class="filter-btn" data-filter="north">North India</button>
+            <button class="filter-btn" data-filter="south">South India</button>
+            <button class="filter-btn" data-filter="west">West India</button>
+            <button class="filter-btn" data-filter="east">East India</button>
+            <button class="filter-btn" data-filter="northeast">Northeast</button>
+            <button class="filter-btn" data-filter="islands">Islands</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <!-- FEATURED -->
+        <div class="featured-label reveal">
+            <h2><i class="fas fa-star" style="color:var(--gold-accent);font-size:1rem;margin-right:8px"></i> Featured Destination</h2>
+        </div>
+
+        <div class="featured-card reveal" data-region="north">
+            <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1600&q=80" alt="Rajasthan">
+            <div class="overlay"></div>
+            <span class="featured-tag">⭐ Editor's Pick</span>
+            <div class="content">
+                <p class="region-tag"><i class="fas fa-map-pin"></i> &nbsp;North India · Rajasthan</p>
+                <h2>The Royal<br>Land of Kings</h2>
+                <p>Journey through golden deserts, majestic forts, and vibrant bazaars in the land where every sunset turns the sky to fire. Rajasthan is India's most regal experience.</p>
+                <div class="featured-badges">
+                    <span class="info-badge"><i class="fas fa-clock"></i> 5–10 Days</span>
+                    <span class="info-badge"><i class="fas fa-thermometer-half"></i> Oct – Mar</span>
+                    <span class="info-badge"><i class="fas fa-rupee-sign"></i> From ₹18,999</span>
+                </div>
+                <a href="packages2.html" class="btn-gold">Explore Packages</a>
+            </div>
+        </div>
+
+        <!-- NORTH INDIA -->
+        <div class="region-divider reveal">
+            <div class="dot"></div>
+            <h3>North India</h3>
+            <div class="line"></div>
+        </div>
+        <div class="dest-grid" id="dest-grid">
+
+            <div class="dest-card reveal" data-region="north">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80" alt="Himachal Pradesh">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Himachal Pradesh</span>
+                    <span class="dest-season-badge"><i class="fas fa-sun"></i> Apr – Jun</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Manali & Spiti</h3>
+                    <p>Snow-draped valleys, ancient monasteries, and the most dramatic mountain roads on Earth. Himachal Pradesh is a paradise for adventurers and peace-seekers alike.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 7–9 Days</span>
+                        <span><i class="fas fa-mountain"></i> 4,000m+ altitude</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹24,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <div class="dest-card reveal" data-region="north">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=800&q=80" alt="Agra">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Uttar Pradesh</span>
+                    <span class="dest-season-badge"><i class="fas fa-snowflake"></i> Oct – Feb</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Agra & the Golden Triangle</h3>
+                    <p>Stand before the world's greatest monument of love. Combine Delhi's Mughal grandeur with Jaipur's royal palaces for an unforgettable historic journey.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 4–6 Days</span>
+                        <span><i class="fas fa-landmark"></i> UNESCO Sites</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹16,499</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <div class="dest-card reveal" data-region="north">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1535568756678-b7c2cae7e3b2?auto=format&fit=crop&w=800&q=80" alt="Leh Ladakh">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Jammu & Kashmir</span>
+                    <span class="dest-season-badge"><i class="fas fa-sun"></i> Jun – Sep</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Leh & Ladakh</h3>
+                    <p>The roof of the world — turquoise lakes, moonscapes, and Buddhist monasteries floating above the clouds. A once-in-a-lifetime bucket list destination.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 8–10 Days</span>
+                        <span><i class="fas fa-camera"></i> Pangong Lake</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹34,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <!-- SOUTH INDIA -->
+            <div class="region-divider reveal" style="grid-column:1/-1">
+                <div class="dot"></div>
+                <h3>South India</h3>
+                <div class="line"></div>
+            </div>
+
+            <div class="dest-card reveal" data-region="south">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80" alt="Kerala">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Kerala</span>
+                    <span class="dest-season-badge"><i class="fas fa-cloud-rain"></i> Jun – Aug</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Kerala Backwaters</h3>
+                    <p>Drift through emerald waterways on a traditional houseboat, surrounded by coconut groves and paddy fields. God's Own Country at its most serene.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 5–7 Days</span>
+                        <span><i class="fas fa-ship"></i> Houseboat stays</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹19,499</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <div class="dest-card reveal" data-region="south">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80" alt="Coorg">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Karnataka</span>
+                    <span class="dest-season-badge"><i class="fas fa-leaf"></i> Oct – Mar</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Coorg & Mysore</h3>
+                    <p>Wander through misty coffee estates, spot elephants in Nagarhole, and witness the magnificent Mysore Palace lit up a million lights at dusk.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 4–6 Days</span>
+                        <span><i class="fas fa-coffee"></i> Coffee estates</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹14,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <div class="dest-card reveal" data-region="south">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80" alt="Ooty">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Tamil Nadu</span>
+                    <span class="dest-season-badge"><i class="fas fa-mountain"></i> Year-round</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Ooty & Kodaikanal</h3>
+                    <p>Ride the iconic Nilgiri Mountain Railway through tea gardens and eucalyptus forests. The Queen of Hill Stations never disappoints, rain or shine.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 3–5 Days</span>
+                        <span><i class="fas fa-train"></i> Toy train</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹10,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <!-- WEST INDIA -->
+            <div class="region-divider reveal" style="grid-column:1/-1">
+                <div class="dot"></div>
+                <h3>West India</h3>
+                <div class="line"></div>
+            </div>
+
+            <div class="dest-card reveal" data-region="west">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1571536802807-30451e3955d8?auto=format&fit=crop&w=800&q=80" alt="Goa">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Goa</span>
+                    <span class="dest-season-badge"><i class="fas fa-umbrella-beach"></i> Nov – Feb</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Goa Beach Getaway</h3>
+                    <p>Pristine beaches, vibrant nightlife, Portuguese-era churches, and the freshest seafood. Goa's laid-back magic never gets old, no matter how many times you visit.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 4–6 Days</span>
+                        <span><i class="fas fa-water"></i> Beach stays</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹12,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <div class="dest-card reveal" data-region="west">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?auto=format&fit=crop&w=800&q=80" alt="Gujarat">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Gujarat</span>
+                    <span class="dest-season-badge"><i class="fas fa-moon"></i> Nov – Feb</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Rann of Kutch</h3>
+                    <p>Witness the surreal white salt desert under a full moon sky. The Rann Utsav is India's most spectacular festival, with folk music and cultural performances all night long.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 4–5 Days</span>
+                        <span><i class="fas fa-star"></i> Rann Utsav</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹17,499</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <!-- NORTHEAST -->
+            <div class="region-divider reveal" style="grid-column:1/-1">
+                <div class="dot"></div>
+                <h3>Northeast India</h3>
+                <div class="line"></div>
+            </div>
+
+            <div class="dest-card reveal" data-region="northeast">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=800&q=80" alt="Meghalaya">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Meghalaya</span>
+                    <span class="dest-season-badge"><i class="fas fa-cloud-rain"></i> Oct – Apr</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Meghalaya — Abode of Clouds</h3>
+                    <p>Living root bridges, Asia's cleanest village, and the world's wettest place. Meghalaya is raw, wild, and hauntingly beautiful in a way few places on Earth can match.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 6–8 Days</span>
+                        <span><i class="fas fa-tree"></i> Living bridges</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹22,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <div class="dest-card reveal" data-region="northeast">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="Sikkim">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Sikkim</span>
+                    <span class="dest-season-badge"><i class="fas fa-sun"></i> Mar – Jun</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Sikkim & Gangtok</h3>
+                    <p>A tiny Himalayan kingdom of prayer flags, rhododendron forests, and views of mighty Kanchenjunga. Sikkim is the most peaceful corner of India, perfect for the soul.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 6–7 Days</span>
+                        <span><i class="fas fa-pray"></i> Monastery trails</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹21,499</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <!-- ISLANDS -->
+            <div class="region-divider reveal" style="grid-column:1/-1">
+                <div class="dot"></div>
+                <h3>Islands</h3>
+                <div class="line"></div>
+            </div>
+
+            <div class="dest-card reveal" data-region="islands">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=800&q=80" alt="Andaman">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Andaman & Nicobar</span>
+                    <span class="dest-season-badge"><i class="fas fa-water"></i> Nov – May</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Andaman Islands</h3>
+                    <p>Coral reefs teeming with marine life, bioluminescent beaches, and crystal-clear water so blue it doesn't look real. India's own tropical paradise awaits.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 6–8 Days</span>
+                        <span><i class="fas fa-fish"></i> Snorkelling & diving</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹28,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+            <div class="dest-card reveal" data-region="islands">
+                <div class="dest-img">
+                    <img src="https://images.unsplash.com/photo-1586094439895-b2e3b4b5ad7d?auto=format&fit=crop&w=800&q=80" alt="Lakshadweep">
+                    <div class="dest-img-overlay"></div>
+                    <span class="dest-region">Lakshadweep</span>
+                    <span class="dest-season-badge"><i class="fas fa-umbrella-beach"></i> Oct – May</span>
+                </div>
+                <div class="dest-body">
+                    <h3>Lakshadweep</h3>
+                    <p>India's last secret — pristine coral atolls with white sand lagoons and some of the richest marine biodiversity on the planet. Limited visitors, unlimited wonder.</p>
+                    <div class="dest-meta">
+                        <span><i class="fas fa-clock"></i> 5–7 Days</span>
+                        <span><i class="fas fa-ship"></i> Ferry & flights</span>
+                    </div>
+                </div>
+                <div class="dest-footer">
+                    <div class="dest-price">
+                        <span class="from">From</span>
+                        <span class="amount">₹32,999</span>
+                    </div>
+                    <a href="packages2.html" class="dest-link">View Packages</a>
+                </div>
+            </div>
+
+        </div><!-- /dest-grid -->
+    </div><!-- /main-content -->
+
+    <!-- FOOTER -->
+    <footer>
+        <div style="max-width:1200px;margin:auto;">
+            <div class="tricolor-strip"></div>
+        </div>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="logo-ft">Wanderlust India</span>
+                <span class="tagline-ft">Domestic Travel · Est. 2017</span>
+                <p>Premium seasonal domestic travel from Chennai. We believe every Indian deserves to experience the magic within their own borders.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index2.html">Home</a></li>
+                    <li><a href="destinations2.html">Destinations</a></li>
+                    <li><a href="packages2.html">Packages</a></li>
+                    <li><a href="trip-info2.html">Trip Info</a></li>
+                    <li><a href="contact2.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Top Destinations</h4>
+                <ul>
+                    <li><a href="#">Rajasthan</a></li>
+                    <li><a href="#">Kerala</a></li>
+                    <li><a href="#">Leh & Ladakh</a></li>
+                    <li><a href="#">Andaman Islands</a></li>
+                    <li><a href="#">Meghalaya</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Chennai HQ</h4>
+                <p>45 Anna Salai, Teynampet<br>Chennai, Tamil Nadu 600018<br>India 🇮🇳<br><br>+91 98400 00000<br>hello@wanderlustindia.in</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Wanderlust India. All Rights Reserved.</p>
+            <p>Made with ❤️ in Chennai, India 🇮🇳</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        document.getElementById('hamburger').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+        document.querySelectorAll('nav a').forEach(a => {
+            a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('active'));
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+
+                document.querySelectorAll('.dest-card').forEach(card => {
+                    if (filter === 'all' || card.dataset.region === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                // Show/hide region dividers
+                document.querySelectorAll('.region-divider').forEach(div => {
+                    div.style.display = filter === 'all' ? '' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
