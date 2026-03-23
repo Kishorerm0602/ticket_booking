@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Wanderlust Royale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root{
+            --royal-navy:#1a2633;
+            --gold:#d4af37;
+            --cream:#f8f5f2;
+            --warm-cream:#f4f1e9;
+        }
+
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Poppins',sans-serif;
+            background:var(--cream);
+            color:#333;
+            line-height:1.7;
+        }
+
+        /* NAVBAR (same style) */
+        nav{
+            position:fixed;
+            width:100%;
+            top:0;
+            background:rgba(26,38,51,0.95);
+            padding:18px 0;
+            z-index:999;
+            backdrop-filter:blur(20px);
+            transition:all 0.4s ease;
+        }
+        nav.scrolled{
+            background:rgba(26,38,51,0.98);
+            box-shadow:0 5px 30px rgba(0,0,0,0.3);
+            padding:12px 0;
+        }
+        .nav-container{
+            max-width:1200px;
+            margin:auto;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0 20px;
+        }
+        .logo{
+            font-family:'Playfair Display',serif;
+            font-size:1.8rem;
+            background:linear-gradient(45deg,var(--gold),#f4d03f);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        nav ul{
+            list-style:none;
+            display:flex;
+            gap:2rem;
+        }
+        nav a{
+            text-decoration:none;
+            color:white;
+            font-weight:600;
+            font-size:1.05rem;
+            position:relative;
+            letter-spacing:0.5px;
+            padding:8px 0;
+            transition:0.3s;
+        }
+        nav a::after{
+            content:'';
+            position:absolute;
+            bottom:0;
+            left:50%;
+            width:0;
+            height:2px;
+            background:var(--gold);
+            transform:translateX(-50%);
+            transition:0.3s;
+        }
+        nav a:hover::after,
+        nav a.active::after{
+            width:100%;
+        }
+        nav a:hover,
+        nav a.active{
+            color:var(--gold);
+        }
+        .hamburger{
+            display:none;
+            flex-direction:column;
+            gap:5px;
+            cursor:pointer;
+        }
+        .hamburger span{
+            width:24px;
+            height:3px;
+            background:var(--gold);
+        }
+
+        /* HERO */
+        .hero{
+            min-height:55vh;
+            padding-top:90px;
+            background:
+            linear-gradient(rgba(26,38,51,0.7),rgba(0,0,0,0.5)),
+            url("https://wallpaperaccess.com/full/2538198.jpg")
+            center/cover;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            color:white;
+        }
+        .hero-content h1{
+            font-family:'Playfair Display',serif;
+            font-size:clamp(2.8rem,6vw,3.8rem);
+            letter-spacing:2px;
+            margin-bottom:10px;
+        }
+        .hero-content p{
+            max-width:650px;
+            margin:0 auto;
+            font-size:1.05rem;
+            opacity:0.9;
+        }
+
+        /* MAIN CONTENT */
+        .section{
+            padding:80px 20px;
+        }
+        .container{
+            max-width:1100px;
+            margin:auto;
+        }
+        .section-title{
+            font-family:'Playfair Display',serif;
+            font-size:2.4rem;
+            color:var(--royal-navy);
+            margin-bottom:10px;
+        }
+        .section-subtitle{
+            color:#777;
+            margin-bottom:25px;
+            font-size:0.95rem;
+            letter-spacing:1px;
+            text-transform:uppercase;
+        }
+
+        .about-grid{
+            display:grid;
+            grid-template-columns:2fr 1.5fr;
+            gap:40px;
+            align-items:flex-start;
+        }
+        .about-text p{
+            margin-bottom:15px;
+        }
+        .highlight-box{
+            background:var(--warm-cream);
+            border-radius:18px;
+            padding:25px 25px 20px;
+            box-shadow:0 15px 40px rgba(0,0,0,0.08);
+        }
+        .highlight-box h3{
+            font-family:'Playfair Display',serif;
+            margin-bottom:12px;
+            color:var(--royal-navy);
+        }
+        .highlight-list{
+            list-style:none;
+            margin-top:10px;
+        }
+        .highlight-list li{
+            margin-bottom:8px;
+            font-size:0.95rem;
+        }
+        .highlight-list i{
+            color:var(--gold);
+            margin-right:8px;
+        }
+
+        /* STATS STRIP */
+        .stats-strip{
+            margin-top:50px;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:25px;
+        }
+        .stat-card{
+            background:white;
+            border-radius:16px;
+            padding:20px;
+            text-align:center;
+            box-shadow:0 15px 40px rgba(0,0,0,0.06);
+        }
+        .stat-card h3{
+            font-size:1.8rem;
+            color:var(--gold);
+            margin-bottom:5px;
+        }
+        .stat-card p{
+            font-size:0.95rem;
+            color:#666;
+        }
+
+        /* VALUES */
+        .values-section{
+            background:white;
+            border-radius:20px;
+            padding:35px 30px;
+            margin-top:40px;
+            box-shadow:0 18px 45px rgba(0,0,0,0.06);
+        }
+        .values-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+            gap:25px;
+            margin-top:20px;
+        }
+        .value-item h4{
+            font-family:'Playfair Display',serif;
+            color:var(--royal-navy);
+            margin-bottom:8px;
+        }
+        .value-item p{
+            font-size:0.95rem;
+            color:#555;
+        }
+
+        /* CTA STRIP */
+        .cta-strip{
+            margin-top:50px;
+            background:linear-gradient(120deg,var(--royal-navy),#2f3b4d);
+            border-radius:20px;
+            padding:28px 25px;
+            color:white;
+            display:flex;
+            flex-wrap:wrap;
+            align-items:center;
+            justify-content:space-between;
+            gap:15px;
+        }
+        .cta-strip-text{
+            font-size:1.02rem;
+        }
+        .cta-btn{
+            background:var(--gold);
+            color:var(--royal-navy);
+            padding:12px 26px;
+            border-radius:30px;
+            text-decoration:none;
+            font-weight:600;
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+        }
+
+        /* FOOTER (simple) */
+        footer{
+            background:#111;
+            color:#aaa;
+            text-align:center;
+            padding:25px 15px;
+            margin-top:40px;
+            font-size:0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px){
+            .about-grid{
+                grid-template-columns:1fr;
+            }
+        }
+        @media (max-width: 768px){
+            .hamburger{display:flex;}
+            nav ul{
+                position:fixed;
+                top:100%;
+                left:0;
+                width:100%;
+                background:rgba(26,38,51,0.98);
+                flex-direction:column;
+                padding:1.5rem;
+                transform:translateY(-100%);
+                opacity:0;
+                transition:0.3s;
+            }
+            nav ul.active{
+                transform:translateY(0);
+                opacity:1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Wanderlust Royale</div>
+            <ul id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="trip info.html">Trip Info</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>About Wanderlust Royale</h1>
+            <p>Chennai’s luxury explore travel house, crafting curated journeys for travelers who want more than just tickets and hotels.</p>
+        </div>
+    </section>
+
+    <!-- ABOUT CONTENT -->
+    <section class="section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2 class="section-title">Our Story</h2>
+                    <div class="section-subtitle">FOUNDED IN CHENNAI • EST. 2026</div>
+
+                    <p>
+                        Wanderlust Royale was born with a simple idea – take the stress, confusion, and guesswork out of international trips and replace it with confidence, comfort, and quiet luxury for every Chennai traveler.
+                    </p>
+                    <p>
+                        Instead of selling generic packages, we design handcrafted itineraries that match your pace, your tastes, and your comfort level – from Paris evenings and Maldivian overwater villas to Tokyo city lights and Swiss alpine escapes.
+                    </p>
+                    <p>
+                        Backed by modern tools and a concierge-style approach, our team watches over every trip like a mission control center, ensuring your journey feels seamless from doorstep to destination and back.
+                    </p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Why Chennai Trusts Us</h3>
+                    <ul class="highlight-list">
+                        <li><i class="fa fa-check-circle"></i>End‑to‑end planning from flights and visas to stays and experiences</li>
+                        <li><i class="fa fa-check-circle"></i>Handpicked luxury stays and trusted local partners across the globe</li>
+                        <li><i class="fa fa-check-circle"></i>Personal trip concierge for real‑time support during travel</li>
+                        <li><i class="fa fa-check-circle"></i>Thoughtful focus on comfort, safety, and smooth connections</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <h3>120+</h3>
+                    <p>Curated global destinations in our network</p>
+                </div>
+                <div class="stat-card">
+                    <h3>8K+</h3>
+                    <p>Happy travelers served across leisure and business</p>
+                </div>
+                <div class="stat-card">
+                    <h3>15+</h3>
+                    <p>Years of combined travel planning experience</p>
+                </div>
+                <div class="stat-card">
+                    <h3>24×7</h3>
+                    <p>On‑trip support for urgent changes and assistance</p>
+                </div>
+            </div>
+
+            <!-- VALUES -->
+            <div class="values-section">
+                <h2 class="section-title" style="font-size:2rem;margin-bottom:5px;">Our Promise</h2>
+                <div class="section-subtitle">THE VALUES BEHIND EVERY ITINERARY</div>
+
+                <div class="values-grid">
+                    <div class="value-item">
+                        <h4>Personalization First</h4>
+                        <p>Every itinerary starts with understanding you – your travel style, comfort level, and wishlist – before we suggest even a single hotel or flight.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Quiet Luxury</h4>
+                        <p>We focus on thoughtful comfort: smart flight timings, good sleep, smooth transfers, and trusted experiences over flashy but tiring schedules.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Transparent Planning</h4>
+                        <p>No hidden surprises: clear inclusions, smart cost breakdowns, and honest suggestions so you always know what you are paying for.</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Safety & Support</h4>
+                        <p>Your journey is monitored end‑to‑end with real humans you can reach if plans change or you need help in a new city.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA STRIP -->
+            <div class="cta-strip">
+                <div class="cta-strip-text">
+                    Ready to plan your next international journey from Chennai with a dedicated travel concierge?
+                </div>
+                <a href="contact.html" class="cta-btn">
+                    <i class="fa fa-envelope-open-text"></i> Talk to Our Team
+                </a>
+                <a href="image.html" class="cta-btn">
+    <i class="fa fa-image"></i> View Images
+</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Wanderlust Royale | Luxury Explore Travel from Chennai
+    </footer>
+
+    <script>
+        // Mobile menu
+        document.getElementById('hamburger').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>
